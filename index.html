@@ -11,42 +11,6 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- BARRA DE SIMULACIÓN DEL SERVIDOR Y CONTROL DE SESIÓN / ROLES (RF01-RF03 / RN-05) -->
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <div class="topbar-left">
-        <span class="topbar-badge">SENA CIES Huila • ADSO Ficha 3413974</span>
-        <span class="topbar-clock">
-          🗄️ PostgreSQL <code>CURRENT_TIMESTAMP</code>: <strong id="server-clock">15:30:00 COT</strong>
-        </span>
-        <select id="server-time-mode" class="topbar-select" aria-label="Modo de reloj del servidor (RN-05)">
-          <option value="valle" selected>⚡ Simular Hora Valle (Mié 3:30 p.m. - Ofertas Relámpago Activas)</option>
-          <option value="real">🕒 Usar Hora Real de tu Dispositivo</option>
-          <option value="pico">🌙 Simular Hora Nocturna (Vie 8:45 p.m. - Fuera de Hora Feliz)</option>
-        </select>
-      </div>
-
-      <div class="topbar-right">
-        <label for="quick-role-switcher" class="role-label">Rol Activo:</label>
-        <select id="quick-role-switcher" class="topbar-select role-select" aria-label="Cambiar sesión o rol del sistema">
-          <option value="visitante">👤 Visitante: Camilo Andrés Rojas (USCO)</option>
-          <option value="locatario-P14">🏪 Locatario P-14: Don Carlos Méndez (El Corralito)</option>
-          <option value="locatario-I08">🍧 Locataria I-08: Doña Martha Tovar (Delicias del Huila)</option>
-          <option value="cajero-P14">📠 Cajero POS P-14: Caja El Corralito Burger</option>
-          <option value="cajero-P06">📠 Cajero POS P-06: Andrés Felipe Murcia (Asadero)</option>
-          <option value="superadmin">🛡️ Superadmin Mall: Gestor C.C. San Pedro Plaza</option>
-          <option value="invitado">🔓 Invitado sin Sesión (Prueba de Regla RN-06)</option>
-        </select>
-        <button type="button" class="btn-topbar" id="btn-open-auth" title="Iniciar sesión, registrarse o recuperar clave (RF01-RF03)">
-          🔑 Cuenta / Login
-        </button>
-        <button type="button" class="btn-topbar btn-topbar-reset" id="btn-reset-db" title="Restaurar datos iniciales de demostración">
-          ↺ Reset BD
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- NAVEGACIÓN PRINCIPAL -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">

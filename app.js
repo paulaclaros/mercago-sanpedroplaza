@@ -1319,17 +1319,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 1000);
 
   // Selector de Modo de Hora del Servidor (RN-05)
-  document.getElementById("server-time-mode").addEventListener("change", (e) => {
+  document.getElementById("server-time-mode")?.addEventListener("change", (e) => {
     serverTimeMode = e.target.value;
   });
 
   // Selector Rápido de Rol (Visitante, Locatario, Cajero, Superadmin, Invitado)
-  document.getElementById("quick-role-switcher").addEventListener("change", (e) => {
+  document.getElementById("quick-role-switcher")?.addEventListener("change", (e) => {
     applyActiveRole(e.target.value);
   });
 
   // Botón Reset Base de Datos Demo
-  document.getElementById("btn-reset-db").addEventListener("click", () => {
+  document.getElementById("btn-reset-db")?.addEventListener("click", () => {
     db = getInitialDatabase();
     saveDatabase(db);
     renderAllViews();
@@ -1634,7 +1634,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===================================================================
   // MODAL DE AUTENTICACIÓN, REGISTRO Y RECUPERACIÓN (RF01 - RF03)
   // ===================================================================
-  document.getElementById("btn-open-auth").addEventListener("click", () => {
+  document.getElementById("btn-open-auth")?.addEventListener("click", () => {
     document.getElementById("auth-feedback").hidden = true;
     openModal("auth-modal");
   });
@@ -1698,7 +1698,8 @@ document.addEventListener("DOMContentLoaded", () => {
     db.usuarios.push(newUser);
     activeUser = newUser;
     activeRoleKey = "visitante";
-    document.getElementById("quick-role-switcher").value = "visitante";
+    const qrs = document.getElementById("quick-role-switcher");
+    if (qrs) qrs.value = "visitante";
     saveDatabase();
     renderAllViews();
 
