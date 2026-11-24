@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MercaGo | Ecosistema Digital de Promociones y Cupones QR — C.C. San Pedro Plaza (Neiva)</title>
+  <meta name="description" content="Plataforma web interactiva de promociones, directorio gastronómico, filtro inteligente por presupuesto y cupones QR dinámicos para el Centro Comercial San Pedro Plaza en Neiva, Huila. Proyecto Formativo SENA ADSO Ficha 3413974." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Barra superior institucional SENA ADSO -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span class="topbar-badge">SENA CIES Regional Huila • ADSO Ficha 3413974</span>
+      <span class="topbar-info">📍 Caso Piloto: <strong>C.C. San Pedro Plaza (Cra. 8B #38-42, Neiva)</strong> • Reloj Servidor: <code id="server-clock">15:45:00 COT</code></span>
+    </div>
+  </div>
+
+  <!-- Navegación Principal -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#inicio" class="brand" aria-label="MercaGo San Pedro Plaza">
+        <div class="brand-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+            <path d="M14 14h3v3h-3z"></path>
+            <path d="M17 17h4v4h-4z"></path>
+            <path d="M14 20h1"></path>
+            <path d="M20 14v1"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Merca<span class="brand-accent">Go</span></span>
+          <span class="brand-sub">San Pedro Plaza • Neiva</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Navegación principal">
+        <a href="#inicio" class="nav-link active">Inicio</a>
+        <a href="#presupuesto" class="nav-link">Filtro Presupuesto</a>
+        <a href="#directorio" class="nav-link">Promociones</a>
+        <a href="#billetera" class="nav-link">
+          Mis Cupones QR
+          <span class="nav-counter" id="coupon-badge-count">1</span>
+        </a>
+        <a href="#validador" class="nav-link">Validador Caja</a>
+        <a href="#ubicacion" class="nav-link">Mapa &amp; Demo</a>
+        <a href="#contacto" class="nav-link nav-cta">Vincular Local</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span class="pulse-dot"></span>
+            <span>Ofertas Relámpago Activas • Plazoleta de Comidas Piso 2</span>
+          </div>
+          <h1 class="hero-title">
+            Come y compra en <span class="text-gradient">San Pedro Plaza</span> ajustado a tu presupuesto con <span class="text-highlight">Cupones QR</span>
+          </h1>
+          <p class="hero-description">
+            Sin volantes de papel ni filas lentas. Filtra combos reales según el dinero que llevas hoy, genera tu código QR dinámico con vigencia protegida de 2 horas y redímelo directamente en la caja del local en menos de <strong>1.5 segundos</strong>.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#presupuesto" class="btn btn-primary btn-lg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              ¿Qué comer con mi presupuesto?
+            </a>
+            <a href="#validador" class="btn btn-outline btn-lg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg>
+              Probar Validador de Caja
+            </a>
+          </div>
+
+          <!-- Métricas del Estudio de Campo SRS San Pedro Plaza -->
+          <div class="hero-stats" aria-label="Indicadores del Estudio de Campo en San Pedro Plaza">
+            <div class="stat-card">
+              <span class="stat-number">82.9%</span>
+              <span class="stat-label">De visitantes desconocía las ofertas al llegar al mall</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">77.1%</span>
+              <span class="stat-label">Elige su almuerzo por un presupuesto fijo ($COP)</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">&lt; 1.5 s</span>
+              <span class="stat-label">Validación atómica del QR en punto de venta</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Interactiva de Vista Previa del Cupón QR en el Hero -->
+        <div class="hero-showcase">
+          <div class="phone-mockup">
+            <div class="phone-header">
+              <span class="phone-status">● Cupón Criptográfico Activo (RN-02)</span>
+              <span class="phone-timer" id="hero-qr-timer">01:58:42</span>
+            </div>
+            <div class="phone-body">
+              <div class="phone-store-tag">LOCAL P-14 • PLAZOLETA PISO 2</div>
+              <h3 class="phone-promo-title">Combo Corralito Parrilla + Gaseosa Gratis</h3>
+              <p class="phone-store-name">El Corralito Parrilla &amp; Burger</p>
+              <div class="phone-prices">
+                <span class="old-price">$26.000 COP</span>
+                <span class="new-price">$18.000 COP</span>
+                <span class="discount-badge">-31% HORA FELIZ</span>
+              </div>
+
+              <div class="qr-box" id="hero-qr-box">
+                <canvas id="hero-qr-canvas" width="160" height="160" aria-label="Código QR de demostración SPP-7F2A9B"></canvas>
+                <div class="qr-code-label">CÓDIGO: <strong id="hero-qr-code-text">SPP-7F2A9B</strong></div>
+              </div>
+
+              <div class="phone-footer-actions">
+                <button type="button" class="btn btn-primary btn-block" id="btn-test-hero-qr">
+                  Simular Escaneo en Caja Ahora →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: FILTRO INTELIGENTE POR PRESUPUESTO (RF05 - RF08) -->
+    <section class="section section-alt" id="presupuesto">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">MÓDULO 2 • ALGORITMO DE BÚSQUEDA INDEXADA (RF05 - RF08)</span>
+          <h2 class="section-title">Filtro Inteligente por Presupuesto</h2>
+          <p class="section-subtitle">
+            Ingresa cuánto dinero tienes disponible hoy y descubre al instante qué combos, almuerzos y postres del <strong>C.C. San Pedro Plaza</strong> se ajustan a tu bolsillo.
+          </p>
+        </div>
+
+        <!-- Panel de Control del Filtro -->
+        <div class="budget-panel">
+          <div class="budget-control-group">
+            <label for="budget-slider" class="budget-label">
+              <span>Tu presupuesto máximo disponible:</span>
+              <strong class="budget-amount-display" id="budget-display">$20.000 COP</strong>
+            </label>
+            <input
+              type="range"
+              id="budget-slider"
+              min="8000"
+              max="45000"
+              step="1000"
+              value="20000"
+              class="budget-slider"
+            />
+            <div class="budget-quick-chips" role="group" aria-label="Presupuestos rápidos">
+              <button type="button" class="chip-btn" data-budget="10000">Onces con $10.000</button>
+              <button type="button" class="chip-btn" data-budget="15000">Combo $15.000</button>
+              <button type="button" class="chip-btn active" data-budget="20000">Almuerzo $20.000</button>
+              <button type="button" class="chip-btn" data-budget="30000">Pareja $30.000</button>
+              <button type="button" class="chip-btn" data-budget="45000">Ver Todo ($45.000)</button>
+            </div>
+          </div>
+
+          <div class="filter-controls-row">
+            <div class="search-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input
+                type="search"
+                id="search-input"
+                placeholder="Buscar por plato o local (ej. hamburguesa, cholupa, asado, café)..."
+                aria-label="Buscar promociones por palabra clave"
+              />
+            </div>
+
+            <div class="category-tabs" role="tablist" aria-label="Categorías comerciales">
+              <button type="button" class="cat-tab active" data-cat="all">Todos los Locales</button>
+              <button type="button" class="cat-tab" data-cat="comidas-rapidas">🍔 Comidas Rápidas</button>
+              <button type="button" class="cat-tab" data-cat="parrilla">🥩 Asados &amp; Parrilla</button>
+              <button type="button" class="cat-tab" data-cat="regional">🍧 Delicias del Huila &amp; Café</button>
+              <button type="button" class="cat-tab" data-cat="relampago">⚡ Solo Ofertas Relámpago</button>
+            </div>
+          </div>
+
+          <div class="budget-summary-bar">
+            <span id="results-counter">Mostrando <strong>4 opciones</strong> dentro de tu presupuesto de <strong>$20.000 COP</strong></span>
+            <span class="server-rule-tag">✓ Ordenado de menor a mayor precio (RF07)</span>
+          </div>
+        </div>
+
+        <!-- DIRECTORIO INTERACTIVO DE LOCALES Y PROMOCIONES -->
+        <div id="directorio" class="promotions-grid" aria-live="polite">
+          <!-- Renderizado dinámicamente por app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: BILLETERA DE CUPONES QR DEL VISITANTE (RF13 - RF15) -->
+    <section class="section" id="billetera">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">MÓDULO 4 • GESTIÓN CRIPTOGRÁFICA DE CUPONES (RF13 - RF15 / RN-01 &amp; RN-02)</span>
+          <h2 class="section-title">Billetera Digital «Mis Cupones QR»</h2>
+          <p class="section-subtitle">
+            Cada cupón genera un identificador único no predecible con ventana de gracia de <strong>2 horas</strong>. Presenta el código QR en la caja del local para aplicar tu descuento.
+          </p>
+        </div>
+
+        <div class="wallet-container">
+          <div class="wallet-header">
+            <div class="wallet-user-info">
+              <div class="avatar-circle">CR</div>
+              <div>
+                <strong>Visitante Activo: Camilo Andrés Rojas</strong>
+                <span class="wallet-user-sub">camilo.rojas@usco.edu.co • Límite RN-01: Máx. 1 cupón activo/promo cada 24h</span>
+              </div>
+            </div>
+            <div class="wallet-tabs" role="tablist">
+              <button type="button" class="wallet-tab active" data-wtab="EMITIDO">Activos (<span id="count-emitidos">1</span>)</button>
+              <button type="button" class="wallet-tab" data-wtab="REDIMIDO">Redimidos (<span id="count-redimidos">1</span>)</button>
+              <button type="button" class="wallet-tab" data-wtab="EXPIRADO">Vencidos (<span id="count-expirados">1</span>)</button>
+            </div>
+          </div>
+
+          <div class="wallet-list" id="wallet-list">
+            <!-- Renderizado dinámicamente por app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: MÓDULO VALIDADOR DE CAJA Y ANALÍTICA DEL LOCATARIO (RF16 - RF20) -->
+    <section class="section section-dark" id="validador">
+      <div class="container">
+        <div class="section-header section-header-light">
+          <span class="section-tag tag-dark">MÓDULOS 5 Y 6 • PUNTO DE VENTA &amp; TRANSACCIÓN ATÓMICA ACID (RF16 - RF20)</span>
+          <h2 class="section-title">Simulador en Vivo: Validador de Caja &amp; Dashboard Locatario</h2>
+          <p class="section-subtitle">
+            Prueba la validación transaccional con bloqueo a nivel de fila (<code>SELECT ... FOR UPDATE</code>). Verifica cómo el cajero recibe confirmación en verde o rechazo en rojo en menos de 1.5 segundos.
+          </p>
+        </div>
+
+        <div class="pos-grid">
+          <!-- Terminal del Cajero -->
+          <div class="pos-card">
+            <div class="pos-card-header">
+              <div>
+                <span class="pos-badge">TERMINAL DE CAJA • RNF01 (&lt; 1.5s)</span>
+                <h3>Validador Operativo de Punto de Venta</h3>
+              </div>
+              <div class="pos-cashier-select">
+                <label for="cashier-local-select">Cajero autenticado en:</label>
+                <select id="cashier-local-select">
+                  <option value="P-14">Local P-14 — El Corralito Parrilla &amp; Burger</option>
+                  <option value="I-08">Isla I-08 — Delicias del Huila: Cholupas &amp; Helados</option>
+                  <option value="P-06">Local P-06 — Asadero &amp; Brasas del San Pedro</option>
+                  <option value="C-12">Local C-12 — Café &amp; Achiras Opitas Gourmet</option>
+                  <option value="P-09">Local P-09 — Pizza &amp; Pasta San Pedro Artesanal</option>
+                  <option value="P-18">Local P-18 — Wok &amp; Teriyaki Express Plaza</option>
+                </select>
+              </div>
+            </div>
+
+            <form id="pos-validate-form" class="pos-form">
+              <label for="pos-code-input">Escanea el QR o digita el código alfanumérico del cupón:</label>
+              <div class="pos-input-row">
+                <input
+                  type="text"
+                  id="pos-code-input"
+                  value="SPP-7F2A9B"
+                  placeholder="Ej. SPP-7F2A9B"
+                  maxlength="14"
+                  required
+                />
+                <button type="submit" class="btn btn-primary">
+                  Validar y Redimir QR
+                </button>
+              </div>
+
+              <div class="pos-quick-tests">
+                <span>Casos de prueba rápidos (clic para cargar):</span>
+                <button type="button" class="test-pill pill-valid" data-code="SPP-7F2A9B" data-local="P-14">
+                  ✓ Código Válido (SPP-7F2A9B)
+                </button>
+                <button type="button" class="test-pill pill-used" data-code="SPP-4C8D1E" data-local="P-06">
+                  ✕ Ya Utilizado (SPP-4C8D1E)
+                </button>
+                <button type="button" class="test-pill pill-expired" data-code="SPP-9A1B0C" data-local="I-08">
+                  ✕ Cupón Expirado (SPP-9A1B0C)
+                </button>
+                <button type="button" class="test-pill pill-wrong" data-code="SPP-7F2A9B" data-local="P-06">
+                  ✕ Local Incorrecto (RN-07)
+                </button>
+              </div>
+            </form>
+
+            <!-- Pantalla de Respuesta Visual del Cajero (Verde / Roja) -->
+            <div id="pos-screen-result" class="pos-screen pos-screen-neutral" role="status" aria-live="polite">
+              <div class="pos-screen-icon">📷</div>
+              <div class="pos-screen-content">
+                <h4>Listo para Escanear o Validar</h4>
+                <p>Selecciona un cupón de la billetera o presiona «Validar y Redimir QR» para ejecutar la transacción en PostgreSQL.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard de Analítica del Locatario y Bitácora de Auditoría -->
+          <div class="analytics-card">
+            <div class="pos-card-header">
+              <div>
+                <span class="pos-badge">MÓDULO 6 • ANALÍTICA &amp; AUDITORÍA (RF19 - RF20)</span>
+                <h3>Métricas de Conversión en Tiempo Real</h3>
+              </div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-box">
+                <span class="kpi-title">Visualizaciones App</span>
+                <strong class="kpi-value" id="kpi-views">1.248</strong>
+                <span class="kpi-trend">+34% hoy en San Pedro Plaza</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-title">Cupones Emitidos</span>
+                <strong class="kpi-value" id="kpi-issued">86</strong>
+                <span class="kpi-trend">Activos en billeteras móviles</span>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-title">Redimidos en Caja</span>
+                <strong class="kpi-value" id="kpi-redeemed">64</strong>
+                <span class="kpi-trend">Ventas reales verificadas</span>
+              </div>
+              <div class="kpi-box kpi-highlight">
+                <span class="kpi-title">Tasa de Conversión</span>
+                <strong class="kpi-value" id="kpi-conversion">74.4%</strong>
+                <span class="kpi-trend">(Redimidos / Emitidos) × 100</span>
+              </div>
+            </div>
+
+            <div class="audit-log-box">
+              <div class="audit-header">
+                <h4>Bitácora Inmutable de Auditoría (Tabla <code>auditoria_logs</code>)</h4>
+                <span class="audit-latency" id="last-tx-latency">Latencia: 42 ms</span>
+              </div>
+              <div class="audit-table-wrapper">
+                <table class="audit-table">
+                  <thead>
+                    <tr>
+                      <th>Hora (COT)</th>
+                      <th>Código QR</th>
+                      <th>Local / Cajero</th>
+                      <th>Resultado Transacción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="audit-log-tbody">
+                    <tr>
+                      <td>15:38:12</td>
+                      <td><code>SPP-4C8D1E</code></td>
+                      <td>Local P-06 (A. Murcia)</td>
+                      <td><span class="log-ok">REDIMIDO (-$7.000)</span></td>
+                    </tr>
+                    <tr>
+                      <td>15:21:05</td>
+                      <td><code>SPP-9A1B0C</code></td>
+                      <td>Isla I-08 (M. Tovar)</td>
+                      <td><span class="log-err">RECHAZADO (EXPIRADO)</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: RECURSOS MULTIMEDIALES, ARQUITECTURA Y MAPA INTERACTIVO -->
+    <section class="section" id="ubicacion">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">RECURSOS MULTIMEDIALES • ARQUITECTURA Y GEORREFERENCIACIÓN</span>
+          <h2 class="section-title">Experiencia Multimedia y Ubicación del Caso Piloto</h2>
+          <p class="section-subtitle">
+            Conoce cómo opera el ecosistema digital dentro del <strong>Centro Comercial San Pedro Plaza (Neiva, Huila)</strong> y explora el recorrido interactivo de la solución TIC.
+          </p>
+        </div>
+
+        <div class="multimedia-grid">
+          <!-- Recorrido / Video Interactivo Animado de la Solución -->
+          <div class="media-card">
+            <div class="media-card-header">
+              <span class="media-tag">🎬 DEMO MULTIMEDIA INTERACTIVA</span>
+              <h3>Flujo Transaccional MercaGo en 3 Pasos</h3>
+            </div>
+            <div class="interactive-video-stage" id="demo-stage">
+              <div class="video-slide active" data-step="1">
+                <div class="slide-visual">
+                  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80" alt="Plazoleta de comidas y restaurantes en centro comercial" loading="lazy" />
+                  <div class="slide-overlay-badge">PASO 1 DE 3 • LOCATARIO</div>
+                </div>
+                <div class="slide-caption">
+                  <h4>1. El Locatario Activa una «Oferta Relámpago» (RF09 - RF12)</h4>
+                  <p>Entre las 2:30 p.m. y las 5:30 p.m. (horas valle), el administrador del local publica un descuento con stock limitado de cupones sin gastar $250.000 en volantes impresos.</p>
+                </div>
+              </div>
+
+              <div class="video-slide" data-step="2">
+                <div class="slide-visual">
+                  <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="Visitante consultando presupuesto y cupón QR en su teléfono móvil" loading="lazy" />
+                  <div class="slide-overlay-badge">PASO 2 DE 3 • VISITANTE</div>
+                </div>
+                <div class="slide-caption">
+                  <h4>2. El Visitante Filtra por su Presupuesto y Obtiene el QR (RF07 - RF14)</h4>
+                  <p>El cliente ingresa su presupuesto (ej. $18.000 COP), elige el combo y recibe en su celular un código QR único protegido por 2 horas.</p>
+                </div>
+              </div>
+
+              <div class="video-slide" data-step="3">
+                <div class="slide-visual">
+                  <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Cajero validando código QR en el punto de venta" loading="lazy" />
+                  <div class="slide-overlay-badge">PASO 3 DE 3 • CAJERO POS</div>
+                </div>
+                <div class="slide-caption">
+                  <h4>3. Redención Ultrarrápida en Caja en &lt; 1.5 Segundos (RF16 - RF20)</h4>
+                  <p>El cajero escanea el QR, el servidor ejecuta bloqueo atómico <code>SELECT FOR UPDATE</code> evitando doble uso y registra la venta en el Dashboard del comercio.</p>
+                </div>
+              </div>
+
+              <div class="video-controls">
+                <button type="button" class="v-btn active" data-goto="1">1. Publicación</button>
+                <button type="button" class="v-btn" data-goto="2">2. Filtro &amp; QR</button>
+                <button type="button" class="v-btn" data-goto="3">3. Redención POS</button>
+                <button type="button" class="v-btn-play" id="btn-autoplay-demo">⏸ Pausar Tour</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mapa Interactivo de Google Maps Embebido -->
+          <div class="media-card">
+            <div class="media-card-header">
+              <span class="media-tag">📍 GEORREFERENCIACIÓN DEL PILOTO</span>
+              <h3>C.C. San Pedro Plaza — Neiva, Huila</h3>
+            </div>
+            <div class="map-wrapper">
+              <iframe
+                title="Mapa interactivo del Centro Comercial San Pedro Plaza en Neiva, Huila"
+                src="https://www.google.com/maps?q=Centro+Comercial+San+Pedro+Plaza+Neiva+Huila&output=embed"
+                width="100%"
+                height="310"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+            <div class="location-details">
+              <div class="loc-item">
+                <strong>Dirección Física:</strong>
+                <span>Carrera 8B # 38-42, Comuna 2, Neiva - Huila, Colombia</span>
+              </div>
+              <div class="loc-item">
+                <strong>Zonas Cubiertas en el Piloto:</strong>
+                <span>Plazoleta de Comidas (Piso 2), Islas Comerciales y Pasillo Bancario (Piso 1)</span>
+              </div>
+              <div class="loc-links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Centro+Comercial+San+Pedro+Plaza+Neiva" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                  Abrir en Google Maps ↗
+                </a>
+                <a href="https://trello.com/b/4HuP01qG/mercago" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                  Ver Tablero Ágil Trello ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: EQUIPO DESARROLLADOR ADSO FICHA 3413974 -->
+    <section class="section section-alt" id="equipo">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">INGENIERÍA DE SOFTWARE SENA • FICHA 3413974</span>
+          <h2 class="section-title">Arquitectura y Equipo de Desarrollo ADSO</h2>
+          <p class="section-subtitle">
+            Proyecto estructurado bajo metodología ágil Scrum, normativa IEEE 830 e ISO/IEC 25010 en el Centro de la Industria, la Empresa y los Servicios (CIES) — Regional Huila.
+          </p>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-card">
+            <div class="team-role-badge">Frontend Visitante &amp; UX/UI</div>
+            <h3>Paula Sofia Claros Nañez</h3>
+            <p>Diseño de interfaces Mobile-First (RNF05), algoritmo interactivo del Filtro Inteligente por Presupuesto (RF07), Billetera Digital de Cupones QR (RF14-RF15) y levantamiento de requisitos.</p>
+          </article>
+
+          <article class="team-card">
+            <div class="team-role-badge">Líder Técnico, Backend &amp; DB</div>
+            <h3>Edwin Alejandro Esquivel Bahamon</h3>
+            <p>Arquitectura relacional PostgreSQL (11 tablas), autenticación segura JWT y bcrypt (RNF02), generación criptográfica QR y transacciones ACID con bloqueo <code>SELECT FOR UPDATE</code> (RN-04).</p>
+          </article>
+
+          <article class="team-card">
+            <div class="team-role-badge">Frontend Locatario &amp; Cajero POS</div>
+            <h3>Jose Esneider Covaleda Hortua</h3>
+            <p>Panel administrativo de comercios para parametrizar Ofertas Relámpago (RF09-RF12), interfaz de alta velocidad para Cajeros (&lt; 1.5s) y Dashboard de analítica de conversión (RF19).</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: FORMULARIO DE CONTACTO Y VINCULACIÓN FUNCIONAL -->
+    <section class="section" id="contacto">
+      <div class="container">
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <span class="section-tag">CONTACTO Y VINCULACIÓN COMERCIAL</span>
+            <h2>¿Tienes un local en San Pedro Plaza o deseas implementar MercaGo?</h2>
+            <p>
+              Regístrate en el programa piloto 2026 para publicar tus promociones relámpago, atraer visitantes según su presupuesto y medir en tiempo real cada cupón redimido en tu punto de venta.
+            </p>
+
+            <ul class="contact-benefits">
+              <li>✓ <strong>Cero comisiones bancarias:</strong> El cliente paga directamente en la caja de tu local.</li>
+              <li>✓ <strong>Ahorro del 100% en volanteo impreso:</strong> Digitaliza tus ofertas de horas valle (2:30 p.m. - 5:30 p.m.).</li>
+              <li>✓ <strong>Cumplimiento legal:</strong> Tratamiento de datos personales bajo Ley Estatutaria 1581 de 2012 (Habeas Data).</li>
+            </ul>
+
+            <div class="contact-direct-cards">
+              <div class="c-mini-card">
+                <strong>Centro de Formación:</strong>
+                <span>SENA CIES Regional Huila — Neiva, Colombia</span>
+              </div>
+              <div class="c-mini-card">
+                <strong>Transversal TIC — Evidencia GA1-37371-AA4-EV01:</strong>
+                <span>Instructor Ing. Eddier Yair Liberato Cuenca</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-card">
+            <h3>Formulario de Contacto y Registro Piloto</h3>
+            <form id="contact-form" novalidate>
+              <div class="form-group">
+                <label for="contact-name">Nombre completo *</label>
+                <input type="text" id="contact-name" name="name" placeholder="Ej. Carlos Alberto Méndez" required />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-email">Correo electrónico *</label>
+                  <input type="email" id="contact-email" name="email" placeholder="correo@ejemplo.com" required />
+                </div>
+                <div class="form-group">
+                  <label for="contact-phone">Teléfono / WhatsApp *</label>
+                  <input type="tel" id="contact-phone" name="phone" placeholder="Ej. 315 482 9100" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-role">Perfil del solicitante *</label>
+                  <select id="contact-role" name="role" required>
+                    <option value="">Selecciona una opción...</option>
+                    <option value="Locatario / Administrador de Local">Locatario / Administrador de Local en San Pedro Plaza</option>
+                    <option value="Visitante / Consumidor">Visitante / Consumidor Frecuente</option>
+                    <option value="Administración Centro Comercial">Administración de Centro Comercial</option>
+                    <option value="Evaluador / Instructor SENA">Evaluador / Instructor SENA</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="contact-local">N.° de Local o Empresa (Opcional)</label>
+                  <input type="text" id="contact-local" name="local" placeholder="Ej. Local P-14 Plazoleta" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">Mensaje o requerimiento *</label>
+                <textarea id="contact-message" name="message" rows="3" placeholder="Cuéntanos qué promociones u horarios valle deseas dinamizar con MercaGo..." required></textarea>
+              </div>
+
+              <div class="form-check">
+                <input type="checkbox" id="contact-habeas" required />
+                <label for="contact-habeas">
+                  Autorizo el tratamiento de mis datos personales conforme a la <strong>Ley Estatutaria 1581 de 2012</strong> (RNF09 del SRS MercaGo).
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block btn-lg">
+                Enviar Solicitud y Activar Piloto
+              </button>
+
+              <div id="contact-feedback" class="contact-feedback" role="alert" aria-live="polite" hidden></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL DE CUPÓN QR GENERADO -->
+  <div class="modal-backdrop" id="qr-modal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-labelledby="modal-promo-title" aria-modal="true">
+      <button type="button" class="modal-close" id="modal-close-btn" aria-label="Cerrar ventana">&times;</button>
+      <div class="modal-badge">✓ CUPÓN QR EMITIDO CON ÉXITO (RF13 - RF14)</div>
+      <h3 id="modal-promo-title">Combo Seleccionado</h3>
+      <p id="modal-store-name" class="modal-store-sub">Local Comercial</p>
+
+      <div class="modal-qr-container">
+        <canvas id="modal-qr-canvas" width="180" height="180"></canvas>
+        <div class="modal-code-box">
+          <span>TOKEN ALFANUMÉRICO ÚNICO:</span>
+          <strong id="modal-qr-code">SPP-000000</strong>
+        </div>
+      </div>
+
+      <div class="modal-rules-info">
+        <p>⏱ <strong>Vigencia (RN-02):</strong> Tienes <strong>02:00:00 horas</strong> para presentar este QR en la caja del establecimiento.</p>
+        <p>🔒 <strong>Seguridad (RN-04):</strong> Protegido contra doble redención mediante bloqueo transaccional.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary btn-block" id="modal-send-to-pos">
+          Probar este Cupón en el Validador de Caja →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="brand-text">
+          <span class="brand-name">Merca<span class="brand-accent">Go</span></span>
+          <span class="brand-sub">Ecosistema Digital San Pedro Plaza</span>
+        </div>
+        <p>
+          Solución TIC desarrollada para optimizar la divulgación comercial, el filtrado por presupuesto y la validación de cupones QR en el Centro Comercial San Pedro Plaza (Neiva, Huila).
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Módulos del SRS v2.0</h4>
+        <ul>
+          <li><a href="#presupuesto">Filtro por Presupuesto (RF07)</a></li>
+          <li><a href="#directorio">Ofertas Relámpago (RF10)</a></li>
+          <li><a href="#billetera">Billetera de Cupones QR (RF15)</a></li>
+          <li><a href="#validador">Validador POS &amp; Auditoría (RF17-RF20)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-academic">
+        <h4>Información Institucional</h4>
+        <p><strong>Servicio Nacional de Aprendizaje — SENA</strong></p>
+        <p>Centro de la Industria, la Empresa y los Servicios (CIES) — Regional Huila</p>
+        <p>Tecnología en Análisis y Desarrollo de Software (ADSO) • <strong>Ficha 3413974</strong></p>
+        <p>Evidencia: <code>GA1-37371-AA4-EV01</code> • Instructor: Ing. Eddier Yair Liberato Cuenca</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Proyecto Formativo MercaGo — Ficha 3413974 ADSO. Todos los derechos reservados.</span>
+      <a href="#inicio">Volver arriba ↑</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
