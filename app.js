@@ -1,35 +1,14 @@
 ﻿/**
- * Nuvora v2.0 — Motor Relacional Completo, Roles, CRUD, Cupones QR y Terminal POS
+ * Nuvora — Plataforma Digital de Promociones, Filtro por Presupuesto y Cupones QR
  * Caso Piloto: Centro Comercial San Pedro Plaza (Neiva, Huila)
  * Ficha 3413974 — Tecnología en Análisis y Desarrollo de Software (ADSO) - SENA
- * Implementa las 11 Tablas Relacionales (Sección 11 SRS), 20 RF, 10 RNF y 7 Reglas de Negocio (RN-01 a RN-07).
  */
 
-const DB_STORAGE_KEY = "NUVORA_SANPEDRO_DB_V2";
+const DB_STORAGE_KEY = "NUVORA_SANPEDRO_DB_CLEAN_V3";
 
-// Base de Datos Relacional Inicial con las 11 Tablas del SRS (Sección 11)
 function getInitialDatabase() {
   const nowMs = Date.now();
   return {
-    roles: [
-      { id: 1, nombre: "VISITANTE", descripcion: "Consumidor final del C.C. San Pedro Plaza" },
-      { id: 2, nombre: "LOCATARIO", descripcion: "Administrador de establecimiento comercial" },
-      { id: 3, nombre: "CAJERO", descripcion: "Operador validador de punto de venta POS" },
-      { id: 4, nombre: "ADMIN", descripcion: "Superadministrador del ecosistema Nuvora Mall" }
-    ],
-    usuarios: [
-      { id: 101, rol_id: 1, local_id: null, nombre: "Camilo Andrés Rojas", correo: "camilo.rojas@usco.edu.co", password_hash: "$2b$10$hashCamiloUSCO2026", creado_en: "2026-11-01 09:00:00" },
-      { id: 102, rol_id: 2, local_id: "P-14", nombre: "Don Carlos Alberto Méndez", correo: "carlos.mendez@corralito.co", password_hash: "$2b$10$hashCarlosP14", creado_en: "2026-11-01 09:10:00" },
-      { id: 103, rol_id: 2, local_id: "I-08", nombre: "Doña Martha Lucía Tovar", correo: "martha.tovar@deliciashuila.co", password_hash: "$2b$10$hashMarthaI08", creado_en: "2026-11-01 09:15:00" },
-      { id: 104, rol_id: 3, local_id: "P-14", nombre: "Operador Caja El Corralito", correo: "caja@corralito.co", password_hash: "$2b$10$hashCajaP14", creado_en: "2026-11-01 09:20:00" },
-      { id: 105, rol_id: 3, local_id: "P-06", nombre: "Andrés Felipe Murcia", correo: "andres.murcia@asadero.co", password_hash: "$2b$10$hashAndresP06", creado_en: "2026-11-01 09:25:00" },
-      { id: 106, rol_id: 4, local_id: null, nombre: "Gestor General San Pedro Plaza", correo: "admin@sanpedroplaza.co", password_hash: "$2b$10$hashAdminMall", creado_en: "2026-11-01 08:00:00" }
-    ],
-    categorias: [
-      { id: "regional", nombre: "Delicias del Huila & Café", icono: "🍧" },
-      { id: "comidas-rapidas", nombre: "Comidas Rápidas", icono: "🍔" },
-      { id: "parrilla", nombre: "Asados & Parrilla", icono: "🥩" }
-    ],
     locales: [
       {
         id: "P-14",
@@ -38,8 +17,7 @@ function getInitialDatabase() {
         telefono: "315 482 9104",
         horario: "Lun a Dom: 11:00 a.m. - 9:30 p.m.",
         descripcion: "Especialistas en hamburguesas artesanales 100% res a la parrilla, papas rústicas y combos familiares.",
-        propietario: "Don Carlos Alberto Méndez",
-        estado_operativo: "ACTIVO"
+        propietario: "Don Carlos Alberto Méndez"
       },
       {
         id: "I-08",
@@ -48,8 +26,7 @@ function getInitialDatabase() {
         telefono: "318 721 3308",
         horario: "Lun a Dom: 9:30 a.m. - 8:30 p.m.",
         descripcion: "Emprendimiento regional opita de granizados de cholupa natural, bizcochos de achira y postres típicos.",
-        propietario: "Doña Martha Lucía Tovar",
-        estado_operativo: "ACTIVO"
+        propietario: "Doña Martha Lucía Tovar"
       },
       {
         id: "P-06",
@@ -58,8 +35,7 @@ function getInitialDatabase() {
         telefono: "310 294 6606",
         horario: "Lun a Dom: 11:30 a.m. - 9:30 p.m.",
         descripcion: "Cortes de carne madurada al carbón, churrasco, punta de anca y pechuga gratinada con guarnición tradicional.",
-        propietario: "Andrés Felipe Murcia (Cajero Principal)",
-        estado_operativo: "ACTIVO"
+        propietario: "Andrés Felipe Murcia"
       },
       {
         id: "C-12",
@@ -68,8 +44,7 @@ function getInitialDatabase() {
         telefono: "316 901 1112",
         horario: "Lun a Sáb: 8:00 a.m. - 8:00 p.m.",
         descripcion: "Café especial de origen San Agustín y Pitalito preparado por baristas con pastelería huilense.",
-        propietario: "Cooperativa Cafetera del Huila",
-        estado_operativo: "ACTIVO"
+        propietario: "Cooperativa Cafetera del Huila"
       },
       {
         id: "P-09",
@@ -78,8 +53,7 @@ function getInitialDatabase() {
         telefono: "312 650 8809",
         horario: "Lun a Dom: 11:30 a.m. - 9:30 p.m.",
         descripcion: "Pizzas de masa madre horneadas a la piedra, lasañas gratinadas y limonadas naturales.",
-        propietario: "Chef Luigi & Familia",
-        estado_operativo: "ACTIVO"
+        propietario: "Chef Luigi & Familia"
       },
       {
         id: "P-18",
@@ -88,8 +62,7 @@ function getInitialDatabase() {
         telefono: "320 441 7718",
         horario: "Lun a Dom: 11:30 a.m. - 9:30 p.m.",
         descripcion: "Cocina oriental saludable al wok con vegetales frescos, arroz jazmín, pollo teriyaki y rollitos primavera.",
-        propietario: "Grupo Gastronómico Oriental",
-        estado_operativo: "ACTIVO"
+        propietario: "Grupo Gastronómico Oriental"
       }
     ],
     locales_categorias: [
@@ -102,14 +75,14 @@ function getInitialDatabase() {
       { local_id: "P-18", categoria_id: "comidas-rapidas" }
     ],
     productos: [
-      { id: "prod-1", local_id: "I-08", nombre: "Combo Onces Opitas: Granizado de Cholupa + Achiras", descripcion: "Granizado fruta natural 16 oz + paquete de achiras y queso.", precio_regular: 14000, disponible: true },
-      { id: "prod-2", local_id: "I-08", nombre: "Copa Helado Artesanal de Café & Arequipe", descripcion: "Tres bolas de helado artesanal con lluvia de achira triturada.", precio_regular: 13500, disponible: true },
-      { id: "prod-3", local_id: "C-12", nombre: "Dúo Cafetero San Agustín + Torta de Almojábana", descripcion: "Café filtrado o Latte frío + porción de torta caliente.", precio_regular: 16500, disponible: true },
-      { id: "prod-4", local_id: "P-09", nombre: "Pizza Personal Masa Madre + Limonada Natural", descripcion: "Pizza 4 porciones (pepperoni o pollo champiñón) + bebida.", precio_regular: 22000, disponible: true },
-      { id: "prod-5", local_id: "P-14", nombre: "Combo Corralito Parrilla 180g + Papas + Gaseosa", descripcion: "Hamburguesa 180g res al carbón, tocineta, cheddar, papas y gaseosa.", precio_regular: 26000, disponible: true },
-      { id: "prod-6", local_id: "P-14", nombre: "Hamburguesa Doble Brasa 300g + Anillos de Cebolla", descripcion: "Doble carne a la parrilla, queso americano y bebida 16 oz.", precio_regular: 31000, disponible: true },
-      { id: "prod-7", local_id: "P-18", nombre: "Bowl Teriyaki Pollo & Vegetales al Wok + Rollito", descripcion: "Arroz jazmín salteado al wok con pollo teriyaki y bebida.", precio_regular: 27000, disponible: true },
-      { id: "prod-8", local_id: "P-06", nombre: "Punta de Anca a la Brasa 280g + Arepa, Papa y Ensalada", descripcion: "Corte madurado al carbón con chimichurri, yuca y gaseosa.", precio_regular: 36000, disponible: true }
+      { id: "prod-1", local_id: "I-08", nombre: "Combo Onces Opitas: Granizado de Cholupa + Achiras", descripcion: "Granizado fruta natural 16 oz + paquete de achiras y queso.", precio_regular: 14000 },
+      { id: "prod-2", local_id: "I-08", nombre: "Copa Helado Artesanal de Café & Arequipe", descripcion: "Tres bolas de helado artesanal con lluvia de achira triturada.", precio_regular: 13500 },
+      { id: "prod-3", local_id: "C-12", nombre: "Dúo Cafetero San Agustín + Torta de Almojábana", descripcion: "Café filtrado o Latte frío + porción de torta caliente.", precio_regular: 16500 },
+      { id: "prod-4", local_id: "P-09", nombre: "Pizza Personal Masa Madre + Limonada Natural", descripcion: "Pizza 4 porciones (pepperoni o pollo champiñón) + bebida.", precio_regular: 22000 },
+      { id: "prod-5", local_id: "P-14", nombre: "Combo Corralito Parrilla 180g + Papas + Gaseosa", descripcion: "Hamburguesa 180g res al carbón, tocineta, cheddar, papas y gaseosa.", precio_regular: 26000 },
+      { id: "prod-6", local_id: "P-14", nombre: "Hamburguesa Doble Brasa 300g + Anillos de Cebolla", descripcion: "Doble carne a la parrilla, queso americano y bebida 16 oz.", precio_regular: 31000 },
+      { id: "prod-7", local_id: "P-18", nombre: "Bowl Teriyaki Pollo & Vegetales al Wok + Rollito", descripcion: "Arroz jazmín salteado al wok con pollo teriyaki y bebida.", precio_regular: 27000 },
+      { id: "prod-8", local_id: "P-06", nombre: "Punta de Anca a la Brasa 280g + Arepa, Papa y Ensalada", descripcion: "Corte madurado al carbón con chimichurri, yuca y gaseosa.", precio_regular: 36000 }
     ],
     promociones: [
       {
@@ -210,10 +183,10 @@ function getInitialDatabase() {
       }
     ],
     horarios_promocion: [
-      { id: 1, promocion_id: "promo-1", dias: "Lun a Vie", hora_inicio: "14:30", hora_fin: "17:30" },
-      { id: 2, promocion_id: "promo-3", dias: "Mar a Jue", hora_inicio: "12:00", hora_fin: "17:00" },
-      { id: 3, promocion_id: "promo-4", dias: "Mar, Mié y Jue", hora_inicio: "14:30", hora_fin: "17:30" },
-      { id: 4, promocion_id: "promo-6", dias: "Lun a Jue", hora_inicio: "14:00", hora_fin: "18:00" }
+      { id: 1, promocion_id: "promo-1", dias: "Lun a Vie", hora_inicio: "2:30 p.m.", hora_fin: "5:30 p.m." },
+      { id: 2, promocion_id: "promo-3", dias: "Mar a Jue", hora_inicio: "12:00 m.", hora_fin: "5:00 p.m." },
+      { id: 3, promocion_id: "promo-4", dias: "Mar, Mié y Jue", hora_inicio: "2:30 p.m.", hora_fin: "5:30 p.m." },
+      { id: 4, promocion_id: "promo-6", dias: "Lun a Jue", hora_inicio: "2:00 p.m.", hora_fin: "6:00 p.m." }
     ],
     cupones: [
       {
@@ -221,88 +194,84 @@ function getInitialDatabase() {
         codigo_unico: "SPP-7F2A9B",
         promocion_id: "promo-4",
         local_id: "P-14",
-        usuario_id: 101,
         cliente_nombre: "Camilo Andrés Rojas",
         titulo: "Combo Corralito Parrilla 180g + Papas Rústicas + Gaseosa Gratis",
         precio_regular: 26000,
         precio_oferta: 18000,
         estado: "EMITIDO",
-        fecha_emision: "15:10 COT",
-        expira_timestamp: nowMs + 6505 * 1000 // ~1h 48m 25s
+        expira_timestamp: nowMs + 6505 * 1000
       },
       {
         id: 2,
+        codigo_unico: "SPP-3E9D2A",
+        promocion_id: "promo-2",
+        local_id: "C-12",
+        cliente_nombre: "Camilo Andrés Rojas",
+        titulo: "Dúo Cafetero Especial de San Agustín + Torta de Almojábana",
+        precio_regular: 16500,
+        precio_oferta: 12000,
+        estado: "EMITIDO",
+        expira_timestamp: nowMs + 5420 * 1000
+      },
+      {
+        id: 3,
         codigo_unico: "SPP-4C8D1E",
         promocion_id: "promo-6",
         local_id: "P-06",
-        usuario_id: 101,
         cliente_nombre: "Camilo Andrés Rojas",
         titulo: "Punta de Anca o Churrasco a la Brasa 280g + Arepa, Papa y Ensalada",
         precio_regular: 36000,
         precio_oferta: 26500,
         estado: "REDIMIDO",
-        fecha_emision: "13:50 COT",
-        detalle_estado: "Redimido a las 14:15 COT en Caja P-06 (Andrés Felipe Murcia)"
+        detalle_estado: "Canjeado hoy a las 2:15 p.m. en Local P-06"
       },
       {
-        id: 3,
+        id: 4,
         codigo_unico: "SPP-9A1B0C",
         promocion_id: "promo-1",
         local_id: "I-08",
-        usuario_id: 101,
         cliente_nombre: "Camilo Andrés Rojas",
         titulo: "Combo Onces Opitas: Granizado de Cholupa + Achiras Artesanales",
         precio_regular: 14000,
         precio_oferta: 9500,
         estado: "EXPIRADO",
-        fecha_emision: "11:00 COT",
-        detalle_estado: "Expiró por superar ventana de gracia de 2 horas (RN-02)"
+        detalle_estado: "Finalizó el tiempo límite de 2 horas para el canje"
       }
     ],
     redenciones: [
-      {
-        id: 1,
-        cupon_id: 2,
-        codigo_unico: "SPP-4C8D1E",
-        cajero_id: 105,
-        local_id: "P-06",
-        fecha_redencion: "2026-11-23 14:15:12",
-        monto_descontado: 9500
-      }
+      { id: 1, cupon_id: 3, codigo_unico: "SPP-4C8D1E", local_id: "P-06", monto_descontado: 9500 }
     ],
     auditoria_logs: [
       {
         id: 1,
-        timestamp: "15:38:12 COT",
+        timestamp: "02:38 p.m.",
         codigo: "SPP-4C8D1E",
-        local_cajero: "Local P-06 (A. Murcia)",
-        ip_origen: "192.168.10.24",
-        resultado: "REDIMIDO (-$9.500 COP)",
+        local_cajero: "Asadero & Brasas del San Pedro (Local P-06)",
+        resultado: "Canjeado con éxito • Ahorro -$9.500 COP",
         exito: true
       },
       {
         id: 2,
-        timestamp: "15:21:05 COT",
+        timestamp: "02:21 p.m.",
         codigo: "SPP-9A1B0C",
-        local_cajero: "Isla I-08 (M. Tovar)",
-        ip_origen: "192.168.10.18",
-        resultado: "RECHAZADO (EXPIRADO RN-02)",
+        local_cajero: "Delicias del Huila: Cholupas & Helados (Isla I-08)",
+        resultado: "Rechazado en caja • Cupón vencido",
         exito: false
       }
     ],
     metricas: {
       visualizaciones: 1248,
-      emitidos_base: 85,
+      emitidos_base: 83,
       redimidos_base: 63
     },
     solicitudes_contacto: [
       {
         ticket: "NUV-841920",
         nombre: "Don Carlos Alberto Méndez",
-        rol: "Locatario / Comercio San Pedro Plaza",
+        rol: "Comercio / Locatario San Pedro Plaza",
         local: "Local P-14 Plazoleta",
         correo: "carlos.mendez@corralito.co",
-        fecha: "23/11/2026 14:20"
+        fecha: "26/11/2026"
       }
     ]
   };
@@ -313,10 +282,7 @@ let currentBudget = 20000;
 let currentCategory = "all";
 let currentSearch = "";
 let currentWalletTab = "EMITIDO";
-let activeRoleKey = "visitante";
-let activeUser = db.usuarios[0];
 let selectedMerchantStoreId = "P-14";
-let serverTimeMode = "valle"; // 'valle' (15:30), 'real', 'pico' (20:45)
 let cameraStream = null;
 let activeModalCouponCode = "SPP-7F2A9B";
 
@@ -329,9 +295,7 @@ function loadDatabase() {
         return parsed;
       }
     }
-  } catch (e) {
-    console.warn("Usando BD en memoria:", e);
-  }
+  } catch (_) {}
   const init = getInitialDatabase();
   saveDatabase(init);
   return init;
@@ -340,9 +304,7 @@ function loadDatabase() {
 function saveDatabase(data = db) {
   try {
     localStorage.setItem(DB_STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {
-    console.warn("No se pudo guardar en localStorage:", e);
-  }
+  } catch (_) {}
 }
 
 function formatCOP(value) {
@@ -357,9 +319,6 @@ function formatSeconds(totalSec) {
   return `${hrs}:${mins}:${secs}`;
 }
 
-/**
- * Sonido de confirmación / rechazo para el Validador POS (Web Audio API)
- */
 function playPosBeep(isSuccess) {
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -371,18 +330,15 @@ function playPosBeep(isSuccess) {
     gain.connect(ctx.destination);
     osc.type = isSuccess ? "sine" : "sawtooth";
     osc.frequency.value = isSuccess ? 880 : 220;
-    gain.gain.value = 0.08;
+    gain.gain.value = 0.07;
     osc.start();
     setTimeout(() => {
       osc.stop();
       ctx.close();
-    }, isSuccess ? 140 : 260);
+    }, isSuccess ? 140 : 250);
   } catch (_) {}
 }
 
-/**
- * Dibuja un código QR determinístico en un elemento <canvas> (RF14)
- */
 function drawQRCodeOnCanvas(canvasId, codeText) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
@@ -434,28 +390,24 @@ function drawQRCodeOnCanvas(canvasId, codeText) {
 
 function getScheduleText(promo) {
   if (!promo.es_relampago) {
-    return "🕒 Vigencia General: Todos los días (8:00 a.m. - 9:00 p.m.)";
+    return "🕒 Todos los días (8:00 a.m. - 9:00 p.m.)";
   }
   const h = db.horarios_promocion.find((x) => x.promocion_id === promo.id);
   if (!h) {
-    return "⚡ Oferta Relámpago: Lun a Jue (14:30 - 17:30)";
+    return "⚡ Lun a Jue (2:30 p.m. - 5:30 p.m.)";
   }
-  return `⚡ Oferta Relámpago: ${h.dias} (${h.hora_inicio} a ${h.hora_fin})`;
+  return `⚡ ${h.dias} (${h.hora_inicio} a ${h.hora_fin})`;
 }
 
 function getStoreById(localId) {
   return db.locales.find((l) => l.id === localId) || db.locales[0];
 }
 
-/**
- * Renderiza el Directorio de Locales y Promociones con el Algoritmo de Presupuesto (RF05 - RF08)
- */
 function renderPromotions() {
   const container = document.getElementById("directorio");
   const counterEl = document.getElementById("results-counter");
   if (!container) return;
 
-  // Solo se muestran en catálogo público las promociones en estado ACTIVA o AGOTADA (RF11)
   const publicPromos = db.promociones.filter((p) => p.estado === "ACTIVA" || p.estado === "AGOTADA");
 
   const filtered = publicPromos
@@ -481,28 +433,25 @@ function renderPromotions() {
     .sort((a, b) => a.precio_oferta - b.precio_oferta);
 
   counterEl.innerHTML = `Mostrando <strong>${filtered.length} ${
-    filtered.length === 1 ? "promoción" : "promociones"
+    filtered.length === 1 ? "opción disponible" : "opciones disponibles"
   }</strong> dentro de tu presupuesto de <strong>${formatCOP(currentBudget)}</strong>`;
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem; background: #fff; border-radius: 14px; border: 1px solid #e2e8f0;">
-        <h3>No hay promociones activas dentro de ese filtro exacto</h3>
-        <p style="color: #475569; margin: 0.5rem 0 1rem;">Aumenta tu presupuesto con el deslizador o selecciona «Todos los Locales».</p>
-        <button type="button" class="btn btn-primary btn-sm" id="btn-reset-filters">Subir Presupuesto a $30.000 COP</button>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem; background: #fff; border-radius: 16px; border: 1px solid #e2e8f0;">
+        <h3>No encontramos promociones con ese filtro exacto</h3>
+        <p style="color: #475569; margin: 0.5rem 0 1rem;">Aumenta el presupuesto con el deslizador o selecciona «Todos los Locales».</p>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-reset-filters">Ver Opciones hasta $30.000 COP</button>
       </div>
     `;
-    const resetBtn = document.getElementById("btn-reset-filters");
-    if (resetBtn) {
-      resetBtn.addEventListener("click", () => {
-        setBudgetValue(30000);
-        currentCategory = "all";
-        currentSearch = "";
-        document.getElementById("search-input").value = "";
-        document.querySelectorAll(".cat-tab").forEach((b) => b.classList.toggle("active", b.dataset.cat === "all"));
-        renderPromotions();
-      });
-    }
+    document.getElementById("btn-reset-filters")?.addEventListener("click", () => {
+      setBudgetValue(30000);
+      currentCategory = "all";
+      currentSearch = "";
+      document.getElementById("search-input").value = "";
+      document.querySelectorAll(".cat-tab").forEach((b) => b.classList.toggle("active", b.dataset.cat === "all"));
+      renderPromotions();
+    });
     return;
   }
 
@@ -511,11 +460,7 @@ function renderPromotions() {
       const store = getStoreById(p.local_id);
       const discountPct = Math.round(((p.precio_regular - p.precio_oferta) / p.precio_regular) * 100);
       const leftover = currentBudget - p.precio_oferta;
-      const alreadyHasActive =
-        activeUser &&
-        db.cupones.some(
-          (c) => c.promocion_id === p.id && c.usuario_id === activeUser.id && c.estado === "EMITIDO"
-        );
+      const alreadyHasActive = db.cupones.some((c) => c.promocion_id === p.id && c.estado === "EMITIDO");
       const isSoldOut = p.stock_actual <= 0 || p.estado === "AGOTADA";
 
       return `
@@ -526,29 +471,25 @@ function renderPromotions() {
               <span class="badge-local">Local ${p.local_id}</span>
               ${
                 p.es_relampago
-                  ? `<span class="badge-flash">⚡ OFERTA RELÁMPAGO -${discountPct}%</span>`
-                  : `<span class="badge-flash" style="background:#16a34a;">AHORRA ${discountPct}%</span>`
+                  ? `<span class="badge-flash">⚡ Relámpago -${discountPct}%</span>`
+                  : `<span class="badge-flash" style="background:#16a34a;">Ahorras ${discountPct}%</span>`
               }
             </div>
           </div>
           <div class="promo-body">
-            <button type="button" class="promo-store-link" data-store-id="${p.local_id}" title="Ver ficha y menú digital del local (RF06)">
-              🏪 ${store.nombre} (Ver Carta ↗)
-            </button>
+            <span class="promo-store-tag">🏪 ${store.nombre}</span>
             <h3 class="promo-title">${p.titulo}</h3>
             <p class="promo-desc">${p.descripcion}</p>
-            <div class="promo-schedule">${getScheduleText(p)}</div>
+            <div class="promo-meta-row">
+              <span>${getScheduleText(p)}</span>
+              <span>${isSoldOut ? "Agotado" : `${p.stock_actual} cupos`}</span>
+            </div>
             <div class="promo-price-row">
               <div class="price-block">
-                <span class="price-reg">Regular: ${formatCOP(p.precio_regular)}</span>
+                <span class="price-reg">Antes: ${formatCOP(p.precio_regular)}</span>
                 <span class="price-now">${formatCOP(p.precio_oferta)}</span>
               </div>
-              <span class="stock-pill" style="${isSoldOut ? "background:#fee2e2;color:#b91c1c;" : ""}">
-                ${isSoldOut ? "AGOTADA (RF12)" : `Cupos: ${p.stock_actual}/${p.stock_maximo}`}
-              </span>
-            </div>
-            <div class="budget-leftover-banner">
-              💰 Con tu presupuesto de ${formatCOP(currentBudget)} <strong>te sobran ${formatCOP(leftover)}</strong>
+              <span class="leftover-tag">Te sobran ${formatCOP(leftover)}</span>
             </div>
             <div class="promo-card-actions">
               <button
@@ -557,16 +498,10 @@ function renderPromotions() {
                 data-promo-id="${p.id}"
                 ${isSoldOut && !alreadyHasActive ? "disabled" : ""}
               >
-                ${
-                  alreadyHasActive
-                    ? "Ver mi QR Activo (RN-01)"
-                    : isSoldOut
-                    ? "Cupos Agotados"
-                    : "Obtener Cupón QR"
-                }
+                ${alreadyHasActive ? "Ver mi Cupón QR" : isSoldOut ? "Agotado" : "Obtener Cupón QR"}
               </button>
               <button type="button" class="btn btn-outline btn-sm btn-open-store-modal" data-store-id="${p.local_id}">
-                Menú (RF06)
+                Ver Carta
               </button>
             </div>
           </div>
@@ -579,14 +514,11 @@ function renderPromotions() {
     btn.addEventListener("click", () => handleGenerateCoupon(btn.dataset.promoId));
   });
 
-  container.querySelectorAll(".promo-store-link, .btn-open-store-modal").forEach((btn) => {
+  container.querySelectorAll(".btn-open-store-modal").forEach((btn) => {
     btn.addEventListener("click", () => openStoreDetailModal(btn.dataset.storeId));
   });
 }
 
-/**
- * Renderiza la tira de locales comerciales para abrir su Ficha y Menú Digital (RF05 - RF06)
- */
 function renderStoresStrip() {
   const strip = document.getElementById("stores-directory-strip");
   if (!strip) return;
@@ -596,11 +528,11 @@ function renderStoresStrip() {
       const countPromos = db.promociones.filter((p) => p.local_id === l.id && p.estado === "ACTIVA").length;
       return `
         <div class="store-mini-card" data-store-id="${l.id}">
-          <div>
+          <div class="store-mini-info">
             <strong>${l.id} • ${l.nombre}</strong>
-            <span>${countProds} platos en carta • ${countPromos} promos activas</span>
+            <span>${countProds} opciones en carta • ${countPromos} promo activa</span>
           </div>
-          <span class="btn btn-outline btn-sm">Ver Carta →</span>
+          <span class="store-mini-btn">Ver Carta →</span>
         </div>
       `;
     })
@@ -611,21 +543,17 @@ function renderStoresStrip() {
   });
 }
 
-/**
- * Abre el Modal con la Ficha Detallada del Local y su Menú Digital Completo (RF06)
- */
 function openStoreDetailModal(localId) {
   const store = getStoreById(localId);
   if (!store) return;
 
-  document.getElementById("smodal-badge").textContent = `FICHA DEL LOCAL ${store.id} • MENÚ DIGITAL (RF06)`;
+  document.getElementById("smodal-badge").textContent = `ESTABLECIMIENTO ${store.id} • SAN PEDRO PLAZA`;
   document.getElementById("smodal-title").textContent = store.nombre;
   document.getElementById("smodal-meta").textContent = `${store.numero_local} • 📞 ${store.telefono} • 🕒 ${store.horario}`;
   document.getElementById("smodal-desc").textContent = store.descripcion;
 
   const prods = db.productos.filter((p) => p.local_id === localId);
-  const prodsEl = document.getElementById("smodal-products-list");
-  prodsEl.innerHTML = prods
+  document.getElementById("smodal-products-list").innerHTML = prods
     .map(
       (prod) => `
       <div class="smodal-item">
@@ -633,7 +561,7 @@ function openStoreDetailModal(localId) {
           <strong>${prod.nombre}</strong>
           <div style="font-size:0.78rem; color:#475569;">${prod.descripcion}</div>
         </div>
-        <strong style="color:#0f172a;">${formatCOP(prod.precio_regular)}</strong>
+        <strong style="color:#0f172a; white-space:nowrap;">${formatCOP(prod.precio_regular)}</strong>
       </div>
     `
     )
@@ -650,8 +578,8 @@ function openStoreDetailModal(localId) {
         <div class="smodal-item">
           <div>
             <strong>${pr.titulo}</strong>
-            <div style="font-size:0.78rem; color:#16a34a; font-weight:700;">
-              Oferta: ${formatCOP(pr.precio_oferta)} (Antes: ${formatCOP(pr.precio_regular)}) • Cupos: ${pr.stock_actual}/${pr.stock_maximo}
+            <div style="font-size:0.8rem; color:#16a34a; font-weight:700;">
+              Con Cupón: ${formatCOP(pr.precio_oferta)} (Normal: ${formatCOP(pr.precio_regular)})
             </div>
           </div>
           <button type="button" class="btn btn-primary btn-sm btn-smodal-claim" data-promo-id="${pr.id}">
@@ -673,43 +601,18 @@ function openStoreDetailModal(localId) {
   openModal("store-modal");
 }
 
-/**
- * Emisión Criptográfica de Cupón QR cumpliendo RN-01, RN-02, RN-05 y RN-06 (RF13 - RF14)
- */
 function handleGenerateCoupon(promoId) {
-  // Regla de Negocio RN-06: El catálogo es libre, pero obtener cupón exige usuario autenticado
-  if (!activeUser || activeRoleKey === "invitado") {
-    openModal("auth-modal");
-    const fb = document.getElementById("auth-feedback");
-    fb.hidden = false;
-    fb.className = "contact-feedback error";
-    fb.textContent = "🔒 Regla RN-06: Para generar un Cupón QR de descuento debes iniciar sesión o registrarte como Visitante.";
-    return;
-  }
-
   const promo = db.promociones.find((p) => p.id === promoId);
   if (!promo) return;
 
-  // Regla de Negocio RN-01: Máximo 1 cupón activo por usuario por promoción en 24h
-  let existing = db.cupones.find(
-    (c) => c.promocion_id === promoId && c.usuario_id === activeUser.id && c.estado === "EMITIDO"
-  );
+  let existing = db.cupones.find((c) => c.promocion_id === promoId && c.estado === "EMITIDO");
 
   if (!existing) {
-    // Regla de Negocio RN-05: Si es oferta relámpago y el servidor está en Hora Nocturna/Pico, advertir
-    if (promo.es_relampago && serverTimeMode === "pico") {
-      alert(
-        "⏰ Regla de Negocio RN-05 (Validación Horaria en el Servidor): El reloj del servidor está simulando Hora Nocturna (8:45 p.m.), fuera de la franja de Oferta Relámpago (2:30 p.m. - 5:30 p.m.). Cambia el selector superior a 'Simular Hora Valle' para reclamar ofertas relámpago."
-      );
-      return;
-    }
-
     if (promo.stock_actual <= 0 || promo.estado !== "ACTIVA") {
-      alert("Esta promoción ya agotó sus cupos disponibles (RF12).");
+      alert("Esta promoción ya agotó sus cupos disponibles.");
       return;
     }
 
-    // Generación Criptográfica Segura RNF03 (crypto.getRandomValues)
     const randBytes = new Uint8Array(3);
     if (window.crypto && window.crypto.getRandomValues) {
       window.crypto.getRandomValues(randBytes);
@@ -718,26 +621,22 @@ function handleGenerateCoupon(promoId) {
     }
     const hexToken = Array.from(randBytes, (b) => b.toString(16).padStart(2, "0").toUpperCase()).join("");
     const newCode = `SPP-${hexToken}`;
-    const nowTime = new Date().toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit", hour12: false }) + " COT";
 
     existing = {
       id: db.cupones.length + 1,
       codigo_unico: newCode,
       promocion_id: promo.id,
       local_id: promo.local_id,
-      usuario_id: activeUser.id,
-      cliente_nombre: activeUser.nombre,
+      cliente_nombre: "Camilo Andrés Rojas",
       titulo: promo.titulo,
       precio_regular: promo.precio_regular,
       precio_oferta: promo.precio_oferta,
       estado: "EMITIDO",
-      fecha_emision: nowTime,
-      expira_timestamp: Date.now() + 2 * 3600 * 1000 // Ventana de 2 horas RN-02
+      expira_timestamp: Date.now() + 2 * 3600 * 1000
     };
 
     db.cupones.unshift(existing);
     promo.stock_actual -= 1;
-    // Transición automática UML 10.1: Si stock llega a 0 -> AGOTADA (RF12)
     if (promo.stock_actual <= 0) {
       promo.stock_actual = 0;
       promo.estado = "AGOTADA";
@@ -761,8 +660,7 @@ function openQRModal(coupon) {
   const remSec = coupon.expira_timestamp ? (coupon.expira_timestamp - Date.now()) / 1000 : 7200;
   document.getElementById("modal-qr-countdown").textContent = formatSeconds(remSec);
 
-  const sendBtn = document.getElementById("modal-send-to-pos");
-  sendBtn.onclick = () => {
+  document.getElementById("modal-send-to-pos").onclick = () => {
     closeModal("qr-modal");
     sendCouponToPOS(coupon.codigo_unico, coupon.local_id);
   };
@@ -770,9 +668,6 @@ function openQRModal(coupon) {
   openModal("qr-modal");
 }
 
-/**
- * Renderiza la Billetera Digital del Visitante con las 4 pestañas UML 10.2 (RF15)
- */
 function renderWallet() {
   const listEl = document.getElementById("wallet-list");
   if (!listEl) return;
@@ -780,15 +675,12 @@ function renderWallet() {
   const emitidosCount = db.cupones.filter((c) => c.estado === "EMITIDO").length;
   const redimidosCount = db.cupones.filter((c) => c.estado === "REDIMIDO").length;
   const expiradosCount = db.cupones.filter((c) => c.estado === "EXPIRADO").length;
-  const anuladosCount = db.cupones.filter((c) => c.estado === "ANULADO").length;
 
   document.getElementById("count-emitidos").textContent = emitidosCount;
   document.getElementById("count-redimidos").textContent = redimidosCount;
   document.getElementById("count-expirados").textContent = expiradosCount;
-  document.getElementById("count-anulados").textContent = anuladosCount;
   document.getElementById("coupon-badge-count").textContent = emitidosCount;
 
-  // Actualizar Hero con el primer cupón activo si existe
   const firstActive = db.cupones.find((c) => c.estado === "EMITIDO") || db.cupones[0];
   if (firstActive) {
     const st = getStoreById(firstActive.local_id);
@@ -804,36 +696,45 @@ function renderWallet() {
   const items = db.cupones.filter((c) => c.estado === currentWalletTab);
 
   if (items.length === 0) {
-    listEl.innerHTML = `<p style="color:#475569; padding: 1rem;">No hay cupones registrados en estado <strong>${currentWalletTab}</strong>.</p>`;
+    listEl.innerHTML = `<p style="color:#475569; padding: 1rem;">No tienes cupones en esta categoría por ahora.</p>`;
     return;
   }
+
+  const statusLabels = {
+    EMITIDO: "Activo para Canje",
+    REDIMIDO: "Canjeado en Caja",
+    EXPIRADO: "Tiempo Vencido"
+  };
 
   listEl.innerHTML = items
     .map((c) => {
       const store = getStoreById(c.local_id);
       const remSec = c.expira_timestamp ? (c.expira_timestamp - Date.now()) / 1000 : 6400;
+      const saved = c.precio_regular - c.precio_oferta;
       return `
         <div class="coupon-ticket">
           <div>
             <div class="coupon-ticket-header">
-              <span class="status-tag status-${c.estado}">${c.estado}</span>
+              <span class="status-tag status-${c.estado}">${statusLabels[c.estado] || c.estado}</span>
               <span class="coupon-code-pill">${c.codigo_unico}</span>
             </div>
-            <h4 style="margin: 0.6rem 0 0.2rem; font-size: 0.98rem;">${c.titulo}</h4>
-            <p style="font-size: 0.8rem; color: #475569; margin-bottom: 0.45rem;">🏪 ${store.nombre} (Local ${store.id})</p>
-            <div style="font-size: 0.86rem; font-weight: 700; color: #16a34a;">
-              Valor con Cupón: ${formatCOP(c.precio_oferta)} <span style="text-decoration:line-through; color:#94a3b8; font-weight:500;">(${formatCOP(c.precio_regular)})</span>
+            <h4 style="margin: 0.7rem 0 0.25rem; font-size: 1.04rem;">${c.titulo}</h4>
+            <p style="font-size: 0.84rem; color: #475569; margin-bottom: 0.55rem;">🏪 ${store.nombre} (Local ${store.id})</p>
+            <div style="font-size: 0.92rem; font-weight: 800; color: #16a34a;">
+              Pagas en caja: ${formatCOP(c.precio_oferta)}
+              <span style="text-decoration:line-through; color:#94a3b8; font-weight:500; margin-left:0.35rem;">${formatCOP(c.precio_regular)}</span>
+              <span style="font-size:0.78rem; color:#ea580c; margin-left:0.35rem;">(Ahorras ${formatCOP(saved)})</span>
             </div>
           </div>
-          <div style="border-top: 1px solid #e2e8f0; padding-top: 0.65rem; font-size: 0.77rem; color: #475569; display:flex; justify-content:space-between; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+          <div class="coupon-ticket-footer">
             ${
               c.estado === "EMITIDO"
-                ? `<span>⏱ Vigencia (RN-02): <strong class="live-coupon-timer" data-exp="${c.expira_timestamp}">${formatSeconds(remSec)}</strong></span>
-                   <div style="display:flex; gap:0.35rem;">
-                     <button type="button" class="mini-action-btn btn-view-qr" data-code="${c.codigo_unico}">Ver QR</button>
-                     <button type="button" class="mini-action-btn btn-wallet-to-pos" style="background:#ea580c;color:#fff;border-color:#ea580c;" data-code="${c.codigo_unico}" data-local="${c.local_id}">Redimir en Caja →</button>
+                ? `<span style="font-size:0.82rem; color:#475569;">⏱ Vence en: <strong class="live-coupon-timer" data-exp="${c.expira_timestamp}">${formatSeconds(remSec)}</strong></span>
+                   <div class="coupon-actions-row">
+                     <button type="button" class="btn btn-outline btn-sm btn-view-qr" data-code="${c.codigo_unico}">Ver Código QR</button>
+                     <button type="button" class="btn btn-primary btn-sm btn-wallet-to-pos" data-code="${c.codigo_unico}" data-local="${c.local_id}">Usar en Caja →</button>
                    </div>`
-                : `<span>${c.detalle_estado || "Estado actualizado en servidor"}</span>`
+                : `<span style="font-size:0.82rem; color:#475569;">${c.detalle_estado || "Operación registrada"}</span>`
             }
           </div>
         </div>
@@ -853,9 +754,6 @@ function renderWallet() {
   });
 }
 
-/**
- * Renderiza el Panel Administrativo del Locatario (Módulo 3: RF04, RF09 - RF12, UML 10.1)
- */
 function renderMerchantPanel() {
   const storeSelect = document.getElementById("merchant-store-select");
   const cashierSelect = document.getElementById("cashier-local-select");
@@ -871,18 +769,17 @@ function renderMerchantPanel() {
   if (cashierSelect && cashierSelect.options.length !== db.locales.length) {
     const prevVal = cashierSelect.value || "P-14";
     cashierSelect.innerHTML = db.locales
-      .map((l) => `<option value="${l.id}" ${l.id === prevVal ? "selected" : ""}>Caja Local ${l.id} — ${l.nombre}</option>`)
+      .map((l) => `<option value="${l.id}" ${l.id === prevVal ? "selected" : ""}>Local ${l.id} — ${l.nombre}</option>`)
       .join("");
   }
 
   const store = getStoreById(selectedMerchantStoreId);
 
-  // 1. Tabla de Promociones del Local Seleccionado (RF11 - Máquina de Estados UML 10.1)
   const tbody = document.getElementById("merchant-promos-tbody");
   const storePromos = db.promociones.filter((p) => p.local_id === selectedMerchantStoreId);
 
   if (storePromos.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:1.25rem;">Este local aún no tiene promociones registradas. Haz clic en «+ Nueva Oferta / Promoción».</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:1.25rem;">Este establecimiento no tiene promociones registradas.</td></tr>`;
   } else {
     tbody.innerHTML = storePromos
       .map(
@@ -890,28 +787,27 @@ function renderMerchantPanel() {
         <tr>
           <td>
             <strong>${p.titulo}</strong>
-            <div style="font-size:0.75rem; color:#64748b;">ID: <code>${p.id}</code></div>
           </td>
-          <td>
+          <td style="white-space:nowrap;">
             <span style="text-decoration:line-through; color:#94a3b8; font-size:0.78rem;">${formatCOP(p.precio_regular)}</span><br/>
             <strong style="color:#16a34a;">${formatCOP(p.precio_oferta)} (-${p.porcentaje_descuento}%)</strong>
           </td>
           <td>${getScheduleText(p)}</td>
-          <td><strong>${p.stock_actual}</strong> / ${p.stock_maximo} disponibles</td>
+          <td style="white-space:nowrap;"><strong>${p.stock_actual}</strong> de ${p.stock_maximo} cupos</td>
           <td><span class="status-tag status-${p.estado}">${p.estado}</span></td>
           <td>
             <div class="action-btns-cell">
               ${
                 p.estado !== "ACTIVA"
-                  ? `<button type="button" class="mini-action-btn" data-paction="ACTIVA" data-pid="${p.id}">🟢 Publicar / Activar</button>`
-                  : `<button type="button" class="mini-action-btn" data-paction="PAUSADA" data-pid="${p.id}">⏸ Pausar (RN-03)</button>`
+                  ? `<button type="button" class="mini-action-btn" data-paction="ACTIVA" data-pid="${p.id}">Activar</button>`
+                  : `<button type="button" class="mini-action-btn btn-act-pause" data-paction="PAUSADA" data-pid="${p.id}">Pausar</button>`
               }
               ${
                 p.estado !== "VENCIDA"
-                  ? `<button type="button" class="mini-action-btn" data-paction="VENCIDA" data-pid="${p.id}">⏹ Vencer</button>`
+                  ? `<button type="button" class="mini-action-btn" data-paction="VENCIDA" data-pid="${p.id}">Finalizar</button>`
                   : ""
               }
-              <button type="button" class="mini-action-btn" data-paction="STOCK" data-pid="${p.id}">+10 Cupos</button>
+              <button type="button" class="mini-action-btn btn-act-stock" data-paction="STOCK" data-pid="${p.id}">+10 Cupos</button>
             </div>
           </td>
         </tr>
@@ -939,7 +835,6 @@ function renderMerchantPanel() {
     });
   }
 
-  // 2. Poblar selector de Productos en Formulario de Nueva Promoción
   const prodSelect = document.getElementById("promo-product-select");
   const storeProds = db.productos.filter((pr) => pr.local_id === selectedMerchantStoreId);
   if (prodSelect) {
@@ -948,7 +843,6 @@ function renderMerchantPanel() {
       .join("");
   }
 
-  // 3. Lista de Productos del Menú Digital del Local (RF06)
   const prodListEl = document.getElementById("merchant-products-list");
   if (prodListEl) {
     prodListEl.innerHTML = storeProds
@@ -957,16 +851,15 @@ function renderMerchantPanel() {
         <div class="prod-item-card">
           <div>
             <strong>${pr.nombre}</strong>
-            <div style="font-size:0.78rem; color:#475569;">${pr.descripcion}</div>
+            <div style="font-size:0.8rem; color:#475569;">${pr.descripcion}</div>
           </div>
-          <strong style="color:#0f172a;">${formatCOP(pr.precio_regular)}</strong>
+          <strong style="color:#0f172a; white-space:nowrap;">${formatCOP(pr.precio_regular)}</strong>
         </div>
       `
       )
       .join("");
   }
 
-  // 4. Poblar Formulario de Perfil del Local Comercial (RF04)
   document.getElementById("store-edit-name").value = store.nombre;
   document.getElementById("store-edit-number").value = store.numero_local;
   document.getElementById("store-edit-phone").value = store.telefono;
@@ -985,140 +878,138 @@ function sendCouponToPOS(code, localId) {
   }
 }
 
-/**
- * Validación Transaccional Atómica en Punto de Venta con Bloqueo SELECT FOR UPDATE (RF17, RF18, RN-04, RN-07)
- */
+function updateReceiptSummary(storeName, productTitle, regPrice, promoPrice, statusText) {
+  const container = document.getElementById("pos-receipt-details");
+  if (!container) return;
+  const saved = Math.max(0, regPrice - promoPrice);
+  const pct = regPrice > 0 ? Math.round((saved / regPrice) * 100) : 0;
+  container.innerHTML = `
+    <div class="receipt-row">
+      <span>Establecimiento:</span>
+      <strong>${storeName}</strong>
+    </div>
+    <div class="receipt-row">
+      <span>Producto / Combo:</span>
+      <strong>${productTitle}</strong>
+    </div>
+    <div class="receipt-row">
+      <span>Estado de verificación:</span>
+      <strong>${statusText}</strong>
+    </div>
+    <div class="receipt-row receipt-discount">
+      <span>Ahorro aplicado con Nuvora:</span>
+      <strong>-${formatCOP(saved)} (-${pct}%)</strong>
+    </div>
+    <div class="receipt-row receipt-total">
+      <span>Valor a cobrar en caja:</span>
+      <strong>${formatCOP(promoPrice)}</strong>
+    </div>
+  `;
+}
+
 function validateCouponTransaction(rawCode, cashierLocalId) {
   const code = rawCode.trim().toUpperCase();
   const screen = document.getElementById("pos-screen-result");
-  const sqlTrace = document.getElementById("sql-trace-output");
-  const latencyMs = Math.floor(24 + Math.random() * 38);
-  document.getElementById("last-tx-latency").textContent = `Latencia: ${latencyMs} ms (< 1.5s RNF01)`;
+  const latencyMs = Math.floor(24 + Math.random() * 35);
+  document.getElementById("last-tx-latency").textContent = `Respuesta: ${latencyMs} ms`;
 
   const coupon = db.cupones.find((c) => c.codigo_unico === code);
-  const nowTime = new Date().toLocaleTimeString("es-CO", { hour12: false }) + " COT";
+  const nowTime = new Date().toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
   const store = getStoreById(cashierLocalId);
 
-  // Caso 1: Cupón no existe
   if (!coupon) {
     playPosBeep(false);
-    screen.className = "pos-screen pos-screen-invalid";
+    screen.className = "pos-screen-clean pos-clean-invalid";
     screen.innerHTML = `
-      <div class="pos-screen-icon">⛔</div>
-      <div class="pos-screen-content">
-        <h4>ACCESO DENEGADO: TOKEN QR INEXISTENTE (RNF03)</h4>
-        <p>El código <code>${code}</code> no existe en la tabla <code>cupones</code> de PostgreSQL.</p>
-        <p><strong>Acción en Caja:</strong> No aplicar descuento. Solicitar al cliente verificar su billetera Nuvora.</p>
+      <div class="pos-clean-icon">⛔</div>
+      <div class="pos-clean-content">
+        <h4>Código No Encontrado</h4>
+        <p>El cupón <strong>${code}</strong> no se encuentra registrado en el sistema.</p>
+        <p>Solicita al visitante verificar el código en su billetera digital Nuvora.</p>
       </div>
     `;
-    sqlTrace.textContent = `-- Petición POST /api/cupones/redimir {codigo: '${code}', local_id: '${cashierLocalId}'}
-BEGIN TRANSACTION;
-SELECT * FROM cupones WHERE codigo_unico = '${code}' FOR UPDATE;
--- Resultado: 0 filas afectadas (Token no registrado).
-ROLLBACK TRANSACTION;`;
-    appendAuditLog(nowTime, code, `Local ${cashierLocalId}`, "RECHAZADO (NO EXISTE)", false);
+    updateReceiptSummary(`${store.nombre} (Local ${store.id})`, "Código no válido", 0, 0, "No Encontrado");
+    appendAuditLog(nowTime, code, `${store.nombre} (${cashierLocalId})`, "Rechazado • Código no existe", false);
     return;
   }
 
-  // Caso 2: Pertenencia estricta al local (RN-07)
   if (coupon.local_id !== cashierLocalId) {
     playPosBeep(false);
     const ownerStore = getStoreById(coupon.local_id);
-    screen.className = "pos-screen pos-screen-invalid";
+    screen.className = "pos-screen-clean pos-clean-invalid";
     screen.innerHTML = `
-      <div class="pos-screen-icon">🚫</div>
-      <div class="pos-screen-content">
-        <h4>RECHAZADO: CUPÓN NO CORRESPONDE A ESTE LOCAL (RN-07)</h4>
-        <p>El cupón <code>${code}</code> fue emitido para <strong>${ownerStore.nombre} (Local ${coupon.local_id})</strong>.</p>
-        <p><strong>Violación de Llave Foránea:</strong> No puede ser redimido en la caja de <strong>${store.nombre} (Local ${cashierLocalId})</strong>.</p>
+      <div class="pos-clean-icon">🚫</div>
+      <div class="pos-clean-content">
+        <h4>Cupón Emitido para Otro Establecimiento</h4>
+        <p>El código <strong>${code}</strong> pertenece a <strong>${ownerStore.nombre} (Local ${coupon.local_id})</strong>.</p>
+        <p>No puede canjearse en la caja de <strong>${store.nombre}</strong>.</p>
       </div>
     `;
-    sqlTrace.textContent = `BEGIN TRANSACTION;
-SELECT id, local_id, estado FROM cupones WHERE codigo_unico = '${code}' FOR UPDATE;
--- Validación RN-07: cupon.local_id ('${coupon.local_id}') != cajero.local_id ('${cashierLocalId}')
-ROLLBACK TRANSACTION; -- Rechazado por pertenencia de establecimiento`;
-    appendAuditLog(nowTime, code, `Local ${cashierLocalId}`, `RECHAZADO (ES DE ${coupon.local_id} RN-07)`, false);
+    updateReceiptSummary(`${store.nombre} (Local ${store.id})`, coupon.titulo, coupon.precio_regular, coupon.precio_regular, `Corresponde al Local ${coupon.local_id}`);
+    appendAuditLog(nowTime, code, `${store.nombre} (${cashierLocalId})`, `Rechazado • Pertenece al Local ${coupon.local_id}`, false);
     return;
   }
 
-  // Caso 3: Prevención de Doble Redención (RN-04)
   if (coupon.estado === "REDIMIDO") {
     playPosBeep(false);
-    screen.className = "pos-screen pos-screen-invalid";
+    screen.className = "pos-screen-clean pos-clean-invalid";
     screen.innerHTML = `
-      <div class="pos-screen-icon">⚠️</div>
-      <div class="pos-screen-content">
-        <h4>ALERTA ANTIFRAUDE: CUPÓN YA UTILIZADO (RN-04)</h4>
-        <p>El token <code>${code}</code> ya fue redimido previamente (${coupon.detalle_estado}).</p>
-        <p><strong>Control ACID:</strong> Bloqueo <code>SELECT FOR UPDATE</code> impide doble uso simultáneo.</p>
+      <div class="pos-clean-icon">⚠️</div>
+      <div class="pos-clean-content">
+        <h4>Cupón Ya Utilizado Anteriormente</h4>
+        <p>El código <strong>${code}</strong> ya fue canjeado (${coupon.detalle_estado}).</p>
+        <p>Cada cupón QR es válido para un único uso en punto de venta.</p>
       </div>
     `;
-    sqlTrace.textContent = `BEGIN TRANSACTION;
-SELECT id, estado FROM cupones WHERE codigo_unico = '${code}' FOR UPDATE;
--- Estado actual en BD = 'REDIMIDO' (Intento de doble redención detectado RN-04).
-ROLLBACK TRANSACTION;`;
-    appendAuditLog(nowTime, code, `Local ${cashierLocalId}`, "RECHAZADO (DOBLE USO RN-04)", false);
+    updateReceiptSummary(`${store.nombre} (Local ${store.id})`, coupon.titulo, coupon.precio_regular, coupon.precio_regular, "Ya fue canjeado");
+    appendAuditLog(nowTime, code, `${store.nombre} (${cashierLocalId})`, "Rechazado • Intento de doble uso", false);
     return;
   }
 
-  // Caso 4: Cupón Expirado o Anulado (RN-02)
-  if (coupon.estado === "EXPIRADO" || coupon.estado === "ANULADO") {
+  if (coupon.estado === "EXPIRADO") {
     playPosBeep(false);
-    screen.className = "pos-screen pos-screen-invalid";
+    screen.className = "pos-screen-clean pos-clean-invalid";
     screen.innerHTML = `
-      <div class="pos-screen-icon">⏰</div>
-      <div class="pos-screen-content">
-        <h4>RECHAZADO: CUPÓN ${coupon.estado} (RN-02 / RN-05)</h4>
-        <p>El cupón <code>${code}</code> superó las 2 horas de vigencia o la promoción caducó.</p>
-        <p><strong>Detalle:</strong> ${coupon.detalle_estado || "Tiempo de gracia agotado."}</p>
+      <div class="pos-clean-icon">⏰</div>
+      <div class="pos-clean-content">
+        <h4>Cupón con Vigencia Vencida</h4>
+        <p>El código <strong>${code}</strong> superó el tiempo límite de 2 horas para su canje.</p>
+        <p>El visitante puede generar un nuevo cupón si la oferta sigue activa.</p>
       </div>
     `;
-    sqlTrace.textContent = `BEGIN TRANSACTION;
-SELECT id, estado, fecha_expiracion FROM cupones WHERE codigo_unico = '${code}' FOR UPDATE;
--- Validación RN-02: CURRENT_TIMESTAMP > fecha_expiracion (Estado = '${coupon.estado}').
-ROLLBACK TRANSACTION;`;
-    appendAuditLog(nowTime, code, `Local ${cashierLocalId}`, `RECHAZADO (${coupon.estado})`, false);
+    updateReceiptSummary(`${store.nombre} (Local ${store.id})`, coupon.titulo, coupon.precio_regular, coupon.precio_regular, "Tiempo expirado");
+    appendAuditLog(nowTime, code, `${store.nombre} (${cashierLocalId})`, "Rechazado • Cupón vencido", false);
     return;
   }
 
-  // Caso 5: Transacción Exitosa -> Redimir Atómicamente
   playPosBeep(true);
   coupon.estado = "REDIMIDO";
-  coupon.detalle_estado = `Redimido a las ${nowTime} en Caja ${cashierLocalId} (${store.nombre})`;
+  coupon.detalle_estado = `Canjeado a las ${nowTime} en Local ${cashierLocalId}`;
   const discountSaved = coupon.precio_regular - coupon.precio_oferta;
 
   db.redenciones.unshift({
     id: db.redenciones.length + 1,
     cupon_id: coupon.id,
     codigo_unico: coupon.codigo_unico,
-    cajero_id: 104,
     local_id: cashierLocalId,
-    fecha_redencion: new Date().toISOString().slice(0, 19).replace("T", " "),
     monto_descontado: discountSaved
   });
 
-  screen.className = "pos-screen pos-screen-valid";
+  screen.className = "pos-screen-clean pos-clean-valid";
   screen.innerHTML = `
-    <div class="pos-screen-icon">✅</div>
-    <div class="pos-screen-content">
-      <h4>CUPÓN VÁLIDO — REDIMIDO EN ${latencyMs} ms (RF18)</h4>
-      <p><strong>Cliente:</strong> ${coupon.cliente_nombre} • <strong>Token:</strong> <code>${coupon.codigo_unico}</code></p>
-      <p><strong>Entregar Pedido:</strong> ${coupon.titulo}</p>
-      <p style="font-size:1.05rem; margin-top:0.35rem;">
-        💵 <strong>Cobrar en Caja: ${formatCOP(coupon.precio_oferta)}</strong>
-        <span style="font-size:0.84rem; opacity:0.9;"> (Ahorro aplicado: -${formatCOP(discountSaved)})</span>
+    <div class="pos-clean-icon">✅</div>
+    <div class="pos-clean-content">
+      <h4>Cupón Válido — Descuento Aprobado</h4>
+      <p><strong>Visitante:</strong> ${coupon.cliente_nombre} • <strong>Código:</strong> ${coupon.codigo_unico}</p>
+      <p><strong>Pedido:</strong> ${coupon.titulo}</p>
+      <p style="font-size:1.05rem; margin-top:0.3rem;">
+        <strong>Cobrar en Caja: ${formatCOP(coupon.precio_oferta)}</strong> (Ahorro: -${formatCOP(discountSaved)})
       </p>
     </div>
   `;
 
-  sqlTrace.textContent = `BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
-SELECT * FROM cupones WHERE codigo_unico = '${code}' FOR UPDATE;
-UPDATE cupones SET estado = 'REDIMIDO' WHERE codigo_unico = '${code}';
-INSERT INTO redenciones (cupon_id, local_id, monto_descontado) VALUES (${coupon.id}, '${cashierLocalId}', ${discountSaved});
-INSERT INTO auditoria_logs (accion, codigo, local_id) VALUES ('REDENCION_EXITOSA', '${code}', '${cashierLocalId}');
-COMMIT TRANSACTION; -- Completado en ${latencyMs} ms (< 1.5s RNF01)`;
-
-  appendAuditLog(nowTime, code, `Local ${cashierLocalId}`, `REDIMIDO (-${formatCOP(discountSaved)})`, true);
+  updateReceiptSummary(`${store.nombre} (Local ${store.id})`, coupon.titulo, coupon.precio_regular, coupon.precio_oferta, "Aprobado y Canjeado");
+  appendAuditLog(nowTime, code, `${store.nombre} (${cashierLocalId})`, `Canjeado con éxito • Ahorro -${formatCOP(discountSaved)}`, true);
   saveDatabase();
   renderAllViews();
 }
@@ -1129,18 +1020,14 @@ function appendAuditLog(time, code, localText, resultText, isOk) {
     timestamp: time,
     codigo: code,
     local_cajero: localText,
-    ip_origen: "192.168.10." + Math.floor(12 + Math.random() * 80),
     resultado: resultText,
     exito: isOk
   });
   saveDatabase();
-  renderAnalyticsAndDB();
+  renderAnalytics();
 }
 
-/**
- * Renderiza el Dashboard de Analítica (RF19), Bitácora de Auditoría (RF20) y Explorador de las 11 Tablas
- */
-function renderAnalyticsAndDB() {
+function renderAnalytics() {
   const totalIssued = db.metricas.emitidos_base + db.cupones.length;
   const totalRedeemed = db.metricas.redimidos_base + db.redenciones.length;
   const rate = ((totalRedeemed / totalIssued) * 100).toFixed(1);
@@ -1153,26 +1040,18 @@ function renderAnalyticsAndDB() {
   const auditTbody = document.getElementById("audit-log-tbody");
   if (auditTbody) {
     auditTbody.innerHTML = db.auditoria_logs
-      .slice(0, 10)
+      .slice(0, 8)
       .map(
         (log) => `
         <tr>
           <td>${log.timestamp}</td>
-          <td><code>${log.codigo}</code></td>
+          <td><strong>${log.codigo}</strong></td>
           <td>${log.local_cajero}</td>
-          <td><code>${log.ip_origen}</code></td>
           <td><span class="${log.exito ? "log-ok" : "log-err"}">${log.resultado}</span></td>
         </tr>
       `
       )
       .join("");
-  }
-
-  const tableSelect = document.getElementById("db-table-select");
-  const jsonViewer = document.getElementById("db-json-viewer");
-  if (tableSelect && jsonViewer) {
-    const tableName = tableSelect.value || "locales";
-    jsonViewer.textContent = JSON.stringify(db[tableName] || [], null, 2);
   }
 }
 
@@ -1186,7 +1065,7 @@ function renderSavedLeads() {
       (s) => `
       <div class="lead-item">
         <strong>${s.ticket} • ${s.nombre}</strong> (${s.rol})<br/>
-        <span>${s.local} • <code>${s.correo}</code> • ${s.fecha}</span>
+        <span>${s.local} • ${s.correo} • ${s.fecha}</span>
       </div>
     `
     )
@@ -1223,85 +1102,19 @@ function closeModal(id) {
   }
 }
 
-function applyActiveRole(roleKey) {
-  activeRoleKey = roleKey;
-  const avatarEl = document.getElementById("wallet-user-avatar");
-  const nameEl = document.getElementById("wallet-user-name");
-  const emailEl = document.getElementById("wallet-user-email");
-
-  if (roleKey === "invitado") {
-    activeUser = null;
-    avatarEl.textContent = "🔓";
-    nameEl.textContent = "Invitado sin Sesión (Modo Consulta Pública RN-06)";
-    emailEl.textContent = "Inicia sesión para poder emitir cupones QR de descuento";
-  } else if (roleKey === "locatario-P14") {
-    activeUser = db.usuarios[1];
-    selectedMerchantStoreId = "P-14";
-    document.getElementById("panel-locatario").scrollIntoView({ behavior: "smooth" });
-  } else if (roleKey === "locatario-I08") {
-    activeUser = db.usuarios[2];
-    selectedMerchantStoreId = "I-08";
-    document.getElementById("panel-locatario").scrollIntoView({ behavior: "smooth" });
-  } else if (roleKey === "cajero-P14") {
-    activeUser = db.usuarios[3];
-    document.getElementById("cashier-local-select").value = "P-14";
-    document.getElementById("validador").scrollIntoView({ behavior: "smooth" });
-  } else if (roleKey === "cajero-P06") {
-    activeUser = db.usuarios[4];
-    document.getElementById("cashier-local-select").value = "P-06";
-    document.getElementById("validador").scrollIntoView({ behavior: "smooth" });
-  } else if (roleKey === "superadmin") {
-    activeUser = db.usuarios[5];
-    document.getElementById("analitica").scrollIntoView({ behavior: "smooth" });
-  } else {
-    activeUser = db.usuarios[0];
-  }
-
-  if (activeUser) {
-    const initials = activeUser.nombre
-      .split(" ")
-      .slice(0, 2)
-      .map((w) => w[0])
-      .join("");
-    avatarEl.textContent = initials;
-    nameEl.textContent = `Usuario Autenticado: ${activeUser.nombre}`;
-    emailEl.textContent = `${activeUser.correo} • Sesión JWT Activa (RF02)`;
-  }
-
-  renderAllViews();
-}
-
 function renderAllViews() {
   renderPromotions();
   renderStoresStrip();
   renderWallet();
   renderMerchantPanel();
-  renderAnalyticsAndDB();
+  renderAnalytics();
   renderSavedLeads();
 }
 
-// =====================================================================
-// INICIALIZACIÓN Y EVENTOS DEL SISTEMA
-// =====================================================================
 document.addEventListener("DOMContentLoaded", () => {
   renderAllViews();
 
-  // Reloj del Servidor PostgreSQL y Contadores Regresivos en Tiempo Real (RN-02 y RN-05)
   setInterval(() => {
-    const clockEl = document.getElementById("server-clock");
-    if (clockEl) {
-      if (serverTimeMode === "valle") {
-        const s = String(new Date().getSeconds()).padStart(2, "0");
-        clockEl.textContent = `Mié 15:30:${s} COT (Hora Valle)`;
-      } else if (serverTimeMode === "pico") {
-        const s = String(new Date().getSeconds()).padStart(2, "0");
-        clockEl.textContent = `Vie 20:45:${s} COT (Fuera Franja)`;
-      } else {
-        clockEl.textContent = new Date().toLocaleTimeString("es-CO", { hour12: false }) + " COT";
-      }
-    }
-
-    // Actualizar contadores regresivos de 2 horas en vivo (RN-02)
     document.querySelectorAll(".live-coupon-timer").forEach((el) => {
       const exp = Number(el.dataset.exp);
       if (exp) {
@@ -1318,25 +1131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, 1000);
 
-  // Selector de Modo de Hora del Servidor (RN-05)
-  document.getElementById("server-time-mode")?.addEventListener("change", (e) => {
-    serverTimeMode = e.target.value;
-  });
-
-  // Selector Rápido de Rol (Visitante, Locatario, Cajero, Superadmin, Invitado)
-  document.getElementById("quick-role-switcher")?.addEventListener("change", (e) => {
-    applyActiveRole(e.target.value);
-  });
-
-  // Botón Reset Base de Datos Demo
-  document.getElementById("btn-reset-db")?.addEventListener("click", () => {
-    db = getInitialDatabase();
-    saveDatabase(db);
-    renderAllViews();
-    alert("✓ Base de datos PostgreSQL simulada restaurada a su estado inicial de demostración.");
-  });
-
-  // Menú Hamburguesa Responsive
   const navToggle = document.getElementById("nav-toggle");
   const navMenu = document.getElementById("nav-menu");
   if (navToggle && navMenu) {
@@ -1354,7 +1148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Controles del Filtro Inteligente por Presupuesto (RF07)
   document.getElementById("budget-slider").addEventListener("input", (e) => {
     setBudgetValue(e.target.value);
     renderPromotions();
@@ -1386,7 +1179,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Pestañas de la Billetera Digital (RF15)
   document.querySelectorAll(".wallet-tab").forEach((wtab) => {
     wtab.addEventListener("click", () => {
       currentWalletTab = wtab.dataset.wtab;
@@ -1396,16 +1188,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Botón del Hero para Redimir en Caja
   document.getElementById("btn-test-hero-qr").addEventListener("click", () => {
     const code = document.getElementById("hero-qr-code-text").textContent;
     const cp = db.cupones.find((c) => c.codigo_unico === code) || db.cupones[0];
     sendCouponToPOS(cp.codigo_unico, cp.local_id);
   });
 
-  // ===================================================================
-  // EVENTOS DEL PANEL DEL LOCATARIO (MÓDULO 3: RF04, RF09 - RF12)
-  // ===================================================================
   document.getElementById("merchant-store-select").addEventListener("change", (e) => {
     selectedMerchantStoreId = e.target.value;
     renderMerchantPanel();
@@ -1433,7 +1221,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Crear Nueva Promoción / Oferta Relámpago (RF09 - RF12)
   document.getElementById("form-create-promo").addEventListener("submit", (e) => {
     e.preventDefault();
     const prodId = document.getElementById("promo-product-select").value;
@@ -1452,7 +1239,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!title || !desc || offerPrice >= regPrice) {
       fb.hidden = false;
       fb.className = "contact-feedback error";
-      fb.textContent = "Verifica que el título esté completo y que el precio de oferta sea menor al precio regular.";
+      fb.textContent = "Verifica que el título esté completo y que el precio de oferta sea menor al precio normal.";
       return;
     }
 
@@ -1494,12 +1281,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fb.hidden = false;
     fb.className = "contact-feedback success";
-    fb.innerHTML = `✓ <strong>Promoción «${title}» creada con éxito (${newPromoId})</strong> en estado <code>${initState}</code>. Ya puedes verla en la tabla del local y en el catálogo público.`;
+    fb.innerHTML = `✓ <strong>Promoción «${title}» publicada con éxito.</strong> Ya se encuentra visible en el catálogo del centro comercial.`;
     e.target.reset();
-    setTimeout(() => switchMerchantTab("tab-promos"), 1200);
+    setTimeout(() => switchMerchantTab("tab-promos"), 1100);
   });
 
-  // Agregar Nuevo Producto al Menú Digital del Local (RF06)
   document.getElementById("form-add-product").addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("prod-name").value.trim();
@@ -1512,15 +1298,13 @@ document.addEventListener("DOMContentLoaded", () => {
       local_id: selectedMerchantStoreId,
       nombre: name,
       descripcion: desc,
-      precio_regular: price,
-      disponible: true
+      precio_regular: price
     });
     saveDatabase();
     renderAllViews();
     e.target.reset();
   });
 
-  // Actualizar Perfil del Local Comercial (RF04)
   document.getElementById("form-update-store").addEventListener("submit", (e) => {
     e.preventDefault();
     const store = getStoreById(selectedMerchantStoreId);
@@ -1535,12 +1319,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const fb = document.getElementById("store-profile-feedback");
     fb.hidden = false;
     fb.className = "contact-feedback success";
-    fb.textContent = `✓ Perfil público del Local ${store.id} (${store.nombre}) actualizado en la base de datos (RF04).`;
+    fb.textContent = `✓ Información de ${store.nombre} actualizada correctamente.`;
   });
 
-  // ===================================================================
-  // EVENTOS DEL VALIDADOR DE CAJA POS (MÓDULO 5: RF16 - RF18)
-  // ===================================================================
   document.getElementById("pos-validate-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const code = document.getElementById("pos-code-input").value;
@@ -1548,8 +1329,7 @@ document.addEventListener("DOMContentLoaded", () => {
     validateCouponTransaction(code, localId);
   });
 
-  // Teclado Táctil en Pantalla para el Cajero (RF16)
-  document.querySelectorAll(".key-btn").forEach((btn) => {
+  document.querySelectorAll(".key-btn-clean").forEach((btn) => {
     btn.addEventListener("click", () => {
       const key = btn.dataset.key;
       const input = document.getElementById("pos-code-input");
@@ -1569,7 +1349,6 @@ document.addEventListener("DOMContentLoaded", () => {
     kp.style.display = kp.style.display === "none" ? "grid" : "none";
   });
 
-  // Activar Cámara Web Real para Escaneo QR (RF16)
   document.getElementById("btn-toggle-camera").addEventListener("click", async () => {
     const camBox = document.getElementById("camera-scanner-box");
     const videoEl = document.getElementById("camera-video");
@@ -1587,43 +1366,33 @@ document.addEventListener("DOMContentLoaded", () => {
         cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
         videoEl.srcObject = cameraStream;
       }
-    } catch (_) {
-      // Si el navegador no tiene webcam conectada, muestra el visor simulado listo para escanear
-    }
+    } catch (_) {}
   });
 
-  document.querySelectorAll(".test-pill").forEach((pill) => {
-    pill.addEventListener("click", () => {
-      const code = pill.dataset.code;
-      const localId = pill.dataset.local;
+  document.querySelectorAll(".scenario-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const code = btn.dataset.code;
+      const localId = btn.dataset.local;
       document.getElementById("pos-code-input").value = code;
       document.getElementById("cashier-local-select").value = localId;
       validateCouponTransaction(code, localId);
     });
   });
 
-  // ===================================================================
-  // EVENTOS DE ANALÍTICA, EXPORTACIÓN CSV E INSPECTOR DE 11 TABLAS BD
-  // ===================================================================
-  document.getElementById("db-table-select").addEventListener("change", () => {
-    renderAnalyticsAndDB();
-  });
-
   document.getElementById("btn-export-audit").addEventListener("click", () => {
-    const headers = ["ID,Timestamp,Codigo_QR,Local_Cajero,IP_Origen,Resultado"];
+    const headers = ["ID,Hora,Codigo_QR,Establecimiento,Resultado"];
     const rows = db.auditoria_logs.map(
-      (l) => `${l.id},"${l.timestamp}","${l.codigo}","${l.local_cajero}","${l.ip_origen}","${l.resultado}"`
+      (l) => `${l.id},"${l.timestamp}","${l.codigo}","${l.local_cajero}","${l.resultado}"`
     );
     const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join("\n");
     const link = document.createElement("a");
     link.setAttribute("href", encodeURI(csvContent));
-    link.setAttribute("download", "auditoria_logs_nuvora_sanpedro.csv");
+    link.setAttribute("download", "historial_canjes_nuvora_sanpedro.csv");
     document.body.appendChild(link);
     link.click();
     link.remove();
   });
 
-  // Descargar QR como imagen PNG desde el Modal
   document.getElementById("modal-download-qr").addEventListener("click", () => {
     const canvas = document.getElementById("modal-qr-canvas");
     if (!canvas) return;
@@ -1633,98 +1402,9 @@ document.addEventListener("DOMContentLoaded", () => {
     link.click();
   });
 
-  // ===================================================================
-  // MODAL DE AUTENTICACIÓN, REGISTRO Y RECUPERACIÓN (RF01 - RF03)
-  // ===================================================================
-  document.getElementById("btn-open-auth")?.addEventListener("click", () => {
-    document.getElementById("auth-feedback").hidden = true;
-    openModal("auth-modal");
-  });
-
-  document.querySelectorAll(".auth-tab").forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const target = tab.dataset.atab;
-      document.querySelectorAll(".auth-tab").forEach((t) => t.classList.toggle("active", t === tab));
-      document.getElementById("form-auth-login").classList.toggle("active", target === "login");
-      document.getElementById("form-auth-register").classList.toggle("active", target === "register");
-      document.getElementById("form-auth-recover").classList.toggle("active", target === "recover");
-      document.getElementById("auth-feedback").hidden = true;
-    });
-  });
-
-  document.getElementById("form-auth-login").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = document.getElementById("login-email").value.trim().toLowerCase();
-    const found = db.usuarios.find((u) => u.correo.toLowerCase() === email);
-    const fb = document.getElementById("auth-feedback");
-    fb.hidden = false;
-
-    if (!found) {
-      fb.className = "contact-feedback error";
-      fb.textContent = "Correo no encontrado. Puedes registrarte en la pestaña «Registro Visitante (RF01)».";
-      return;
-    }
-
-    activeUser = found;
-    activeRoleKey = "visitante";
-    renderAllViews();
-    fb.className = "contact-feedback success";
-    fb.innerHTML = `✓ <strong>Autenticación JWT exitosa (RF02):</strong> Bienvenido(a), <strong>${found.nombre}</strong>.`;
-    setTimeout(() => closeModal("auth-modal"), 900);
-  });
-
-  document.getElementById("form-auth-register").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = document.getElementById("reg-name").value.trim();
-    const email = document.getElementById("reg-email").value.trim().toLowerCase();
-    const pass = document.getElementById("reg-password").value;
-    const habeas = document.getElementById("reg-habeas").checked;
-    const fb = document.getElementById("auth-feedback");
-    fb.hidden = false;
-
-    if (!name || !email || pass.length < 6 || !habeas) {
-      fb.className = "contact-feedback error";
-      fb.textContent = "Completa todos los campos y acepta la autorización de Habeas Data (Ley 1581 de 2012).";
-      return;
-    }
-
-    const newUser = {
-      id: 100 + db.usuarios.length + 1,
-      rol_id: 1,
-      local_id: null,
-      nombre: name,
-      correo: email,
-      password_hash: "$2b$10$" + btoa(pass).slice(0, 16),
-      creado_en: new Date().toISOString().slice(0, 19).replace("T", " ")
-    };
-    db.usuarios.push(newUser);
-    activeUser = newUser;
-    activeRoleKey = "visitante";
-    const qrs = document.getElementById("quick-role-switcher");
-    if (qrs) qrs.value = "visitante";
-    saveDatabase();
-    renderAllViews();
-
-    fb.className = "contact-feedback success";
-    fb.innerHTML = `✓ <strong>Visitante registrado con hash bcrypt (RF01 / RNF02):</strong> Sesión iniciada como <strong>${name}</strong>.`;
-    setTimeout(() => closeModal("auth-modal"), 1000);
-  });
-
-  document.getElementById("form-auth-recover").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = document.getElementById("rec-email").value.trim();
-    const fb = document.getElementById("auth-feedback");
-    const tempCode = "REC-" + Math.floor(100000 + Math.random() * 900000);
-    fb.hidden = false;
-    fb.className = "contact-feedback success";
-    fb.innerHTML = `✓ <strong>Enlace y código temporal generado (RF03):</strong> Se envió el código <code>${tempCode}</code> al correo <code>${email}</code> con vigencia de 15 minutos.`;
-  });
-
-  // Cerrar Modales
   [
     ["modal-close-btn", "qr-modal"],
-    ["smodal-close-btn", "store-modal"],
-    ["auth-close-btn", "auth-modal"]
+    ["smodal-close-btn", "store-modal"]
   ].forEach(([btnId, modalId]) => {
     const b = document.getElementById(btnId);
     const m = document.getElementById(modalId);
@@ -1736,7 +1416,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Tour Multimedia Interactivo en 3 Etapas
   let activeSlide = 1;
   let autoplayInterval = null;
 
@@ -1765,14 +1444,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (autoplayInterval) {
       clearInterval(autoplayInterval);
       autoplayInterval = null;
-      e.target.textContent = "▶ Reanudar Tour";
+      e.target.textContent = "▶ Reanudar";
     } else {
       startAutoplay();
-      e.target.textContent = "⏸ Pausar Tour";
+      e.target.textContent = "⏸ Pausar";
     }
   });
 
-  // Formulario Funcional de Contacto y Vinculación con Persistencia en BD
   document.getElementById("contact-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("contact-name").value.trim();
@@ -1787,7 +1465,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!name || !email || !phone || !role || !message || !habeas) {
       feedbackEl.hidden = false;
       feedbackEl.className = "contact-feedback error";
-      feedbackEl.textContent = "Por favor completa todos los campos obligatorios (*) y autoriza la cláusula de Habeas Data (Ley 1581 de 2012).";
+      feedbackEl.textContent = "Por favor completa todos los campos obligatorios (*) y autoriza el tratamiento de datos personales.";
       return;
     }
 
@@ -1798,16 +1476,14 @@ document.addEventListener("DOMContentLoaded", () => {
       rol: role,
       local: local,
       correo: email,
-      fecha: new Date().toLocaleString("es-CO")
+      fecha: new Date().toLocaleDateString("es-CO")
     });
     saveDatabase();
     renderSavedLeads();
 
     feedbackEl.hidden = false;
     feedbackEl.className = "contact-feedback success";
-    feedbackEl.innerHTML = `✓ <strong>¡Solicitud registrada y almacenada en la base de datos (${ticketId})!</strong> Gracias, <strong>${name}</strong> (${role} - ${local}). Tu registro ya aparece en el listado de solicitudes recibidas a la izquierda.`;
+    feedbackEl.innerHTML = `✓ <strong>¡Solicitud enviada con éxito (${ticketId})!</strong> Gracias, <strong>${name}</strong>. Tu registro ya aparece en la lista de solicitudes.`;
     e.target.reset();
   });
 });
-
-

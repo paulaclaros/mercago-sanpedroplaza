@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuvora v2.0 | Sistema Web Funcional de Promociones, Filtro por Presupuesto y Cupones QR — C.C. San Pedro Plaza</title>
-  <meta name="description" content="Aplicación web funcional multi-rol (Visitante, Locatario, Cajero POS y Superadmin) para el Centro Comercial San Pedro Plaza de Neiva. Proyecto Formativo SENA ADSO Ficha 3413974." />
+  <title>Nuvora | Promociones, Filtro por Presupuesto y Cupones QR — C.C. San Pedro Plaza (Neiva)</title>
+  <meta name="description" content="Plataforma digital de promociones, directorio gastronómico, filtro inteligente por presupuesto y cupones QR dinámicos para el Centro Comercial San Pedro Plaza de Neiva." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -43,11 +43,11 @@
           <a href="#presupuesto" class="nav-link active">Catálogo &amp; Filtro</a>
           <a href="#billetera" class="nav-link">
             Mis Cupones
-            <span class="nav-counter" id="coupon-badge-count">1</span>
+            <span class="nav-counter" id="coupon-badge-count">2</span>
           </a>
           <a href="#panel-locatario" class="nav-link">Locatarios</a>
           <a href="#validador" class="nav-link">Caja POS</a>
-          <a href="#analitica" class="nav-link">Analítica</a>
+          <a href="#analitica" class="nav-link">Estadísticas</a>
           <a href="#ubicacion" class="nav-link">Ubicación</a>
         </div>
         <a href="#contacto" class="nav-link nav-cta">Contacto</a>
@@ -56,45 +56,45 @@
   </header>
 
   <main>
-    <!-- HERO SECTION CON ESTADO EN VIVO DEL SISTEMA -->
+    <!-- HERO SECTION -->
     <section class="hero" id="inicio">
       <div class="container hero-grid">
         <div class="hero-content">
           <div class="hero-pill">
             <span class="pulse-dot"></span>
-            <span id="hero-live-banner">Ecosistema Activo • 6 Locales Vinculados en San Pedro Plaza</span>
+            <span>Ofertas Relámpago Activas • 6 Locales Vinculados en San Pedro Plaza</span>
           </div>
           <h1 class="hero-title">
             Descubre qué comer en <span class="text-gradient">San Pedro Plaza</span> según tu presupuesto y redime con <span class="text-highlight">QR Dinámico</span>
           </h1>
           <p class="hero-description">
-            Aplicación web multi-rol desarrollada bajo el estándar IEEE 830. Filtra menús reales en pesos colombianos (<code>$COP</code>), genera cupones criptográficos con vigencia de 2 horas, administra ofertas relámpago como locatario y valida en caja en menos de <strong>1.5 segundos</strong>.
+            Sin volantes de papel ni filas lentas. Filtra combos y menús reales según el dinero que llevas hoy, genera tu cupón QR gratuito con vigencia de 2 horas y preséntalo directamente en la caja del local en menos de <strong>1.5 segundos</strong>.
           </p>
 
           <div class="hero-actions">
             <a href="#presupuesto" class="btn btn-primary btn-lg">
-              🔍 Filtrar por mi Presupuesto (RF07)
+              Explorar Menús por Presupuesto
             </a>
             <a href="#panel-locatario" class="btn btn-outline btn-lg">
-              🏪 Crear Promo como Locatario (RF09)
+              Panel de Comercios
             </a>
             <a href="#validador" class="btn btn-outline btn-lg">
-              📠 Abrir Terminal Cajero POS (RF16)
+              Validador de Caja
             </a>
           </div>
 
-          <div class="hero-stats" aria-label="Indicadores del Estudio de Campo en San Pedro Plaza">
+          <div class="hero-stats" aria-label="Indicadores de Impacto en San Pedro Plaza">
             <div class="stat-card">
               <span class="stat-number">82.9%</span>
-              <span class="stat-label">Desconocía promociones al ingresar al centro comercial</span>
+              <span class="stat-label">Desconocía las ofertas del día al llegar al centro comercial</span>
             </div>
             <div class="stat-card">
               <span class="stat-number">77.1%</span>
-              <span class="stat-label">Condiciona su almuerzo a un presupuesto fijo ($COP)</span>
+              <span class="stat-label">Elige su almuerzo ajustado a un presupuesto fijo</span>
             </div>
             <div class="stat-card">
               <span class="stat-number">&lt; 1.5 s</span>
-              <span class="stat-label">Validación transaccional ACID en punto de venta</span>
+              <span class="stat-label">Validación instantánea del cupón QR en punto de venta</span>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
         <div class="hero-showcase">
           <div class="phone-mockup">
             <div class="phone-header">
-              <span class="phone-status" id="hero-qr-status">● Cupón Criptográfico Activo (RN-02)</span>
+              <span class="phone-status" id="hero-qr-status">● Cupón Digital Activo</span>
               <span class="phone-timer" id="hero-qr-timer">01:48:25</span>
             </div>
             <div class="phone-body">
@@ -117,13 +117,13 @@
               </div>
 
               <div class="qr-box">
-                <canvas id="hero-qr-canvas" width="160" height="160" aria-label="Código QR dinámico"></canvas>
-                <div class="qr-code-label">TOKEN: <strong id="hero-qr-code-text">SPP-7F2A9B</strong></div>
+                <canvas id="hero-qr-canvas" width="156" height="156" aria-label="Código QR dinámico"></canvas>
+                <div class="qr-code-label">CÓDIGO: <strong id="hero-qr-code-text">SPP-7F2A9B</strong></div>
               </div>
 
               <div class="phone-footer-actions">
                 <button type="button" class="btn btn-primary btn-block" id="btn-test-hero-qr">
-                  Redimir este QR en Terminal de Caja →
+                  Validar este Cupón en Caja →
                 </button>
               </div>
             </div>
@@ -133,15 +133,15 @@
     </section>
 
     <!-- =====================================================================
-         MÓDULO 2: DIRECTORIO INTERACTIVO Y FILTRO POR PRESUPUESTO (RF05 - RF08)
+         SECCIÓN 1: DIRECTORIO INTERACTIVO Y FILTRO POR PRESUPUESTO
          ===================================================================== -->
     <section class="section section-alt" id="presupuesto">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">MÓDULO 2 • DIRECTORIO INTERACTIVO Y FILTRO ALGORÍTMICO (RF05 - RF08)</span>
+          <span class="section-tag">BUSCADOR INTELIGENTE Y DIRECTORIO GASTRONÓMICO</span>
           <h2 class="section-title">¿Qué Comer y Comprar Hoy con mi Presupuesto?</h2>
           <p class="section-subtitle">
-            Ingresa tu presupuesto exacto en pesos colombianos (<code>$COP</code>) o mueve el deslizador. El sistema filtra las promociones activas, calcula cuánto dinero te sobra y las ordena de menor a mayor precio.
+            Desliza o escribe cuánto dinero tienes disponible hoy. Te mostramos al instante los combos y platos del <strong>C.C. San Pedro Plaza</strong> ordenados del más económico al mayor.
           </p>
         </div>
 
@@ -149,7 +149,7 @@
           <div class="budget-top-grid">
             <div class="budget-slider-col">
               <label for="budget-slider" class="budget-label">
-                <span>1. Desliza o escribe tu presupuesto máximo disponible:</span>
+                <span>Desliza tu presupuesto disponible:</span>
                 <strong class="budget-amount-display" id="budget-display">$20.000 COP</strong>
               </label>
               <input
@@ -164,7 +164,7 @@
             </div>
 
             <div class="budget-exact-col">
-              <label for="budget-number-input">Monto exacto en $COP (RF07):</label>
+              <label for="budget-number-input">O escribe el valor exacto ($COP):</label>
               <div class="exact-input-wrap">
                 <span>$</span>
                 <input type="number" id="budget-number-input" min="5000" max="200000" step="500" value="20000" />
@@ -187,7 +187,7 @@
               <input
                 type="search"
                 id="search-input"
-                placeholder="Búsqueda por texto libre (RF08): ej. hamburguesa, cholupa, pizza, café, churrasco, wok..."
+                placeholder="Buscar por plato, antojo o local (ej. hamburguesa, cholupa, pizza, café, churrasco, wok)..."
                 aria-label="Buscar promociones por palabra clave"
               />
             </div>
@@ -197,24 +197,24 @@
               <button type="button" class="cat-tab" data-cat="comidas-rapidas">🍔 Comidas Rápidas</button>
               <button type="button" class="cat-tab" data-cat="parrilla">🥩 Asados &amp; Parrilla</button>
               <button type="button" class="cat-tab" data-cat="regional">🍧 Delicias del Huila &amp; Café</button>
-              <button type="button" class="cat-tab" data-cat="relampago">⚡ Solo Ofertas Relámpago (RF10)</button>
+              <button type="button" class="cat-tab" data-cat="relampago">⚡ Solo Ofertas Relámpago</button>
             </div>
           </div>
 
           <div class="budget-summary-bar">
             <span id="results-counter">Mostrando promociones dentro de tu presupuesto</span>
-            <span class="server-rule-tag">✓ Ordenado de menor a mayor precio (RF07) • Acceso público libre (RN-06)</span>
+            <span class="server-rule-tag">✓ Ordenado de menor a mayor precio • Consulta libre sin registro previo</span>
           </div>
         </div>
 
         <!-- GRILLA DE PROMOCIONES Y LOCALES -->
         <div id="directorio" class="promotions-grid" aria-live="polite"></div>
 
-        <!-- DIRECTORIO RESUMEN DE LOCALES PARA ABRIR FICHA Y MENÚ DIGITAL (RF05 - RF06) -->
+        <!-- DIRECTORIO RESUMEN DE LOCALES PARA ABRIR FICHA Y MENÚ DIGITAL -->
         <div class="stores-strip-box">
           <div class="stores-strip-header">
-            <h3>🏪 Directorio Oficial de Locales Comerciales — C.C. San Pedro Plaza (RF05 &amp; RF06)</h3>
-            <p>Haz clic en cualquier establecimiento para abrir su <strong>Ficha Técnica Detallada y Carta / Menú Digital completo</strong>:</p>
+            <h3>🏪 Directorio de Establecimientos — C.C. San Pedro Plaza</h3>
+            <p>Selecciona cualquier local para consultar su ubicación, horario y su <strong>Carta / Menú Digital completo</strong>:</p>
           </div>
           <div class="stores-strip-grid" id="stores-directory-strip"></div>
         </div>
@@ -222,15 +222,15 @@
     </section>
 
     <!-- =====================================================================
-         MÓDULO 4: BILLETERA DE CUPONES QR DEL VISITANTE (RF13 - RF15 / UML 10.2)
+         SECCIÓN 2: BILLETERA DE CUPONES QR DEL VISITANTE
          ===================================================================== -->
     <section class="section" id="billetera">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">MÓDULO 4 • BILLETERA PERSONAL Y MÁQUINA DE ESTADOS DEL CUPÓN (RF13 - RF15)</span>
-          <h2 class="section-title">Billetera Digital «Mis Cupones QR»</h2>
+          <span class="section-tag">BILLETERA DIGITAL DEL VISITANTE</span>
+          <h2 class="section-title">Mis Cupones QR de Descuento</h2>
           <p class="section-subtitle">
-            Gestiona tus cupones organizados según el ciclo de vida UML (<code>EMITIDO</code>, <code>REDIMIDO</code>, <code>EXPIRADO</code>, <code>ANULADO</code>). Cada cupón activo incluye contador regresivo real de 2 horas (<code>RN-02</code>).
+            Tus cupones generados quedan guardados automáticamente con una vigencia de <strong>2 horas</strong> para presentarlos en la caja del local comercial.
           </p>
         </div>
 
@@ -239,15 +239,14 @@
             <div class="wallet-user-info">
               <div class="avatar-circle" id="wallet-user-avatar">CR</div>
               <div>
-                <strong id="wallet-user-name">Visitante Activo: Camilo Andrés Rojas</strong>
-                <span class="wallet-user-sub" id="wallet-user-email">camilo.rojas@usco.edu.co • Regla RN-01: Máx. 1 cupón activo por promoción cada 24h</span>
+                <strong id="wallet-user-name">Camilo Andrés Rojas</strong>
+                <span class="wallet-user-sub" id="wallet-user-email">camilo.rojas@usco.edu.co • Visitante Verificado San Pedro Plaza</span>
               </div>
             </div>
             <div class="wallet-tabs" role="tablist">
-              <button type="button" class="wallet-tab active" data-wtab="EMITIDO">🟢 Activos (<span id="count-emitidos">0</span>)</button>
-              <button type="button" class="wallet-tab" data-wtab="REDIMIDO">🔵 Redimidos (<span id="count-redimidos">0</span>)</button>
-              <button type="button" class="wallet-tab" data-wtab="EXPIRADO">🔴 Vencidos (<span id="count-expirados">0</span>)</button>
-              <button type="button" class="wallet-tab" data-wtab="ANULADO">⚪ Anulados (<span id="count-anulados">0</span>)</button>
+              <button type="button" class="wallet-tab active" data-wtab="EMITIDO">Disponibles (<span id="count-emitidos">2</span>)</button>
+              <button type="button" class="wallet-tab" data-wtab="REDIMIDO">Canjeados (<span id="count-redimidos">1</span>)</button>
+              <button type="button" class="wallet-tab" data-wtab="EXPIRADO">Vencidos (<span id="count-expirados">1</span>)</button>
             </div>
           </div>
 
@@ -257,56 +256,55 @@
     </section>
 
     <!-- =====================================================================
-         MÓDULO 3: PANEL ADMINISTRATIVO DEL LOCATARIO (RF04, RF09 - RF12 / UML 10.1)
+         SECCIÓN 3: PANEL ADMINISTRATIVO DEL LOCATARIO
          ===================================================================== -->
     <section class="section section-alt" id="panel-locatario">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">MÓDULO 3 • MOTOR DE PROMOCIONES, HORARIOS Y PERFIL COMERCIAL (RF04, RF09 - RF12)</span>
+          <span class="section-tag">GESTIÓN COMERCIAL PARA ESTABLECIMIENTOS</span>
           <h2 class="section-title">Panel Administrativo del Locatario</h2>
           <p class="section-subtitle">
-            Crea nuevas promociones u <strong>Ofertas Relámpago</strong> por franja horaria, agrega productos al menú digital de tu local, edita tu perfil comercial y controla los estados UML (<code>BORRADOR</code>, <code>ACTIVA</code>, <code>PAUSADA</code>, <code>AGOTADA</code>, <code>VENCIDA</code>).
+            Publica nuevas promociones u <strong>Ofertas Relámpago</strong> para dinamizar las horas de bajo tráfico (2:30 p.m. a 5:30 p.m.), administra tu menú digital y controla el cupo de descuentos.
           </p>
         </div>
 
         <div class="merchant-workspace">
-          <!-- Barra selectora del local que se está administrando -->
           <div class="merchant-topbar">
             <div class="merchant-select-wrap">
-              <label for="merchant-store-select">🏪 Administrando Establecimiento:</label>
+              <label for="merchant-store-select">🏪 Establecimiento Activo:</label>
               <select id="merchant-store-select" class="merchant-select"></select>
             </div>
             <div class="merchant-subtabs" role="tablist">
-              <button type="button" class="m-subtab active" data-mtab="tab-promos">⚡ Mis Promociones y Estados (RF09-RF12)</button>
-              <button type="button" class="m-subtab" data-mtab="tab-new-promo">➕ Crear Nueva Promoción</button>
-              <button type="button" class="m-subtab" data-mtab="tab-products">🍔 Menú Digital / Productos (RF06)</button>
-              <button type="button" class="m-subtab" data-mtab="tab-profile">⚙️ Perfil del Local (RF04)</button>
+              <button type="button" class="m-subtab active" data-mtab="tab-promos">Mis Promociones</button>
+              <button type="button" class="m-subtab" data-mtab="tab-new-promo">+ Crear Promoción</button>
+              <button type="button" class="m-subtab" data-mtab="tab-products">Carta Digital</button>
+              <button type="button" class="m-subtab" data-mtab="tab-profile">Datos del Local</button>
             </div>
           </div>
 
-          <!-- SUB-TAB 1: TABLA DE GESTIÓN DE PROMOCIONES Y MÁQUINA DE ESTADOS UML 10.1 -->
+          <!-- SUB-TAB 1: TABLA DE GESTIÓN DE PROMOCIONES -->
           <div class="merchant-pane active" id="tab-promos">
             <div class="pane-header-flex">
               <div>
-                <h3>Control de Promociones y Ciclo de Vida UML (RF11 &amp; RF12)</h3>
+                <h3>Promociones y Ofertas del Establecimiento</h3>
                 <p class="pane-note">
-                  💡 <strong>Regla RN-03:</strong> Si pausas una promoción activa, los cupones QR que ya fueron emitidos antes de la pausa conservan su validez por sus 2 horas de gracia.
+                  Si pausas una promoción temporalmente, los cupones que los clientes ya habían descargado conservan su validez durante sus 2 horas de vigencia.
                 </p>
               </div>
               <button type="button" class="btn btn-primary btn-sm" id="btn-goto-create-promo">
-                + Nueva Oferta / Promoción
+                + Crear Nueva Oferta
               </button>
             </div>
             <div class="table-responsive">
               <table class="data-table">
                 <thead>
                   <tr>
-                    <th>Título de la Promoción</th>
-                    <th>Precio Regular / Oferta</th>
-                    <th>Franja Horaria (RF10)</th>
-                    <th>Cupos / Stock (RF12)</th>
-                    <th>Estado UML (RF11)</th>
-                    <th>Acciones de Estado</th>
+                    <th>Promoción / Combo</th>
+                    <th>Precio Oferta</th>
+                    <th>Horario Vigente</th>
+                    <th>Disponibilidad</th>
+                    <th>Estado</th>
+                    <th>Acciones Rápidas</th>
                   </tr>
                 </thead>
                 <tbody id="merchant-promos-tbody"></tbody>
@@ -314,24 +312,24 @@
             </div>
           </div>
 
-          <!-- SUB-TAB 2: FORMULARIO CREAR NUEVA PROMOCIÓN (RF09, RF10, RF12) -->
+          <!-- SUB-TAB 2: FORMULARIO CREAR NUEVA PROMOCIÓN -->
           <div class="merchant-pane" id="tab-new-promo">
-            <h3>Publicar Nueva Promoción u Oferta Relámpago (RF09 - RF12)</h3>
+            <h3>Publicar Nueva Promoción u Oferta Relámpago</h3>
             <form id="form-create-promo" class="merchant-form">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="promo-product-select">Producto o Combo del Menú Asociado *</label>
+                  <label for="promo-product-select">Producto o Combo de la Carta *</label>
                   <select id="promo-product-select" required></select>
                 </div>
                 <div class="form-group">
-                  <label for="promo-title-input">Título Comercial de la Promoción *</label>
-                  <input type="text" id="promo-title-input" placeholder="Ej. Combo 2x1 Tarde Feliz Hamburguesa Artesanal" required />
+                  <label for="promo-title-input">Título Comercial de la Oferta *</label>
+                  <input type="text" id="promo-title-input" placeholder="Ej. Combo Tarde Feliz Hamburguesa Artesanal + Bebida" required />
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="promo-desc-input">Descripción Detallada de la Oferta *</label>
-                <textarea id="promo-desc-input" rows="2" placeholder="Incluye condiciones, acompañamientos y bebidas..." required></textarea>
+                <label for="promo-desc-input">Descripción de lo que incluye *</label>
+                <textarea id="promo-desc-input" rows="2" placeholder="Describe los ingredientes, acompañamientos y bebidas..." required></textarea>
               </div>
 
               <div class="form-row-3">
@@ -344,7 +342,7 @@
                   <input type="number" id="promo-offer-price" min="1000" step="500" value="16500" required />
                 </div>
                 <div class="form-group">
-                  <label for="promo-stock-max">Stock Máximo de Cupones (RF12) *</label>
+                  <label for="promo-stock-max">Cantidad de Cupones Disponibles *</label>
                   <input type="number" id="promo-stock-max" min="1" max="500" value="25" required />
                 </div>
               </div>
@@ -353,20 +351,20 @@
                 <div class="form-check">
                   <input type="checkbox" id="promo-is-flash" checked />
                   <label for="promo-is-flash">
-                    <strong>⚡ Parametrizar como Oferta Relámpago por Franja Horaria (RF10 / RN-05)</strong> — Ideal para horas valle (2:30 p.m. a 5:30 p.m.)
+                    <strong>⚡ Activar como Oferta Relámpago por Franja Horaria</strong> — Ideal para impulsar ventas entre 2:30 p.m. y 5:30 p.m.
                   </label>
                 </div>
                 <div class="form-row-3" id="flash-schedule-fields">
                   <div class="form-group">
-                    <label for="promo-days">Días de la Semana</label>
+                    <label for="promo-days">Días Aplicables</label>
                     <input type="text" id="promo-days" value="Mar, Mié y Jue" />
                   </div>
                   <div class="form-group">
-                    <label for="promo-hour-start">Hora Inicio (24h)</label>
+                    <label for="promo-hour-start">Hora de Inicio</label>
                     <input type="time" id="promo-hour-start" value="14:30" />
                   </div>
                   <div class="form-group">
-                    <label for="promo-hour-end">Hora Fin (24h)</label>
+                    <label for="promo-hour-end">Hora de Cierre</label>
                     <input type="time" id="promo-hour-end" value="17:30" />
                   </div>
                 </div>
@@ -374,15 +372,15 @@
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="promo-initial-state">Estado Inicial (RF11)</label>
+                  <label for="promo-initial-state">Visibilidad Inicial</label>
                   <select id="promo-initial-state">
-                    <option value="ACTIVA" selected>🟢 ACTIVA (Publicar inmediatamente en el catálogo)</option>
-                    <option value="BORRADOR">⚪ BORRADOR (Guardar sin publicar aún)</option>
+                    <option value="ACTIVA" selected>Publicar inmediatamente en el catálogo</option>
+                    <option value="BORRADOR">Guardar como borrador</option>
                   </select>
                 </div>
                 <div class="form-group" style="display:flex; align-items:flex-end;">
                   <button type="submit" class="btn btn-primary btn-block">
-                    💾 Guardar y Publicar Promoción en San Pedro Plaza
+                    Publicar Promoción en San Pedro Plaza
                   </button>
                 </div>
               </div>
@@ -390,37 +388,37 @@
             </form>
           </div>
 
-          <!-- SUB-TAB 3: GESTIÓN DEL MENÚ DIGITAL / PRODUCTOS DEL LOCAL (RF06) -->
+          <!-- SUB-TAB 3: GESTIÓN DEL MENÚ DIGITAL / PRODUCTOS DEL LOCAL -->
           <div class="merchant-pane" id="tab-products">
             <div class="pane-grid-2">
               <div>
-                <h3>Carta Digital Actual del Local (RF06)</h3>
+                <h3>Platos y Productos de la Carta Digital</h3>
                 <div id="merchant-products-list" class="merchant-products-list"></div>
               </div>
               <div class="subform-card">
-                <h4>➕ Agregar Plato o Artículo al Menú Digital</h4>
+                <h4>Agregar Nuevo Plato a la Carta</h4>
                 <form id="form-add-product">
                   <div class="form-group">
-                    <label for="prod-name">Nombre del Producto / Combo *</label>
+                    <label for="prod-name">Nombre del Plato o Combo *</label>
                     <input type="text" id="prod-name" placeholder="Ej. Hamburguesa Doble Tocineta & Queso" required />
                   </div>
                   <div class="form-group">
-                    <label for="prod-desc">Descripción en la Carta *</label>
+                    <label for="prod-desc">Descripción *</label>
                     <input type="text" id="prod-desc" placeholder="Ej. 250g res a la parrilla con papas rústicas" required />
                   </div>
                   <div class="form-group">
-                    <label for="prod-price">Precio Regular de Carta ($COP) *</label>
+                    <label for="prod-price">Precio en Carta ($COP) *</label>
                     <input type="number" id="prod-price" min="1000" step="500" value="22000" required />
                   </div>
-                  <button type="submit" class="btn btn-primary btn-block">Agregar Producto al Menú</button>
+                  <button type="submit" class="btn btn-primary btn-block">Guardar en la Carta</button>
                 </form>
               </div>
             </div>
           </div>
 
-          <!-- SUB-TAB 4: GESTIÓN DE PERFIL DEL LOCAL COMERCIAL (RF04) -->
+          <!-- SUB-TAB 4: GESTIÓN DE PERFIL DEL LOCAL COMERCIAL -->
           <div class="merchant-pane" id="tab-profile">
-            <h3>Actualizar Perfil Público del Establecimiento (RF04)</h3>
+            <h3>Actualizar Información del Establecimiento</h3>
             <form id="form-update-store" class="merchant-form">
               <div class="form-row">
                 <div class="form-group">
@@ -428,13 +426,13 @@
                   <input type="text" id="store-edit-name" required />
                 </div>
                 <div class="form-group">
-                  <label for="store-edit-number">Número / Ubicación de Local *</label>
+                  <label for="store-edit-number">Ubicación en el Centro Comercial *</label>
                   <input type="text" id="store-edit-number" required />
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label for="store-edit-phone">Teléfono / WhatsApp de Contacto *</label>
+                  <label for="store-edit-phone">Teléfono / WhatsApp *</label>
                   <input type="text" id="store-edit-phone" required />
                 </div>
                 <div class="form-group">
@@ -443,10 +441,10 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="store-edit-desc">Descripción Comercial del Establecimiento *</label>
+                <label for="store-edit-desc">Descripción del Local *</label>
                 <textarea id="store-edit-desc" rows="2" required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary">Actualizar Datos del Local (RF04)</button>
+              <button type="submit" class="btn btn-primary">Guardar Cambios del Local</button>
               <div id="store-profile-feedback" class="contact-feedback" hidden></div>
             </form>
           </div>
@@ -455,131 +453,162 @@
     </section>
 
     <!-- =====================================================================
-         MÓDULO 5: VALIDACIÓN Y REDENCIÓN EN PUNTO DE VENTA — CAJERO POS (RF16 - RF18)
+         SECCIÓN 4: VALIDADOR DE CAJA POS (DISEÑO CLARO, LIMPIO Y COMERCIAL)
          ===================================================================== -->
-    <section class="section section-dark" id="validador">
+    <section class="section" id="validador">
       <div class="container">
-        <div class="section-header section-header-light">
-          <span class="section-tag tag-dark">MÓDULO 5 • TERMINAL OPERATIVA DE CAJA Y BLOQUEO ATÓMICO ACID (RF16 - RF18 / RNF01)</span>
-          <h2 class="section-title">Terminal del Cajero POS — Validación QR en &lt; 1.5 Segundos</h2>
+        <div class="section-header">
+          <span class="section-tag">PUNTO DE VENTA • VALIDACIÓN RÁPIDA EN MOSTRADOR</span>
+          <h2 class="section-title">Validador de Cupones QR en Caja</h2>
           <p class="section-subtitle">
-            Escanea con cámara, usa el teclado táctil de respaldo o selecciona un cupón para ejecutar la transacción atómica <code>SELECT * FROM cupones WHERE codigo = $1 FOR UPDATE</code>.
+            Interfaz ágil para que el cajero verifique y canjee el cupón del visitante en menos de <strong>1.5 segundos</strong>, evitando filas y confirmando al instante el valor con descuento.
           </p>
         </div>
 
         <div class="pos-grid">
-          <!-- COLUMNA IZQUIERDA: TERMINAL DE ESCANEO Y TECLADO TÁCTIL -->
-          <div class="pos-card">
-            <div class="pos-card-header">
+          <!-- COLUMNA IZQUIERDA: LECTURA DE CÓDIGO Y CASOS DE PRUEBA -->
+          <div class="pos-card-clean">
+            <div class="pos-card-top">
               <div>
-                <span class="pos-badge">PUNTO DE VENTA • VALIDACIÓN RN-04 &amp; RN-07</span>
-                <h3>Validador Operativo de Mostrador</h3>
+                <span class="pos-clean-badge">TERMINAL DE MOSTRADOR</span>
+                <h3>Verificar Cupón del Cliente</h3>
               </div>
-              <div class="pos-cashier-select">
-                <label for="cashier-local-select">Cajero Autenticado en Local:</label>
+              <div class="pos-store-picker">
+                <label for="cashier-local-select">Caja activa del local:</label>
                 <select id="cashier-local-select"></select>
               </div>
             </div>
 
-            <!-- Visor de Cámara Web / Escáner QR Real (RF16) -->
+            <!-- Visor de Cámara Web (Opcional) -->
             <div class="camera-scanner-box" id="camera-scanner-box" hidden>
               <video id="camera-video" autoplay playsinline muted></video>
               <div class="camera-overlay">
                 <div class="scan-frame"></div>
-                <span>Apunta al código QR del cliente o selecciona un cupón activo abajo</span>
+                <span>Enfoca el código QR del visitante</span>
               </div>
             </div>
 
-            <div class="pos-camera-actions">
-              <button type="button" class="btn btn-outline btn-sm btn-dark-outline" id="btn-toggle-camera">
-                📷 Activar Cámara / Lector QR (RF16)
-              </button>
-              <button type="button" class="btn btn-outline btn-sm btn-dark-outline" id="btn-toggle-keypad">
-                🔢 Mostrar / Ocultar Teclado Táctil POS
-              </button>
-            </div>
-
-            <form id="pos-validate-form" class="pos-form">
-              <label for="pos-code-input">Código Alfanumérico del Cupón QR:</label>
-              <div class="pos-input-row">
+            <form id="pos-validate-form" class="pos-clean-form">
+              <label for="pos-code-input">Ingresa o escanea el código del cupón:</label>
+              <div class="pos-clean-input-row">
                 <input
                   type="text"
                   id="pos-code-input"
                   value="SPP-7F2A9B"
-                  placeholder="SPP-XXXXXX"
+                  placeholder="Ej. SPP-7F2A9B"
                   maxlength="14"
                   required
                 />
                 <button type="submit" class="btn btn-primary">
-                  ⚡ Validar y Redimir
+                  Validar Cupón
                 </button>
               </div>
             </form>
 
-            <!-- Teclado Táctil de Respaldo para Monitores de Caja (RF16) -->
-            <div class="pos-keypad" id="pos-keypad">
-              <button type="button" class="key-btn" data-key="SPP-">SPP-</button>
-              <button type="button" class="key-btn" data-key="1">1</button>
-              <button type="button" class="key-btn" data-key="2">2</button>
-              <button type="button" class="key-btn" data-key="3">3</button>
-              <button type="button" class="key-btn" data-key="A">A</button>
-              <button type="button" class="key-btn" data-key="B">B</button>
-              <button type="button" class="key-btn" data-key="4">4</button>
-              <button type="button" class="key-btn" data-key="5">5</button>
-              <button type="button" class="key-btn" data-key="6">6</button>
-              <button type="button" class="key-btn" data-key="C">C</button>
-              <button type="button" class="key-btn" data-key="D">D</button>
-              <button type="button" class="key-btn" data-key="7">7</button>
-              <button type="button" class="key-btn" data-key="8">8</button>
-              <button type="button" class="key-btn" data-key="9">9</button>
-              <button type="button" class="key-btn" data-key="E">E</button>
-              <button type="button" class="key-btn" data-key="F">F</button>
-              <button type="button" class="key-btn" data-key="0">0</button>
-              <button type="button" class="key-btn key-clear" data-key="CLEAR">BORRAR</button>
+            <div class="pos-tools-bar">
+              <button type="button" class="btn btn-outline btn-sm" id="btn-toggle-camera">
+                📷 Usar Cámara QR
+              </button>
+              <button type="button" class="btn btn-outline btn-sm" id="btn-toggle-keypad">
+                🔢 Teclado en Pantalla
+              </button>
             </div>
 
-            <div class="pos-quick-tests">
-              <span>Escenarios de prueba rápida para sustentación:</span>
-              <div class="test-pills-wrap">
-                <button type="button" class="test-pill" data-code="SPP-7F2A9B" data-local="P-14">
-                  ✅ 1. Cupón Válido (SPP-7F2A9B en P-14)
+            <!-- Teclado Táctil Opcional (Oculto por defecto para mantener la vista limpia) -->
+            <div class="pos-keypad-clean" id="pos-keypad" style="display: none;">
+              <button type="button" class="key-btn-clean" data-key="SPP-">SPP-</button>
+              <button type="button" class="key-btn-clean" data-key="1">1</button>
+              <button type="button" class="key-btn-clean" data-key="2">2</button>
+              <button type="button" class="key-btn-clean" data-key="3">3</button>
+              <button type="button" class="key-btn-clean" data-key="A">A</button>
+              <button type="button" class="key-btn-clean" data-key="B">B</button>
+              <button type="button" class="key-btn-clean" data-key="4">4</button>
+              <button type="button" class="key-btn-clean" data-key="5">5</button>
+              <button type="button" class="key-btn-clean" data-key="6">6</button>
+              <button type="button" class="key-btn-clean" data-key="C">C</button>
+              <button type="button" class="key-btn-clean" data-key="D">D</button>
+              <button type="button" class="key-btn-clean" data-key="7">7</button>
+              <button type="button" class="key-btn-clean" data-key="8">8</button>
+              <button type="button" class="key-btn-clean" data-key="9">9</button>
+              <button type="button" class="key-btn-clean" data-key="E">E</button>
+              <button type="button" class="key-btn-clean" data-key="F">F</button>
+              <button type="button" class="key-btn-clean" data-key="0">0</button>
+              <button type="button" class="key-btn-clean key-clear-clean" data-key="CLEAR">Borrar</button>
+            </div>
+
+            <div class="pos-scenarios-box">
+              <span class="pos-scenarios-title">Simular escenarios rápidos en caja:</span>
+              <div class="pos-scenarios-grid">
+                <button type="button" class="scenario-btn sc-valid" data-code="SPP-7F2A9B" data-local="P-14">
+                  <span class="sc-dot dot-green"></span>
+                  <div>
+                    <strong>Cupón Válido</strong>
+                    <small>SPP-7F2A9B • Local P-14</small>
+                  </div>
                 </button>
-                <button type="button" class="test-pill" data-code="SPP-4C8D1E" data-local="P-06">
-                  ⚠️ 2. Ya Utilizado / Doble Uso (RN-04)
+                <button type="button" class="scenario-btn sc-used" data-code="SPP-4C8D1E" data-local="P-06">
+                  <span class="sc-dot dot-red"></span>
+                  <div>
+                    <strong>Ya Utilizado</strong>
+                    <small>Prevención doble uso</small>
+                  </div>
                 </button>
-                <button type="button" class="test-pill" data-code="SPP-9A1B0C" data-local="I-08">
-                  ⏰ 3. Cupón Expirado &gt; 2h (RN-02)
+                <button type="button" class="scenario-btn sc-expired" data-code="SPP-9A1B0C" data-local="I-08">
+                  <span class="sc-dot dot-amber"></span>
+                  <div>
+                    <strong>Cupón Vencido</strong>
+                    <small>Superó las 2 horas</small>
+                  </div>
                 </button>
-                <button type="button" class="test-pill" data-code="SPP-7F2A9B" data-local="P-06">
-                  🚫 4. Local Incorrecto (RN-07)
-                </button>
-                <button type="button" class="test-pill" data-code="SPP-000999" data-local="P-14">
-                  ⛔ 5. Código Falso / No Existe (RNF03)
+                <button type="button" class="scenario-btn sc-wrong" data-code="SPP-7F2A9B" data-local="P-06">
+                  <span class="sc-dot dot-gray"></span>
+                  <div>
+                    <strong>Otro Local</strong>
+                    <small>Emitido para otro comercio</small>
+                  </div>
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA: PANTALLA GIGANTE DE RESPUESTA VISUAL (VERDE/ROJA) Y TRAZA SQL -->
-          <div class="pos-result-column">
-            <div id="pos-screen-result" class="pos-screen pos-screen-neutral" role="status" aria-live="polite">
-              <div class="pos-screen-icon">📠</div>
-              <div class="pos-screen-content">
-                <h4>TERMINAL LISTA PARA VALIDAR CUPÓN QR</h4>
-                <p>Escanea o selecciona cualquiera de los botones de prueba a la izquierda para verificar la respuesta visual en verde (<code>VÁLIDO</code>) o en rojo (<code>YA UTILIZADO / EXPIRADO / OTRO LOCAL</code>).</p>
+          <!-- COLUMNA DERECHA: COMPROBANTE VISUAL DE VALIDACIÓN EN CAJA -->
+          <div class="pos-receipt-column">
+            <div id="pos-screen-result" class="pos-screen-clean pos-clean-neutral" role="status" aria-live="polite">
+              <div class="pos-clean-icon">🧾</div>
+              <div class="pos-clean-content">
+                <h4>Listo para Verificar Descuento</h4>
+                <p>Haz clic en <strong>«Validar Cupón»</strong> o selecciona cualquiera de los cuatro escenarios de prueba para ver la respuesta instantánea en pantalla.</p>
               </div>
             </div>
 
-            <!-- Traza en Vivo de la Transacción SQL (Secuencia UML 10.3 del SRS) -->
-            <div class="sql-trace-card">
-              <div class="sql-trace-header">
-                <span>🔍 Traza Transaccional PostgreSQL (Diagrama de Secuencia UML 10.3)</span>
-                <span class="audit-latency" id="last-tx-latency">Latencia: 34 ms (&lt; 1.5s)</span>
+            <!-- Tarjeta Resumen del Ticket Comercial (En lugar del código SQL) -->
+            <div class="receipt-summary-card">
+              <div class="receipt-header">
+                <span>📋 Resumen de Liquidación en Punto de Venta</span>
+                <span class="receipt-speed" id="last-tx-latency">Respuesta: 32 ms</span>
               </div>
-              <pre class="sql-trace-code" id="sql-trace-output">-- Esperando petición POST /api/cupones/redimir ...
-BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
-SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
--- Bloqueo a nivel de fila activo para prevenir Race Conditions (RNF04)</pre>
+              <div class="receipt-rows" id="pos-receipt-details">
+                <div class="receipt-row">
+                  <span>Establecimiento:</span>
+                  <strong>El Corralito Parrilla &amp; Burger (Local P-14)</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Producto / Combo:</span>
+                  <strong>Combo Corralito Parrilla 180g + Gaseosa Gratis</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Precio normal en carta:</span>
+                  <span>$26.000 COP</span>
+                </div>
+                <div class="receipt-row receipt-discount">
+                  <span>Descuento aplicado con Nuvora:</span>
+                  <strong>-$8.000 COP (-31%)</strong>
+                </div>
+                <div class="receipt-row receipt-total">
+                  <span>Total a cobrar al cliente en caja:</span>
+                  <strong>$18.000 COP</strong>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -587,161 +616,135 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
     </section>
 
     <!-- =====================================================================
-         MÓDULO 6: ANALÍTICA DE CONVERSIÓN, AUDITORÍA Y BASE DE DATOS (RF19 - RF20)
+         SECCIÓN 5: ESTADÍSTICAS DE CONVERSIÓN E HISTORIAL DE REDENCIONES
          ===================================================================== -->
-    <section class="section" id="analitica">
+    <section class="section section-alt" id="analitica">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">MÓDULO 6 • DASHBOARD DE MÉTRICAS, AUDITORÍA Y 11 TABLAS POSTGRESQL (RF19 - RF20)</span>
-          <h2 class="section-title">Analítica de Conversión (ROI), Bitácora de Auditoría y Base de Datos</h2>
+          <span class="section-tag">IMPACTO COMERCIAL Y TRAZABILIDAD</span>
+          <h2 class="section-title">Estadísticas de Conversión e Historial de Canjes</h2>
           <p class="section-subtitle">
-            Monitorea en tiempo real la tasa de efectividad de las promociones, exporta el registro inmutable de auditoría y explora las 11 tablas relacionales del SRS.
+            Los comercios de San Pedro Plaza consultan en tiempo real cuántos cupones descargados por los visitantes se convirtieron en ventas reales en caja.
           </p>
         </div>
 
-        <!-- 4 KPIs Principales RF19 -->
+        <!-- 4 KPIs Principales -->
         <div class="analytics-kpi-row">
           <div class="a-kpi-card">
-            <span class="a-kpi-label">Total Visualizaciones App</span>
+            <span class="a-kpi-label">Consultas en el Directorio</span>
             <strong class="a-kpi-val" id="kpi-views">1.248</strong>
-            <span class="a-kpi-sub">Tráfico presencial en San Pedro Plaza</span>
+            <span class="a-kpi-sub">Visitantes buscando opciones hoy</span>
           </div>
           <div class="a-kpi-card">
-            <span class="a-kpi-label">Cupones QR Emitidos</span>
-            <strong class="a-kpi-val" id="kpi-issued">86</strong>
-            <span class="a-kpi-sub">Generados por visitantes autenticados</span>
+            <span class="a-kpi-label">Cupones QR Descargados</span>
+            <strong class="a-kpi-val" id="kpi-issued">87</strong>
+            <span class="a-kpi-sub">Generados desde el catálogo</span>
           </div>
           <div class="a-kpi-card">
-            <span class="a-kpi-label">Redimidos en Caja POS</span>
+            <span class="a-kpi-label">Cupones Canjeados en Caja</span>
             <strong class="a-kpi-val" id="kpi-redeemed">64</strong>
-            <span class="a-kpi-sub">Ventas presenciales efectivas</span>
+            <span class="a-kpi-sub">Ventas efectivas en mostrador</span>
           </div>
           <div class="a-kpi-card a-kpi-accent">
-            <span class="a-kpi-label">Tasa de Conversión (RF19)</span>
-            <strong class="a-kpi-val" id="kpi-conversion">74.4%</strong>
-            <span class="a-kpi-sub">Fórmula: (Redimidos / Emitidos) × 100</span>
+            <span class="a-kpi-label">Efectividad de Conversión</span>
+            <strong class="a-kpi-val" id="kpi-conversion">73.6%</strong>
+            <span class="a-kpi-sub">Porcentaje de cupones redimidos</span>
           </div>
         </div>
 
-        <div class="analytics-two-cols">
-          <!-- Bitácora Inmutable de Auditoría RF20 -->
-          <div class="audit-card-light">
-            <div class="pane-header-flex">
-              <div>
-                <h3>Bitácora Inmutable de Auditoría (<code>auditoria_logs</code> — RF20)</h3>
-                <p class="pane-note">Registra cada intento de redención con timestamp, IP, cajero y descuento otorgado.</p>
-              </div>
-              <button type="button" class="btn btn-outline btn-sm" id="btn-export-audit">
-                ⬇ Exportar CSV
-              </button>
+        <!-- Tabla Amplia y Limpia de Historial de Redenciones (Sin cajas de código JSON) -->
+        <div class="audit-card-full">
+          <div class="pane-header-flex">
+            <div>
+              <h3>Historial Reciente de Validaciones en Punto de Venta</h3>
+              <p class="pane-note">Registro automático de cada validación realizada en las cajas de los establecimientos vinculados.</p>
             </div>
-            <div class="table-responsive">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th>Fecha / Hora</th>
-                    <th>Token QR</th>
-                    <th>Local / Cajero</th>
-                    <th>IP Origen</th>
-                    <th>Resultado &amp; Descuento</th>
-                  </tr>
-                </thead>
-                <tbody id="audit-log-tbody"></tbody>
-              </table>
-            </div>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-export-audit">
+              ⬇ Descargar Reporte CSV
+            </button>
           </div>
-
-          <!-- Inspector de las 11 Tablas Relacionales del SRS & Superadmin -->
-          <div class="db-inspector-card">
-            <h3>🗄️ Explorador del Esquema Relacional (11 Tablas SRS Sección 11)</h3>
-            <p class="pane-note">Consulta en vivo los registros almacenados en las 11 entidades del modelo entidad-relación:</p>
-            <div class="db-table-selector">
-              <label for="db-table-select">Seleccionar tabla PostgreSQL:</label>
-              <select id="db-table-select">
-                <option value="locales">1. locales (Establecimientos San Pedro Plaza)</option>
-                <option value="promociones">2. promociones (Motor de Ofertas)</option>
-                <option value="cupones">3. cupones (Tokens QR Emitidos)</option>
-                <option value="redenciones">4. redenciones (Ventas en Caja)</option>
-                <option value="productos">5. productos (Menú Digital)</option>
-                <option value="horarios_promocion">6. horarios_promocion (Franjas Relámpago)</option>
-                <option value="usuarios">7. usuarios (Actores por Rol)</option>
-                <option value="roles">8. roles (Matriz de Permisos)</option>
-                <option value="categorias">9. categorias (Clasificación)</option>
-                <option value="locales_categorias">10. locales_categorias (Muchos a Muchos)</option>
-                <option value="auditoria_logs">11. auditoria_logs (Trazabilidad RF20)</option>
-              </select>
-            </div>
-            <pre class="db-json-viewer" id="db-json-viewer"></pre>
+          <div class="table-responsive">
+            <table class="data-table clean-audit-table">
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Código QR</th>
+                  <th>Establecimiento Comercial</th>
+                  <th>Resultado de la Operación</th>
+                </tr>
+              </thead>
+              <tbody id="audit-log-tbody"></tbody>
+            </table>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =====================================================================
-         SECCIÓN MULTIMEDIA, MAPA DE SAN PEDRO PLAZA Y EQUIPO ADSO
+         SECCIÓN 6: MULTIMEDIA Y MAPA DE SAN PEDRO PLAZA
          ===================================================================== -->
-    <section class="section section-alt" id="ubicacion">
+    <section class="section" id="ubicacion">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">RECURSOS MULTIMEDIALES • GEORREFERENCIACIÓN Y ARQUITECTURA</span>
-          <h2 class="section-title">Recorrido Multimedia y Mapa del Caso Piloto</h2>
+          <span class="section-tag">RECORRIDO VISUAL Y UBICACIÓN</span>
+          <h2 class="section-title">¿Cómo Funciona Nuvora en San Pedro Plaza?</h2>
           <p class="section-subtitle">
-            Explora el flujo operativo de la solución TIC en el <strong>Centro Comercial San Pedro Plaza (Neiva, Huila)</strong>.
+            Conoce en 3 pasos cómo conectamos las promociones de los locales con los visitantes del <strong>Centro Comercial San Pedro Plaza (Neiva, Huila)</strong>.
           </p>
         </div>
 
         <div class="multimedia-grid">
           <div class="media-card">
             <div class="media-card-header">
-              <span class="media-tag">🎬 DEMO MULTIMEDIA INTERACTIVA</span>
-              <h3>Ciclo Transaccional Nuvora en 3 Etapas</h3>
+              <span class="media-tag">🎬 RECORRIDO INTERACTIVO</span>
+              <h3>Experiencia Nuvora en 3 Pasos</h3>
             </div>
             <div class="interactive-video-stage" id="demo-stage">
               <div class="video-slide active" data-step="1">
                 <div class="slide-visual">
                   <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80" alt="Plazoleta de comidas en centro comercial" loading="lazy" />
-                  <div class="slide-overlay-badge">ETAPA 1 • LOCATARIO (RF09 - RF12)</div>
+                  <div class="slide-overlay-badge">PASO 1 • COMERCIOS</div>
                 </div>
                 <div class="slide-caption">
-                  <h4>1. Parametrización de Ofertas Relámpago en Horas Valle</h4>
-                  <p>El administrador del local configura descuentos para martes a jueves (2:30 p.m. a 5:30 p.m.) con tope de cupos, ahorrando hasta $250.000/mes en volanteo de papel.</p>
+                  <h4>1. El Local Publica sus Ofertas Relámpago</h4>
+                  <p>Los restaurantes y tiendas activan descuentos para las tardes de bajo tráfico (2:30 p.m. a 5:30 p.m.), ahorrando hasta $250.000 mensuales en volantes de papel.</p>
                 </div>
               </div>
 
               <div class="video-slide" data-step="2">
                 <div class="slide-visual">
                   <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="Visitante filtrando por presupuesto en el móvil" loading="lazy" />
-                  <div class="slide-overlay-badge">ETAPA 2 • VISITANTE (RF07 - RF15)</div>
+                  <div class="slide-overlay-badge">PASO 2 • VISITANTES</div>
                 </div>
                 <div class="slide-caption">
-                  <h4>2. Filtrado por Presupuesto ($COP) y Emisión de QR Único</h4>
-                  <p>El visitante filtra según los $18.000 COP que lleva en el bolsillo y genera su código QR dinámico con vigencia de 2 horas en su billetera móvil.</p>
+                  <h4>2. El Visitante Filtra según su Bolsillo y Obtiene el QR</h4>
+                  <p>El cliente indica cuánto presupuesto tiene disponible (ej. $20.000 COP), compara opciones al instante y descarga su cupón QR gratuito válido por 2 horas.</p>
                 </div>
               </div>
 
               <div class="video-slide" data-step="3">
                 <div class="slide-visual">
                   <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Validación rápida en punto de venta" loading="lazy" />
-                  <div class="slide-overlay-badge">ETAPA 3 • CAJERO POS (RF16 - RF20)</div>
+                  <div class="slide-overlay-badge">PASO 3 • PUNTO DE VENTA</div>
                 </div>
                 <div class="slide-caption">
-                  <h4>3. Validación Atómica en Caja (&lt; 1.5s) y Métricas de Conversión</h4>
-                  <p>El cajero valida el código QR con bloqueo <code>SELECT FOR UPDATE</code>, recibe confirmación en pantalla verde y el locatario mide su ROI exacto.</p>
+                  <h4>3. Canje Instantáneo en la Caja del Local</h4>
+                  <p>El cajero verifica el código en menos de 1.5 segundos, entrega el pedido con descuento y la venta queda registrada en las estadísticas del comercio.</p>
                 </div>
               </div>
 
               <div class="video-controls">
-                <button type="button" class="v-btn active" data-goto="1">1. Locatario</button>
-                <button type="button" class="v-btn" data-goto="2">2. Visitante QR</button>
-                <button type="button" class="v-btn" data-goto="3">3. Cajero POS</button>
-                <button type="button" class="v-btn-play" id="btn-autoplay-demo">⏸ Pausar Tour</button>
+                <button type="button" class="v-btn active" data-goto="1">1. Publicación</button>
+                <button type="button" class="v-btn" data-goto="2">2. Filtro &amp; QR</button>
+                <button type="button" class="v-btn" data-goto="3">3. Canje en Caja</button>
+                <button type="button" class="v-btn-play" id="btn-autoplay-demo">⏸ Pausar</button>
               </div>
             </div>
           </div>
 
           <div class="media-card">
             <div class="media-card-header">
-              <span class="media-tag">📍 GEORREFERENCIACIÓN DEL PILOTO</span>
+              <span class="media-tag">📍 UBICACIÓN DEL PROYECTO PILOTO</span>
               <h3>C.C. San Pedro Plaza — Neiva, Huila</h3>
             </div>
             <div class="map-wrapper">
@@ -758,11 +761,11 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
             </div>
             <div class="location-details">
               <div class="loc-item">
-                <strong>Ubicación del Piloto:</strong>
-                <span>Carrera 8B # 38-42, Neiva - Huila (Plazoleta Piso 2, Islas y Piso 1)</span>
+                <strong>Dirección:</strong>
+                <span>Carrera 8B # 38-42, Neiva - Huila (Plazoleta Piso 2, Islas Comerciales y Piso 1)</span>
               </div>
               <div class="loc-item">
-                <strong>Equipo ADSO Ficha 3413974:</strong>
+                <strong>Equipo Desarrollador ADSO (Ficha 3413974):</strong>
                 <span>Paula Sofia Claros Nañez • Edwin Alejandro Esquivel Bahamon • Jose Esneider Covaleda Hortua</span>
               </div>
               <div class="loc-links">
@@ -770,7 +773,7 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
                   Abrir en Google Maps ↗
                 </a>
                 <a href="https://trello.com/b/4HuP01qG/mercago" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                  Tablero Ágil Trello ↗
+                  Ver Tablero del Proyecto ↗
                 </a>
               </div>
             </div>
@@ -780,30 +783,30 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
     </section>
 
     <!-- =====================================================================
-         SECCIÓN DE CONTACTO Y VINCULACIÓN DE NUEVOS LOCALES (RNF09)
+         SECCIÓN 7: CONTACTO Y VINCULACIÓN DE NUEVOS LOCALES
          ===================================================================== -->
-    <section class="section" id="contacto">
+    <section class="section section-alt" id="contacto">
       <div class="container">
         <div class="contact-wrapper">
           <div class="contact-info">
-            <span class="section-tag">FORMULARIO FUNCIONAL Y CALL TO ACTION</span>
-            <h2>Vincula tu Local Comercial o Escríbenos</h2>
+            <span class="section-tag">CONTACTO Y VINCULACIÓN COMERCIAL</span>
+            <h2>¿Tienes un Local en San Pedro Plaza? Únete a Nuvora</h2>
             <p>
-              ¿Administras un establecimiento en el Centro Comercial San Pedro Plaza o deseas conocer más sobre la arquitectura de Nuvora? Registra tu solicitud y actívate en el directorio interactivo.
+              Vincula tu restaurante, cafetería o tienda al directorio interactivo de Nuvora para publicar promociones en horas valle y atraer más visitantes a tu punto de venta.
             </p>
             <ul class="contact-benefits">
-              <li>✓ <strong>0% comisiones transaccionales:</strong> El cliente paga directamente en tu caja.</li>
-              <li>✓ <strong>Elimina el gasto en volantes de papel:</strong> Conecta con el 77.1% de visitantes que filtra por presupuesto.</li>
-              <li>✓ <strong>Protección legal:</strong> Cumplimiento de la Ley Estatutaria 1581 de 2012 (Habeas Data Colombia).</li>
+              <li>✓ <strong>Sin comisiones por venta:</strong> El cliente paga directamente en la caja de tu local.</li>
+              <li>✓ <strong>Ahorro en publicidad impresa:</strong> Conecta en vivo con los visitantes que buscan qué comer según su presupuesto.</li>
+              <li>✓ <strong>Protección de datos:</strong> Cumplimiento de la Ley Estatutaria 1581 de 2012 (Habeas Data Colombia).</li>
             </ul>
             <div class="saved-leads-box" id="saved-leads-box">
-              <h4>📬 Solicitudes Recibidas en el Sistema (<span id="leads-count">1</span>)</h4>
+              <h4>📬 Solicitudes Registradas (<span id="leads-count">1</span>)</h4>
               <div id="leads-list" class="leads-list"></div>
             </div>
           </div>
 
           <div class="contact-form-card">
-            <h3>Formulario de Contacto y Vinculación al Piloto</h3>
+            <h3>Formulario de Contacto y Registro</h3>
             <form id="contact-form" novalidate>
               <div class="form-group">
                 <label for="contact-name">Nombre completo *</label>
@@ -823,10 +826,10 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="contact-role">Perfil del solicitante *</label>
+                  <label for="contact-role">Perfil *</label>
                   <select id="contact-role" required>
                     <option value="">Selecciona una opción...</option>
-                    <option value="Locatario / Comercio San Pedro Plaza">Locatario / Comercio en San Pedro Plaza</option>
+                    <option value="Comercio / Locatario San Pedro Plaza">Comercio / Locatario en San Pedro Plaza</option>
                     <option value="Visitante / Consumidor">Visitante / Consumidor</option>
                     <option value="Administración Centro Comercial">Administración de Centro Comercial</option>
                     <option value="Instructor / Evaluador SENA">Instructor / Evaluador SENA</option>
@@ -839,19 +842,19 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
               </div>
 
               <div class="form-group">
-                <label for="contact-message">Mensaje o solicitud *</label>
-                <textarea id="contact-message" rows="3" placeholder="Indica qué promociones u horarios valle deseas dinamizar..." required></textarea>
+                <label for="contact-message">Mensaje o requerimiento *</label>
+                <textarea id="contact-message" rows="3" placeholder="Cuéntanos qué promociones deseas publicar en Nuvora..." required></textarea>
               </div>
 
               <div class="form-check">
                 <input type="checkbox" id="contact-habeas" required />
                 <label for="contact-habeas">
-                  Autorizo de manera expresa el tratamiento de mis datos personales conforme a la <strong>Ley Estatutaria 1581 de 2012</strong> (RNF09).
+                  Autorizo el tratamiento de mis datos personales conforme a la <strong>Ley Estatutaria 1581 de 2012</strong> (Habeas Data).
                 </label>
               </div>
 
               <button type="submit" class="btn btn-primary btn-block btn-lg">
-                Enviar Solicitud y Registrar en Base de Datos
+                Enviar Solicitud
               </button>
 
               <div id="contact-feedback" class="contact-feedback" role="alert" aria-live="polite" hidden></div>
@@ -862,125 +865,56 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
     </section>
   </main>
 
-  <!-- =====================================================================
-       MODAL 1: CUPÓN QR GENERADO (RF13 - RF14)
-       ===================================================================== -->
+  <!-- MODAL 1: CUPÓN QR GENERADO -->
   <div class="modal-backdrop" id="qr-modal" aria-hidden="true">
     <div class="modal-dialog" role="dialog" aria-labelledby="modal-promo-title" aria-modal="true">
       <button type="button" class="modal-close" id="modal-close-btn" aria-label="Cerrar ventana">&times;</button>
-      <div class="modal-badge">✓ CUPÓN CRIPTOGRÁFICO EMITIDO (RF13 - RF14)</div>
+      <div class="modal-badge">✓ CUPÓN QR GENERADO CON ÉXITO</div>
       <h3 id="modal-promo-title">Combo Seleccionado</h3>
       <p id="modal-store-name" class="modal-store-sub">Local Comercial</p>
 
       <div class="modal-qr-container">
         <canvas id="modal-qr-canvas" width="180" height="180"></canvas>
         <div class="modal-code-box">
-          <span>TOKEN ALFANUMÉRICO ÚNICO (RNF03):</span>
+          <span>CÓDIGO DEL CUPÓN:</span>
           <strong id="modal-qr-code">SPP-000000</strong>
         </div>
       </div>
 
       <div class="modal-rules-info">
-        <p>⏱ <strong>Vigencia (RN-02):</strong> Caduca en <strong id="modal-qr-countdown">02:00:00</strong> (o al finalizar la promoción).</p>
-        <p>🔒 <strong>Integridad (RN-04 &amp; RN-07):</strong> Válido por 1 único uso exclusivamente en la caja del local emisor.</p>
+        <p>⏱ <strong>Tiempo disponible:</strong> <strong id="modal-qr-countdown">02:00:00</strong> para presentar este código en la caja del local.</p>
+        <p>🔒 <strong>Uso único:</strong> Válido exclusivamente en el establecimiento emisor.</p>
       </div>
 
       <div class="modal-actions-grid">
         <button type="button" class="btn btn-outline btn-sm" id="modal-download-qr">
-          ⬇ Descargar PNG
+          ⬇ Guardar Imagen
         </button>
         <button type="button" class="btn btn-primary btn-sm" id="modal-send-to-pos">
-          📠 Llevar al Validador de Caja →
+          Probar en Caja POS →
         </button>
       </div>
     </div>
   </div>
 
-  <!-- =====================================================================
-       MODAL 2: FICHA DETALLADA DEL LOCAL Y MENÚ DIGITAL COMPLETO (RF06)
-       ===================================================================== -->
+  <!-- MODAL 2: FICHA DETALLADA DEL LOCAL Y MENÚ DIGITAL COMPLETO -->
   <div class="modal-backdrop" id="store-modal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-lg" role="dialog" aria-labelledby="smodal-title" aria-modal="true">
       <button type="button" class="modal-close" id="smodal-close-btn" aria-label="Cerrar ficha del local">&times;</button>
-      <div class="modal-badge" id="smodal-badge">FICHA OFICIAL DEL ESTABLECIMIENTO • RF06</div>
+      <div class="modal-badge" id="smodal-badge">CARTA DIGITAL DEL ESTABLECIMIENTO</div>
       <h3 id="smodal-title">Nombre del Local</h3>
       <p id="smodal-meta" class="modal-store-sub"></p>
       <p id="smodal-desc" style="font-size:0.9rem; color:#475569; margin-bottom:1rem;"></p>
 
       <div class="smodal-section">
-        <h4>🍽️ Carta / Menú Digital del Establecimiento (Precios Regulares)</h4>
+        <h4>🍽️ Menú y Precios Regulares</h4>
         <div id="smodal-products-list" class="smodal-list"></div>
       </div>
 
       <div class="smodal-section">
-        <h4>⚡ Promociones y Ofertas Relámpago de este Local</h4>
+        <h4>⚡ Promociones Activas en este Local</h4>
         <div id="smodal-promos-list" class="smodal-list"></div>
       </div>
-    </div>
-  </div>
-
-  <!-- =====================================================================
-       MODAL 3: AUTENTICACIÓN, REGISTRO Y RECUPERACIÓN DE CLAVE (RF01 - RF03)
-       ===================================================================== -->
-  <div class="modal-backdrop" id="auth-modal" aria-hidden="true">
-    <div class="modal-dialog" role="dialog" aria-labelledby="auth-modal-title" aria-modal="true">
-      <button type="button" class="modal-close" id="auth-close-btn" aria-label="Cerrar autenticación">&times;</button>
-      <div class="modal-badge">MÓDULO 1 • SEGURIDAD JWT &amp; HABEAS DATA (RF01 - RF03)</div>
-      <h3 id="auth-modal-title">Acceso al Ecosistema Nuvora</h3>
-
-      <div class="auth-tabs">
-        <button type="button" class="auth-tab active" data-atab="login">Iniciar Sesión (RF02)</button>
-        <button type="button" class="auth-tab" data-atab="register">Registro Visitante (RF01)</button>
-        <button type="button" class="auth-tab" data-atab="recover">Recuperar Clave (RF03)</button>
-      </div>
-
-      <!-- Login Form -->
-      <form id="form-auth-login" class="auth-pane active">
-        <div class="form-group">
-          <label for="login-email">Correo Electrónico *</label>
-          <input type="email" id="login-email" value="camilo.rojas@usco.edu.co" required />
-        </div>
-        <div class="form-group">
-          <label for="login-password">Contraseña *</label>
-          <input type="password" id="login-password" value="Nuvora2026*" required />
-        </div>
-        <p class="auth-hint">
-          Cuentas demo: <code>camilo.rojas@usco.edu.co</code> (Visitante), <code>carlos.mendez@corralito.co</code> (Locatario P-14), <code>andres.murcia@asadero.co</code> (Cajero P-06), <code>admin@sanpedroplaza.co</code> (Superadmin).
-        </p>
-        <button type="submit" class="btn btn-primary btn-block">Autenticar y Generar Token JWT</button>
-      </form>
-
-      <!-- Register Form -->
-      <form id="form-auth-register" class="auth-pane">
-        <div class="form-group">
-          <label for="reg-name">Nombre Completo *</label>
-          <input type="text" id="reg-name" placeholder="Ej. Diana Marcela Perdomo" required />
-        </div>
-        <div class="form-group">
-          <label for="reg-email">Correo Electrónico *</label>
-          <input type="email" id="reg-email" placeholder="diana.perdomo@correo.co" required />
-        </div>
-        <div class="form-group">
-          <label for="reg-password">Contraseña (se almacenará con hash RNF02) *</label>
-          <input type="password" id="reg-password" minlength="6" placeholder="Mínimo 6 caracteres" required />
-        </div>
-        <div class="form-check">
-          <input type="checkbox" id="reg-habeas" required />
-          <label for="reg-habeas">Acepto tratamiento de datos personales bajo <strong>Ley 1581 de 2012</strong> (RNF09).</label>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Crear Cuenta de Visitante (RF01)</button>
-      </form>
-
-      <!-- Recover Password Form -->
-      <form id="form-auth-recover" class="auth-pane">
-        <div class="form-group">
-          <label for="rec-email">Correo Registrado para Restablecer Clave *</label>
-          <input type="email" id="rec-email" placeholder="camilo.rojas@usco.edu.co" required />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Enviar Código Temporal de Recuperación (RF03)</button>
-      </form>
-
-      <div id="auth-feedback" class="contact-feedback" hidden></div>
     </div>
   </div>
 
@@ -993,30 +927,29 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
           <span class="brand-sub">Ecosistema Digital C.C. San Pedro Plaza (Neiva)</span>
         </div>
         <p>
-          Aplicación web funcional multi-rol (RF01 a RF20) desarrollada en el programa Tecnología en Análisis y Desarrollo de Software (ADSO) — Ficha 3413974 del SENA CIES Regional Huila.
+          Plataforma web interactiva de promociones, filtro inteligente por presupuesto y cupones QR dinámicos desarrollada en el programa ADSO — Ficha 3413974 del SENA CIES Regional Huila.
         </p>
       </div>
 
       <div class="footer-links">
-        <h4>Módulos Interactivos</h4>
+        <h4>Secciones de la Plataforma</h4>
         <ul>
-          <li><a href="#presupuesto">1. Filtro por Presupuesto y Menú Digital (RF05-RF08)</a></li>
-          <li><a href="#billetera">2. Billetera de Cupones QR (RF13-RF15)</a></li>
-          <li><a href="#panel-locatario">3. Panel Administrativo del Locatario (RF09-RF12)</a></li>
-          <li><a href="#validador">4. Validador Operativo de Caja POS (RF16-RF18)</a></li>
-          <li><a href="#analitica">5. Analítica, Auditoría y 11 Tablas BD (RF19-RF20)</a></li>
+          <li><a href="#presupuesto">Catálogo y Filtro por Presupuesto</a></li>
+          <li><a href="#billetera">Billetera Mis Cupones QR</a></li>
+          <li><a href="#panel-locatario">Panel Administrativo de Comercios</a></li>
+          <li><a href="#validador">Validador de Caja POS</a></li>
+          <li><a href="#analitica">Estadísticas e Historial</a></li>
         </ul>
       </div>
 
       <div class="footer-academic">
         <h4>Créditos Académicos SENA</h4>
-        <p><strong>Autores (Ficha 3413974):</strong> Paula Sofia Claros Nañez, Edwin Alejandro Esquivel Bahamon, Jose Esneider Covaleda Hortua.</p>
+        <p><strong>Equipo ADSO (Ficha 3413974):</strong> Paula Sofia Claros Nañez, Edwin Alejandro Esquivel Bahamon, Jose Esneider Covaleda Hortua.</p>
         <p><strong>Transversal TIC (GA1-37371-AA4-EV01):</strong> Ing. Eddier Yair Liberato Cuenca.</p>
-        <p><strong>Orientación Técnica SRS v2.0:</strong> Instructora Karol Correa &amp; Instructor Jesús Ariel.</p>
       </div>
     </div>
     <div class="container footer-bottom">
-      <span>© 2026 Proyecto Formativo Nuvora v2.0 — SENA Regional Huila.</span>
+      <span>© 2026 Proyecto Formativo Nuvora — SENA Regional Huila.</span>
       <a href="#inicio">Volver arriba ↑</a>
     </div>
   </footer>
@@ -1024,5 +957,3 @@ SELECT * FROM cupones WHERE codigo_unico = 'SPP-7F2A9B' FOR UPDATE;
   <script src="app.js"></script>
 </body>
 </html>
-
-
