@@ -1,4 +1,4 @@
-# MercaGo — Ecosistema Digital de Promociones, Directorio Interactivo y Cupones QR
+﻿# Nuvora — Ecosistema Digital de Promociones, Directorio Interactivo y Cupones QR
 ## Caso Piloto: Centro Comercial San Pedro Plaza (Neiva, Huila)
 
 **Servicio Nacional de Aprendizaje (SENA) — CIES Regional Huila**  
@@ -13,3 +13,5 @@
 * **Paula Sofia Claros Nañez** — Desarrollo Frontend Visitante, Diseño UX/UI y Análisis de Requisitos
 * **Edwin Alejandro Esquivel Bahamon** — Líder Técnico, Arquitectura Backend, Base de Datos y Seguridad
 * **Jose Esneider Covaleda Hortua** — Desarrollo Frontend Administrativo Locatario y Módulo del Cajero POS
+
+

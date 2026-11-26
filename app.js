@@ -1,11 +1,11 @@
-/**
- * MercaGo v2.0 — Motor Relacional Completo, Roles, CRUD, Cupones QR y Terminal POS
+﻿/**
+ * Nuvora v2.0 — Motor Relacional Completo, Roles, CRUD, Cupones QR y Terminal POS
  * Caso Piloto: Centro Comercial San Pedro Plaza (Neiva, Huila)
  * Ficha 3413974 — Tecnología en Análisis y Desarrollo de Software (ADSO) - SENA
  * Implementa las 11 Tablas Relacionales (Sección 11 SRS), 20 RF, 10 RNF y 7 Reglas de Negocio (RN-01 a RN-07).
  */
 
-const DB_STORAGE_KEY = "MERCAGO_SANPEDRO_DB_V2";
+const DB_STORAGE_KEY = "NUVORA_SANPEDRO_DB_V2";
 
 // Base de Datos Relacional Inicial con las 11 Tablas del SRS (Sección 11)
 function getInitialDatabase() {
@@ -15,7 +15,7 @@ function getInitialDatabase() {
       { id: 1, nombre: "VISITANTE", descripcion: "Consumidor final del C.C. San Pedro Plaza" },
       { id: 2, nombre: "LOCATARIO", descripcion: "Administrador de establecimiento comercial" },
       { id: 3, nombre: "CAJERO", descripcion: "Operador validador de punto de venta POS" },
-      { id: 4, nombre: "ADMIN", descripcion: "Superadministrador del ecosistema MercaGo Mall" }
+      { id: 4, nombre: "ADMIN", descripcion: "Superadministrador del ecosistema Nuvora Mall" }
     ],
     usuarios: [
       { id: 101, rol_id: 1, local_id: null, nombre: "Camilo Andrés Rojas", correo: "camilo.rojas@usco.edu.co", password_hash: "$2b$10$hashCamiloUSCO2026", creado_en: "2026-11-01 09:00:00" },
@@ -297,7 +297,7 @@ function getInitialDatabase() {
     },
     solicitudes_contacto: [
       {
-        ticket: "MGO-841920",
+        ticket: "NUV-841920",
         nombre: "Don Carlos Alberto Méndez",
         rol: "Locatario / Comercio San Pedro Plaza",
         local: "Local P-14 Plazoleta",
@@ -1008,7 +1008,7 @@ function validateCouponTransaction(rawCode, cashierLocalId) {
       <div class="pos-screen-content">
         <h4>ACCESO DENEGADO: TOKEN QR INEXISTENTE (RNF03)</h4>
         <p>El código <code>${code}</code> no existe en la tabla <code>cupones</code> de PostgreSQL.</p>
-        <p><strong>Acción en Caja:</strong> No aplicar descuento. Solicitar al cliente verificar su billetera MercaGo.</p>
+        <p><strong>Acción en Caja:</strong> No aplicar descuento. Solicitar al cliente verificar su billetera Nuvora.</p>
       </div>
     `;
     sqlTrace.textContent = `-- Petición POST /api/cupones/redimir {codigo: '${code}', local_id: '${cashierLocalId}'}
@@ -1615,7 +1615,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join("\n");
     const link = document.createElement("a");
     link.setAttribute("href", encodeURI(csvContent));
-    link.setAttribute("download", "auditoria_logs_mercago_sanpedro.csv");
+    link.setAttribute("download", "auditoria_logs_nuvora_sanpedro.csv");
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -1626,7 +1626,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("modal-qr-canvas");
     if (!canvas) return;
     const link = document.createElement("a");
-    link.download = `Cupon_MercaGo_${activeModalCouponCode}.png`;
+    link.download = `Cupon_Nuvora_${activeModalCouponCode}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
   });
@@ -1789,7 +1789,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const ticketId = "MGO-" + Math.floor(100000 + Math.random() * 900000);
+    const ticketId = "NUV-" + Math.floor(100000 + Math.random() * 900000);
     db.solicitudes_contacto.unshift({
       ticket: ticketId,
       nombre: name,
@@ -1807,3 +1807,5 @@ document.addEventListener("DOMContentLoaded", () => {
     e.target.reset();
   });
 });
+
+
