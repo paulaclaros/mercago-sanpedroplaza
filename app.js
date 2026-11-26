@@ -1394,21 +1394,79 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("btn-export-audit").addEventListener("click", () => {
-    // Exportación compatible con Microsoft Excel en español: UTF-8 con BOM (\uFEFF) y separador punto y coma (;)
-    const sepLine = "sep=;\r\n";
-    const headers = "ID;Hora;Código QR;Establecimiento Comercial;Estado;Detalle de la Operación";
-    const rows = db.auditoria_logs.map((l) => {
-      const estado = l.exito ? "Aprobado" : "Rechazado";
-      const detalle = l.resultado.replace(/•/g, "-").replace(/"/g, '""');
-      const local = l.local_cajero.replace(/"/g, '""');
-      return `${l.id};"${l.timestamp}";"${l.codigo}";"${local}";"${estado}";"${detalle}"`;
-    });
-    const csvString = "\uFEFF" + sepLine + [headers, ...rows].join("\r\n");
-    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const totalIssued = db.metricas.emitidos_base + db.cupones.length;
+    const totalRedeemed = db.metricas.redimidos_base + db.redenciones.length;
+    const rate = ((totalRedeemed / totalIssued) * 100).toFixed(1);
+    const fechaHoy = new Date().toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" });
+
+    const rowsHtml = db.auditoria_logs
+      .map((l, idx) => {
+        const bgRow = idx % 2 === 0 ? "#FFFFFF" : "#F8FAFC";
+        const estadoTxt = l.exito ? "APROBADO" : "RECHAZADO";
+        const bgEstado = l.exito ? "#DCFCE7" : "#FEE2E2";
+        const colorEstado = l.exito ? "#166534" : "#991B1B";
+        const detalleLimpio = l.resultado.replace(/•/g, "—");
+        return `
+          <tr style="background-color:${bgRow};">
+            <td style="padding:8px 12px; border:1px solid #CBD5E1; text-align:center; font-weight:bold; color:#0F172A;">${l.id}</td>
+            <td style="padding:8px 12px; border:1px solid #CBD5E1; text-align:center; color:#334155;">${l.timestamp}</td>
+            <td style="padding:8px 12px; border:1px solid #CBD5E1; text-align:center; font-family:Consolas,monospace; font-weight:bold; color:#EA580C;">${l.codigo}</td>
+            <td style="padding:8px 12px; border:1px solid #CBD5E1; color:#0F172A; font-weight:600;">${l.local_cajero}</td>
+            <td style="padding:8px 12px; border:1px solid #CBD5E1; text-align:center; font-weight:bold; background-color:${bgEstado}; color:${colorEstado};">${estadoTxt}</td>
+            <td style="padding:8px 12px; border:1px solid #CBD5E1; color:#334155;">${detalleLimpio}</td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    const excelHtml = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style>
+          body, table { font-family: Arial, sans-serif; font-size: 11pt; }
+        </style>
+      </head>
+      <body>
+        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; width:100%;">
+          <colgroup>
+            <col width="70" />
+            <col width="120" />
+            <col width="145" />
+            <col width="330" />
+            <col width="135" />
+            <col width="360" />
+          </colgroup>
+          <tr>
+            <td colspan="6" style="background-color:#0F172A; color:#FFFFFF; font-size:14pt; font-weight:bold; padding:14px 16px; text-align:left;">
+              NUVORA. — REPORTE OFICIAL DE VALIDACIONES Y CANJES QR EN PUNTO DE VENTA
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6" style="background-color:#FFF7ED; color:#9A3412; font-size:10pt; font-weight:bold; padding:8px 16px; border-bottom:2px solid #EA580C;">
+              Centro Comercial San Pedro Plaza (Neiva, Huila) • Fecha de corte: ${fechaHoy} • Cupones Emitidos: ${totalIssued} • Canjeados: ${totalRedeemed} • Efectividad: ${rate}%
+            </td>
+          </tr>
+          <tr><td colspan="6" style="height:10px;"></td></tr>
+          <tr style="background-color:#1E293B; color:#FFFFFF; font-weight:bold; text-align:center;">
+            <th style="padding:10px 12px; border:1px solid #0F172A; background-color:#1E293B; color:#FFFFFF;">N.°</th>
+            <th style="padding:10px 12px; border:1px solid #0F172A; background-color:#1E293B; color:#FFFFFF;">Hora</th>
+            <th style="padding:10px 12px; border:1px solid #0F172A; background-color:#1E293B; color:#FFFFFF;">Código QR</th>
+            <th style="padding:10px 12px; border:1px solid #0F172A; background-color:#1E293B; color:#FFFFFF;">Establecimiento Comercial</th>
+            <th style="padding:10px 12px; border:1px solid #0F172A; background-color:#1E293B; color:#FFFFFF;">Estado</th>
+            <th style="padding:10px 12px; border:1px solid #0F172A; background-color:#1E293B; color:#FFFFFF;">Detalle de la Operación</th>
+          </tr>
+          ${rowsHtml}
+        </table>
+      </body>
+      </html>
+    `;
+
+    const blob = new Blob(["\uFEFF" + excelHtml], { type: "application/vnd.ms-excel;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "Reporte_Canjes_Nuvora_SanPedroPlaza.csv";
+    link.download = "Reporte_Canjes_Nuvora_SanPedroPlaza.xls";
     document.body.appendChild(link);
     link.click();
     link.remove();
