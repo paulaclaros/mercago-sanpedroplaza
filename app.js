@@ -1346,6 +1346,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     navMenu.querySelectorAll(".nav-link").forEach((link) => {
       link.addEventListener("click", () => {
+        navMenu.querySelectorAll(".nav-link").forEach((l) => l.classList.remove("active"));
+        if (!link.classList.contains("nav-cta")) link.classList.add("active");
         navMenu.classList.remove("open");
         navToggle.setAttribute("aria-expanded", "false");
       });
