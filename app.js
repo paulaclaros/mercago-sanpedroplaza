@@ -701,46 +701,58 @@ function renderWallet() {
   }
 
   const statusLabels = {
-    EMITIDO: "Activo para Canje",
-    REDIMIDO: "Canjeado en Caja",
-    EXPIRADO: "Tiempo Vencido"
+    EMITIDO: "● Disponible para Canje",
+    REDIMIDO: "✓ Canjeado en Caja",
+    EXPIRADO: "✕ Tiempo Vencido"
   };
 
   listEl.innerHTML = items
-    .map((c) => {
+    .map((c, idx) => {
       const store = getStoreById(c.local_id);
       const remSec = c.expira_timestamp ? (c.expira_timestamp - Date.now()) / 1000 : 6400;
       const saved = c.precio_regular - c.precio_oferta;
+      const miniCanvasId = `mini-qr-canvas-${idx}`;
       return `
         <div class="coupon-ticket">
-          <div>
-            <div class="coupon-ticket-header">
-              <span class="status-tag status-${c.estado}">${statusLabels[c.estado] || c.estado}</span>
-              <span class="coupon-code-pill">${c.codigo_unico}</span>
+          <div class="coupon-ticket-main">
+            <div>
+              <div class="coupon-ticket-header">
+                <span class="status-tag status-${c.estado}">${statusLabels[c.estado] || c.estado}</span>
+                <span class="coupon-store-pill">🏪 ${store.nombre} (${store.id})</span>
+              </div>
+              <h4 style="margin: 0.65rem 0 0.55rem; font-size: 1.05rem; line-height: 1.32;">${c.titulo}</h4>
+              <div class="coupon-price-banner">
+                <span class="cp-pay-now">${formatCOP(c.precio_oferta)}</span>
+                <span class="cp-pay-old">Antes: ${formatCOP(c.precio_regular)}</span>
+                <span class="cp-save-pill">Ahorras ${formatCOP(saved)}</span>
+              </div>
             </div>
-            <h4 style="margin: 0.7rem 0 0.25rem; font-size: 1.04rem;">${c.titulo}</h4>
-            <p style="font-size: 0.84rem; color: #475569; margin-bottom: 0.55rem;">🏪 ${store.nombre} (Local ${store.id})</p>
-            <div style="font-size: 0.92rem; font-weight: 800; color: #16a34a;">
-              Pagas en caja: ${formatCOP(c.precio_oferta)}
-              <span style="text-decoration:line-through; color:#94a3b8; font-weight:500; margin-left:0.35rem;">${formatCOP(c.precio_regular)}</span>
-              <span style="font-size:0.78rem; color:#ea580c; margin-left:0.35rem;">(Ahorras ${formatCOP(saved)})</span>
+            <div class="coupon-ticket-footer">
+              ${
+                c.estado === "EMITIDO"
+                  ? `<span class="coupon-timer-badge">⏱ Expira en: <strong class="live-coupon-timer" data-exp="${c.expira_timestamp}">${formatSeconds(remSec)}</strong></span>
+                     <div class="coupon-actions-row">
+                       <button type="button" class="btn btn-outline btn-sm btn-view-qr" data-code="${c.codigo_unico}">Ampliar QR</button>
+                       <button type="button" class="btn btn-primary btn-sm btn-wallet-to-pos" data-code="${c.codigo_unico}" data-local="${c.local_id}">Canjear en Caja →</button>
+                     </div>`
+                  : `<span class="coupon-timer-badge">${c.detalle_estado || "Operación registrada"}</span>`
+              }
             </div>
           </div>
-          <div class="coupon-ticket-footer">
-            ${
-              c.estado === "EMITIDO"
-                ? `<span style="font-size:0.82rem; color:#475569;">⏱ Vence en: <strong class="live-coupon-timer" data-exp="${c.expira_timestamp}">${formatSeconds(remSec)}</strong></span>
-                   <div class="coupon-actions-row">
-                     <button type="button" class="btn btn-outline btn-sm btn-view-qr" data-code="${c.codigo_unico}">Ver Código QR</button>
-                     <button type="button" class="btn btn-primary btn-sm btn-wallet-to-pos" data-code="${c.codigo_unico}" data-local="${c.local_id}">Usar en Caja →</button>
-                   </div>`
-                : `<span style="font-size:0.82rem; color:#475569;">${c.detalle_estado || "Operación registrada"}</span>`
-            }
+          <div class="coupon-ticket-stub">
+            <div class="stub-qr-wrap">
+              <canvas id="${miniCanvasId}" width="84" height="84" aria-label="QR ${c.codigo_unico}"></canvas>
+            </div>
+            <span class="coupon-code-pill">${c.codigo_unico}</span>
           </div>
         </div>
       `;
     })
     .join("");
+
+  items.forEach((c, idx) => {
+    drawQRCodeOnCanvas(`mini-qr-canvas-${idx}`, c.codigo_unico);
+  });
 
   listEl.querySelectorAll(".btn-wallet-to-pos").forEach((btn) => {
     btn.addEventListener("click", () => sendCouponToPOS(btn.dataset.code, btn.dataset.local));
@@ -1041,16 +1053,18 @@ function renderAnalytics() {
   if (auditTbody) {
     auditTbody.innerHTML = db.auditoria_logs
       .slice(0, 8)
-      .map(
-        (log) => `
+      .map((log) => {
+        const cleanDetail = log.resultado.replace("•", "—");
+        return `
         <tr>
           <td>${log.timestamp}</td>
           <td><strong>${log.codigo}</strong></td>
           <td>${log.local_cajero}</td>
-          <td><span class="${log.exito ? "log-ok" : "log-err"}">${log.resultado}</span></td>
+          <td><span class="${log.exito ? "log-ok" : "log-err"}">${log.exito ? "Aprobado" : "Rechazado"}</span></td>
+          <td>${cleanDetail}</td>
         </tr>
-      `
-      )
+      `;
+      })
       .join("");
   }
 }
@@ -1380,17 +1394,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("btn-export-audit").addEventListener("click", () => {
-    const headers = ["ID,Hora,Codigo_QR,Establecimiento,Resultado"];
-    const rows = db.auditoria_logs.map(
-      (l) => `${l.id},"${l.timestamp}","${l.codigo}","${l.local_cajero}","${l.resultado}"`
-    );
-    const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join("\n");
+    // Exportación compatible con Microsoft Excel en español: UTF-8 con BOM (\uFEFF) y separador punto y coma (;)
+    const sepLine = "sep=;\r\n";
+    const headers = "ID;Hora;Código QR;Establecimiento Comercial;Estado;Detalle de la Operación";
+    const rows = db.auditoria_logs.map((l) => {
+      const estado = l.exito ? "Aprobado" : "Rechazado";
+      const detalle = l.resultado.replace(/•/g, "-").replace(/"/g, '""');
+      const local = l.local_cajero.replace(/"/g, '""');
+      return `${l.id};"${l.timestamp}";"${l.codigo}";"${local}";"${estado}";"${detalle}"`;
+    });
+    const csvString = "\uFEFF" + sepLine + [headers, ...rows].join("\r\n");
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.setAttribute("href", encodeURI(csvContent));
-    link.setAttribute("download", "historial_canjes_nuvora_sanpedro.csv");
+    link.href = url;
+    link.download = "Reporte_Canjes_Nuvora_SanPedroPlaza.csv";
     document.body.appendChild(link);
     link.click();
     link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
 
   document.getElementById("modal-download-qr").addEventListener("click", () => {
@@ -1416,39 +1438,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  let activeSlide = 1;
-  let autoplayInterval = null;
-
-  function showSlide(stepNum) {
-    activeSlide = Number(stepNum);
-    document.querySelectorAll(".video-slide").forEach((s) => {
-      s.classList.toggle("active", Number(s.dataset.step) === activeSlide);
+  document.querySelectorAll(".journey-step-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".journey-step-card").forEach((c) => c.classList.remove("active"));
+      card.classList.add("active");
     });
-    document.querySelectorAll(".v-btn").forEach((b) => {
-      b.classList.toggle("active", Number(b.dataset.goto) === activeSlide);
-    });
-  }
-
-  document.querySelectorAll(".v-btn").forEach((btn) => {
-    btn.addEventListener("click", () => showSlide(btn.dataset.goto));
-  });
-
-  function startAutoplay() {
-    autoplayInterval = setInterval(() => {
-      showSlide(activeSlide >= 3 ? 1 : activeSlide + 1);
-    }, 4500);
-  }
-  startAutoplay();
-
-  document.getElementById("btn-autoplay-demo").addEventListener("click", (e) => {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      autoplayInterval = null;
-      e.target.textContent = "▶ Reanudar";
-    } else {
-      startAutoplay();
-      e.target.textContent = "⏸ Pausar";
-    }
   });
 
   document.getElementById("contact-form").addEventListener("submit", (e) => {

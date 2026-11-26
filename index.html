@@ -537,34 +537,34 @@
             </div>
 
             <div class="pos-scenarios-box">
-              <span class="pos-scenarios-title">Simular escenarios rápidos en caja:</span>
+              <span class="pos-scenarios-title">Simular escenarios rápidos en punto de venta:</span>
               <div class="pos-scenarios-grid">
                 <button type="button" class="scenario-btn sc-valid" data-code="SPP-7F2A9B" data-local="P-14">
-                  <span class="sc-dot dot-green"></span>
-                  <div>
+                  <span class="sc-icon-badge badge-sc-green">✓</span>
+                  <div class="sc-text">
                     <strong>Cupón Válido</strong>
-                    <small>SPP-7F2A9B • Local P-14</small>
+                    <small>Aprobar SPP-7F2A9B en Local P-14</small>
                   </div>
                 </button>
                 <button type="button" class="scenario-btn sc-used" data-code="SPP-4C8D1E" data-local="P-06">
-                  <span class="sc-dot dot-red"></span>
-                  <div>
-                    <strong>Ya Utilizado</strong>
-                    <small>Prevención doble uso</small>
+                  <span class="sc-icon-badge badge-sc-red">✕</span>
+                  <div class="sc-text">
+                    <strong>Cupón Ya Utilizado</strong>
+                    <small>Bloquear intento de doble canje</small>
                   </div>
                 </button>
                 <button type="button" class="scenario-btn sc-expired" data-code="SPP-9A1B0C" data-local="I-08">
-                  <span class="sc-dot dot-amber"></span>
-                  <div>
+                  <span class="sc-icon-badge badge-sc-amber">⏱</span>
+                  <div class="sc-text">
                     <strong>Cupón Vencido</strong>
-                    <small>Superó las 2 horas</small>
+                    <small>Superó las 2 horas de vigencia</small>
                   </div>
                 </button>
                 <button type="button" class="scenario-btn sc-wrong" data-code="SPP-7F2A9B" data-local="P-06">
-                  <span class="sc-dot dot-gray"></span>
-                  <div>
-                    <strong>Otro Local</strong>
-                    <small>Emitido para otro comercio</small>
+                  <span class="sc-icon-badge badge-sc-blue">🏪</span>
+                  <div class="sc-text">
+                    <strong>De Otro Local</strong>
+                    <small>Emitido para otro restaurante</small>
                   </div>
                 </button>
               </div>
@@ -652,15 +652,16 @@
           </div>
         </div>
 
-        <!-- Tabla Amplia y Limpia de Historial de Redenciones (Sin cajas de código JSON) -->
+        <!-- Tabla Amplia y Limpia de Historial de Redenciones -->
         <div class="audit-card-full">
           <div class="pane-header-flex">
             <div>
               <h3>Historial Reciente de Validaciones en Punto de Venta</h3>
               <p class="pane-note">Registro automático de cada validación realizada en las cajas de los establecimientos vinculados.</p>
             </div>
-            <button type="button" class="btn btn-outline btn-sm" id="btn-export-audit">
-              ⬇ Descargar Reporte CSV
+            <button type="button" class="btn btn-excel-export btn-sm" id="btn-export-audit">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar a Excel (.CSV)
             </button>
           </div>
           <div class="table-responsive">
@@ -670,7 +671,8 @@
                   <th>Hora</th>
                   <th>Código QR</th>
                   <th>Establecimiento Comercial</th>
-                  <th>Resultado de la Operación</th>
+                  <th>Estado</th>
+                  <th>Detalle de la Operación</th>
                 </tr>
               </thead>
               <tbody id="audit-log-tbody"></tbody>
@@ -696,48 +698,42 @@
         <div class="multimedia-grid">
           <div class="media-card">
             <div class="media-card-header">
-              <span class="media-tag">🎬 RECORRIDO INTERACTIVO</span>
-              <h3>Experiencia Nuvora en 3 Pasos</h3>
+              <span class="media-tag">FLUJO OPERATIVO DEL ECOSISTEMA</span>
+              <h3>Experiencia Nuvora en el Centro Comercial</h3>
             </div>
-            <div class="interactive-video-stage" id="demo-stage">
-              <div class="video-slide active" data-step="1">
-                <div class="slide-visual">
-                  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80" alt="Plazoleta de comidas en centro comercial" loading="lazy" />
-                  <div class="slide-overlay-badge">PASO 1 • COMERCIOS</div>
+
+            <div class="journey-steps-list">
+              <div class="journey-step-card active" data-jstep="1">
+                <div class="jstep-thumb">
+                  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80" alt="Restaurante en plazoleta de comidas" loading="lazy" />
+                  <span class="jstep-pill">PASO A • COMERCIOS</span>
                 </div>
-                <div class="slide-caption">
-                  <h4>1. El Local Publica sus Ofertas Relámpago</h4>
-                  <p>Los restaurantes y tiendas activan descuentos para las tardes de bajo tráfico (2:30 p.m. a 5:30 p.m.), ahorrando hasta $250.000 mensuales en volantes de papel.</p>
+                <div class="jstep-body">
+                  <h4>Publicación de Ofertas en Horas Valle</h4>
+                  <p>Los restaurantes y cafés activan promociones especiales entre las 2:30 p.m. y las 5:30 p.m., eliminando el gasto de hasta $250.000 mensuales en volantes de papel.</p>
                 </div>
               </div>
 
-              <div class="video-slide" data-step="2">
-                <div class="slide-visual">
-                  <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="Visitante filtrando por presupuesto en el móvil" loading="lazy" />
-                  <div class="slide-overlay-badge">PASO 2 • VISITANTES</div>
+              <div class="journey-step-card" data-jstep="2">
+                <div class="jstep-thumb">
+                  <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80" alt="Combo gastronómico por presupuesto" loading="lazy" />
+                  <span class="jstep-pill">PASO B • VISITANTES</span>
                 </div>
-                <div class="slide-caption">
-                  <h4>2. El Visitante Filtra según su Bolsillo y Obtiene el QR</h4>
-                  <p>El cliente indica cuánto presupuesto tiene disponible (ej. $20.000 COP), compara opciones al instante y descarga su cupón QR gratuito válido por 2 horas.</p>
-                </div>
-              </div>
-
-              <div class="video-slide" data-step="3">
-                <div class="slide-visual">
-                  <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Validación rápida en punto de venta" loading="lazy" />
-                  <div class="slide-overlay-badge">PASO 3 • PUNTO DE VENTA</div>
-                </div>
-                <div class="slide-caption">
-                  <h4>3. Canje Instantáneo en la Caja del Local</h4>
-                  <p>El cajero verifica el código en menos de 1.5 segundos, entrega el pedido con descuento y la venta queda registrada en las estadísticas del comercio.</p>
+                <div class="jstep-body">
+                  <h4>Elección por Presupuesto y Cupón QR</h4>
+                  <p>El visitante filtra la carta según el dinero que lleva en el bolsillo (ej. $20.000 COP) y genera al instante su cupón QR gratuito con 2 horas de vigencia.</p>
                 </div>
               </div>
 
-              <div class="video-controls">
-                <button type="button" class="v-btn active" data-goto="1">1. Publicación</button>
-                <button type="button" class="v-btn" data-goto="2">2. Filtro &amp; QR</button>
-                <button type="button" class="v-btn" data-goto="3">3. Canje en Caja</button>
-                <button type="button" class="v-btn-play" id="btn-autoplay-demo">⏸ Pausar</button>
+              <div class="journey-step-card" data-jstep="3">
+                <div class="jstep-thumb">
+                  <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=400&q=80" alt="Canje rápido en punto de venta" loading="lazy" />
+                  <span class="jstep-pill">PASO C • CAJA POS</span>
+                </div>
+                <div class="jstep-body">
+                  <h4>Canje Instantáneo en Mostrador (&lt; 1.5 s)</h4>
+                  <p>El cajero valida el código QR en menos de 1.5 segundos, aplica el descuento en la cuenta y la venta queda registrada en las estadísticas del local.</p>
+                </div>
               </div>
             </div>
           </div>
