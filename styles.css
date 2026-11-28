@@ -185,7 +185,7 @@ code {
 .nav-cta {
   background: linear-gradient(135deg, #0f172a, #1e293b);
   color: #ffffff !important;
-  padding: 0.52rem 1.2rem;
+  padding: 0.48rem 1.05rem;
   border-radius: 999px;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14);
 }
@@ -194,6 +194,34 @@ code {
   background: linear-gradient(135deg, #ea580c, #f97316) !important;
   color: #ffffff !important;
   transform: translateY(-1px);
+}
+
+.live-mall-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #15803d;
+  font-size: 0.73rem;
+  font-weight: 800;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.live-green-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
+}
+
+@media (max-width: 1180px) {
+  .live-mall-badge {
+    display: none;
+  }
 }
 
 .nav-toggle {
@@ -1014,7 +1042,7 @@ code {
   background: #ffffff;
   box-shadow: 0 8px 22px -6px rgba(15, 23, 42, 0.06);
   display: grid;
-  grid-template-columns: 1fr 135px;
+  grid-template-columns: 1fr 152px;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

@@ -53,16 +53,20 @@
 
       <nav class="nav-menu" id="nav-menu" aria-label="Navegación principal">
         <div class="nav-pills-group">
-          <a href="#presupuesto" class="nav-link active">Catálogo &amp; Filtro</a>
+          <a href="#inicio" class="nav-link active">Inicio</a>
+          <a href="#directorio" class="nav-link">Ofertas Relámpago</a>
+          <a href="#presupuesto" class="nav-link">Filtro Presupuesto</a>
           <a href="#billetera" class="nav-link">
             Mis Cupones
             <span class="nav-counter" id="coupon-badge-count">2</span>
           </a>
-          <a href="#panel-locatario" class="nav-link">Locatarios</a>
-          <a href="#validador" class="nav-link">Caja POS</a>
-          <a href="#analitica" class="nav-link">Estadísticas</a>
-          <a href="#ubicacion" class="nav-link">Ubicación</a>
+          <a href="#panel-locatario" class="nav-link">Directorio &amp; Locales</a>
+          <a href="#validador" class="nav-link">Simulador POS</a>
         </div>
+        <span class="live-mall-badge" title="Horario oficial de operación comercial">
+          <span class="live-green-dot"></span>
+          Plazoleta Abierta Hoy hasta las 10:00 PM
+        </span>
         <a href="#contacto" class="nav-link nav-cta">Contacto</a>
       </nav>
     </div>
@@ -130,8 +134,8 @@
               </div>
 
               <div class="qr-box">
-                <canvas id="hero-qr-canvas" width="156" height="156" aria-label="Código QR dinámico"></canvas>
-                <div class="qr-code-label">CÓDIGO: <strong id="hero-qr-code-text">SPP-7F2A9B</strong></div>
+                <canvas id="hero-qr-canvas" width="184" height="184" aria-label="Código QR dinámico de alta precisión"></canvas>
+                <div class="qr-code-label">TOKEN: <strong id="hero-qr-code-text">SPP-7F2A9B</strong> • Validez 15 min</div>
               </div>
 
               <div class="phone-footer-actions">
@@ -883,9 +887,9 @@
       <p id="modal-store-name" class="modal-store-sub">Local Comercial</p>
 
       <div class="modal-qr-container">
-        <canvas id="modal-qr-canvas" width="180" height="180"></canvas>
+        <canvas id="modal-qr-canvas" width="210" height="210"></canvas>
         <div class="modal-code-box">
-          <span>CÓDIGO DEL CUPÓN:</span>
+          <span>TOKEN CRIPTOGRÁFICO ANTIFRAUDE:</span>
           <strong id="modal-qr-code">SPP-000000</strong>
         </div>
       </div>

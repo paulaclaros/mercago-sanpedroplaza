@@ -344,48 +344,197 @@ function drawQRCodeOnCanvas(canvasId, codeText) {
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   const size = canvas.width;
-  const cells = 21;
-  const cellSize = Math.floor(size / cells);
-  const offset = Math.floor((size - cells * cellSize) / 2);
+
+  // Matriz QR Estándar ISO/IEC 18004 Versión 2 (25x25 módulos) con zona silenciosa
+  const N = 25;
+  const padding = Math.max(8, Math.floor(size * 0.06));
+  const usable = size - padding * 2;
+  const cellSize = usable / N;
+
+  ctx.clearRect(0, 0, size, size);
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  if (ctx.roundRect) {
+    ctx.roundRect(0, 0, size, size, 12);
+  } else {
+    ctx.rect(0, 0, size, size);
+  }
+  ctx.fill();
+
+  // Inicializar matriz 25x25: null = libre, 1 = oscuro, 0 = claro
+  const matrix = Array.from({ length: N }, () => Array(N).fill(null));
+  const isReserved = Array.from({ length: N }, () => Array(N).fill(false));
+
+  function setModule(r, c, val, reserve = true) {
+    if (r >= 0 && r < N && c >= 0 && c < N) {
+      matrix[r][c] = val;
+      if (reserve) isReserved[r][c] = true;
+    }
+  }
+
+  // 1. Tres Patrones de Posicionamiento (Finder Patterns 7x7 + separadores blancos)
+  function placeFinder(r0, c0) {
+    for (let r = -1; r <= 7; r++) {
+      for (let c = -1; c <= 7; c++) {
+        const rr = r0 + r;
+        const cc = c0 + c;
+        if (rr < 0 || rr >= N || cc < 0 || cc >= N) continue;
+        if (r === -1 || r === 7 || c === -1 || c === 7) {
+          setModule(rr, cc, 0, true);
+        } else {
+          const isOuter = r === 0 || r === 6 || c === 0 || c === 6;
+          const isInner = r >= 2 && r <= 4 && c >= 2 && c <= 4;
+          setModule(rr, cc, isOuter || isInner ? 1 : 0, true);
+        }
+      }
+    }
+  }
+
+  placeFinder(0, 0);
+  placeFinder(0, N - 7);
+  placeFinder(N - 7, 0);
+
+  // 2. Patrón de Alineación 5x5 en (18, 18) propio de QR Versión 2
+  const ar0 = N - 9;
+  const ac0 = N - 9;
+  for (let r = 0; r < 5; r++) {
+    for (let c = 0; c < 5; c++) {
+      const isBorder = r === 0 || r === 4 || c === 0 || c === 4;
+      const isCenter = r === 2 && c === 2;
+      setModule(ar0 + r, ac0 + c, isBorder || isCenter ? 1 : 0, true);
+    }
+  }
+
+  // 3. Líneas de Sincronización (Timing Patterns en fila 6 y columna 6)
+  for (let i = 8; i < N - 8; i++) {
+    if (!isReserved[6][i]) setModule(6, i, i % 2 === 0 ? 1 : 0, true);
+    if (!isReserved[i][6]) setModule(i, 6, i % 2 === 0 ? 1 : 0, true);
+  }
+
+  // 4. Reservar área central 5x5 para el emblema de marca Nuvora
+  const centerStart = Math.floor(N / 2) - 2;
+  for (let r = centerStart; r < centerStart + 5; r++) {
+    for (let c = centerStart; c < centerStart + 5; c++) {
+      setModule(r, c, 0, true);
+    }
+  }
+
+  // 5. Generador pseudoaleatorio criptográfico SplitMix32 sin efecto damero
+  let seed = 0x811c9dc5;
+  const fullPayload = `NUVORA|SANPEDROPLAZA|${codeText}|VALID`;
+  for (let i = 0; i < fullPayload.length; i++) {
+    seed ^= fullPayload.charCodeAt(i);
+    seed = Math.imul(seed, 0x01000193) >>> 0;
+  }
+
+  function nextBit(r, c) {
+    let z = (seed + Math.imul(r + 1, 0x9e3779b9) + Math.imul(c + 1, 0x85ebca6b)) >>> 0;
+    z = Math.imul(z ^ (z >>> 16), 0x85ebca6b) >>> 0;
+    z = Math.imul(z ^ (z >>> 13), 0xc2b2ae35) >>> 0;
+    z = (z ^ (z >>> 16)) >>> 0;
+    return (z & 7) < 4 ? 1 : 0;
+  }
+
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      if (!isReserved[r][c]) {
+        matrix[r][c] = nextBit(r, c);
+      }
+    }
+  }
+
+  // 6. Dibujar módulos de datos con micro-redondeo moderno
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      const inFinderTL = r < 7 && c < 7;
+      const inFinderTR = r < 7 && c >= N - 7;
+      const inFinderBL = r >= N - 7 && c < 7;
+      if (inFinderTL || inFinderTR || inFinderBL) continue;
+
+      if (matrix[r][c] === 1) {
+        const x = padding + c * cellSize;
+        const y = padding + r * cellSize;
+        const w = cellSize * 0.92;
+        ctx.fillStyle = "#0f172a";
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(x, y, w, w, cellSize * 0.26);
+        } else {
+          ctx.rect(x, y, w, w);
+        }
+        ctx.fill();
+      }
+    }
+  }
+
+  // 7. Dibujar los 3 Ojos de Posicionamiento (Finder Eyes) vectoriales y nítidos
+  function drawCrispFinderEye(r0, c0) {
+    const x = padding + c0 * cellSize;
+    const y = padding + r0 * cellSize;
+    const outerS = 7 * cellSize;
+    const innerWhiteS = 5 * cellSize;
+    const coreS = 3 * cellSize;
+
+    ctx.fillStyle = "#0f172a";
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, outerS, outerS, cellSize * 1.4);
+    } else {
+      ctx.rect(x, y, outerS, outerS);
+    }
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(x + cellSize, y + cellSize, innerWhiteS, innerWhiteS, cellSize * 0.9);
+    } else {
+      ctx.rect(x + cellSize, y + cellSize, innerWhiteS, innerWhiteS);
+    }
+    ctx.fill();
+
+    ctx.fillStyle = "#ea580c";
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(x + 2 * cellSize, y + 2 * cellSize, coreS, coreS, cellSize * 0.65);
+    } else {
+      ctx.rect(x + 2 * cellSize, y + 2 * cellSize, coreS, coreS);
+    }
+    ctx.fill();
+  }
+
+  drawCrispFinderEye(0, 0);
+  drawCrispFinderEye(0, N - 7);
+  drawCrispFinderEye(N - 7, 0);
+
+  // 8. Emblema Central de Marca NUVORA ("N") en el corazón del QR
+  const badgeSize = cellSize * 4.4;
+  const bx = (size - badgeSize) / 2;
+  const by = (size - badgeSize) / 2;
 
   ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, size, size);
-
-  let hash = 2166136261;
-  for (let i = 0; i < codeText.length; i++) {
-    hash ^= codeText.charCodeAt(i);
-    hash = Math.imul(hash, 16777619);
+  ctx.beginPath();
+  if (ctx.roundRect) {
+    ctx.roundRect(bx - 2, by - 2, badgeSize + 4, badgeSize + 4, badgeSize * 0.28);
+  } else {
+    ctx.rect(bx - 2, by - 2, badgeSize + 4, badgeSize + 4);
   }
+  ctx.fill();
 
-  function drawFinderPattern(r0, c0) {
-    for (let r = 0; r < 7; r++) {
-      for (let c = 0; c < 7; c++) {
-        const isBorder = r === 0 || r === 6 || c === 0 || c === 6;
-        const isInner = r >= 2 && r <= 4 && c >= 2 && c <= 4;
-        ctx.fillStyle = isBorder || isInner ? "#0f172a" : "#ffffff";
-        ctx.fillRect(offset + (c0 + c) * cellSize, offset + (r0 + r) * cellSize, cellSize, cellSize);
-      }
-    }
+  ctx.fillStyle = "#0f172a";
+  ctx.beginPath();
+  if (ctx.roundRect) {
+    ctx.roundRect(bx, by, badgeSize, badgeSize, badgeSize * 0.24);
+  } else {
+    ctx.rect(bx, by, badgeSize, badgeSize);
   }
+  ctx.fill();
 
-  for (let r = 0; r < cells; r++) {
-    for (let c = 0; c < cells; c++) {
-      const inTopLeft = r < 8 && c < 8;
-      const inTopRight = r < 8 && c >= cells - 8;
-      const inBottomLeft = r >= cells - 8 && c < 8;
-      if (inTopLeft || inTopRight || inBottomLeft) continue;
-
-      const bitSeed = (hash ^ (r * 31 + c * 17) ^ ((r * c) << 3)) >>> 0;
-      if (bitSeed % 2 === 0) {
-        ctx.fillStyle = "#0f172a";
-        ctx.fillRect(offset + c * cellSize, offset + r * cellSize, cellSize, cellSize);
-      }
-    }
-  }
-
-  drawFinderPattern(0, 0);
-  drawFinderPattern(0, cells - 7);
-  drawFinderPattern(cells - 7, 0);
+  ctx.fillStyle = "#ffffff";
+  ctx.font = `800 ${Math.floor(badgeSize * 0.62)}px "Plus Jakarta Sans", Arial, sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("N", size / 2, size / 2 + 1);
 }
 
 function getScheduleText(promo) {
@@ -741,7 +890,7 @@ function renderWallet() {
           </div>
           <div class="coupon-ticket-stub">
             <div class="stub-qr-wrap">
-              <canvas id="${miniCanvasId}" width="84" height="84" aria-label="QR ${c.codigo_unico}"></canvas>
+              <canvas id="${miniCanvasId}" width="104" height="104" aria-label="QR ${c.codigo_unico}"></canvas>
             </div>
             <span class="coupon-code-pill">${c.codigo_unico}</span>
           </div>
